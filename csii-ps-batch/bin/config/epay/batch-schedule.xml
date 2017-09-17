@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+
+	<!-- 任务调度  startupDelay单位:秒-->
+	<!-- sheduler config -->
+	<bean id="batch-scheduler" class="com.csii.ext.schedule.impl.DefaultScheduler" init-method="start">
+		<param name="name">batch-scheduler</param>
+		<param name="description">pp scheduler for batch or other daemon program.</param>
+		<list name="jobList">
+			<ref>batchJob</ref>
+<!-- 			<ref>dayBatchJob</ref> -->
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="cutoff-scheduler" class="com.csii.ext.schedule.impl.DefaultScheduler" init-method="start">
+		<param name="name">cutoff-scheduler</param>
+		<param name="description">pp scheduler for batch or other daemon program.</param>
+		<list name="jobList">
+			<ref>cutOffJob</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="collector-scheduler" class="com.csii.ext.schedule.impl.DefaultScheduler" init-method="start">
+		<param name="name">collector-scheduler</param>
+		<param name="description">pp scheduler for batch or other daemon program.</param>
+		<list name="jobList">
+			<ref>collectorJob</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="cutOffExpireTrigger" class="com.csii.batch.job.EnhancedCrontrigger" >
+		<param name="cronExpression">${pp.cutoff.schedule}</param>
+	</bean>
+	
+	<bean id="cutOffJob" class="com.csii.batch.job.CutOffJob" parent="abstractJob">
+		<param name="allowedHost">${pp.batch.hostName}</param>
+		<list name="triggerList">
+			<ref>cutOffExpireTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="batchExpireTrigger" class="com.csii.batch.job.EnhancedCrontrigger" >
+		<param name="cronExpression">${pp.batch.schedule}</param>
+	</bean>
+	
+	<bean id="batchJob" class="com.csii.batch.job.TransferJob" parent="abstractJob">
+		<param name="allowedHost">${pp.batch.hostName}</param>
+		<ref name="executor">pp-process-threadpool</ref>
+		<list name="triggerList">
+			<ref>batchExpireTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+		<list name ="transactions">
+		    <param>cutOff</param>
+			<param>dataTransfer</param>
+			<param>loadFile</param>
+			<param>checking</param>
+			<param>clearing</param>
+			<param>settlement</param>
+			<param>endBatch</param>
+		</list>
+		<ref name="coreController">coreController</ref>
+		<param name="retryTimes">1</param>
+	</bean>
+	
+	<!-- 处理子进程的线程池 -->
+	<executor id="pp-process-threadpool">
+		<param name="name">pp-process-threadpool</param>
+		<param name="initSize">${pp.process.threadpool.initSize}</param>
+		<param name="maxSize">${pp.process.threadpool.maxSize}</param>
+		<param name="minSize">${pp.process.threadpool.minSize}</param>
+		<param name="queueSize">${pp.process.threadpool.queueSize}</param>
+		<param name="keepAliveTime">${pp.process.threadpool.keepAliveTime}</param>
+	</executor>
+	<bean id="abstractJob" class="com.csii.ext.schedule.impl.AbstractJob" abstract="true"></bean>
+	
+	<bean id="collectorJob" class="com.csii.batch.job.CollectorJob" parent="abstractJob">
+		<ref name="coreController">coreController</ref>
+		<list name="transactions">
+			<param>collector</param>
+		</list>
+		<list name="triggerList">
+			<ref>collectorExpireTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="collectorExpireTrigger" class="com.csii.batch.job.EnhancedCrontrigger">
+		<param name="cronExpression">${pp.batch.schedule.collectorExpireTrigger}</param>
+	</bean>
+<!-- 	<bean id="dayBatchExpireTrigger" class="com.csii.batch.job.EnhancedCrontrigger" > -->
+<!-- 		<param name="cronExpression">${pp.daybatch.schedule}</param> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="dayBatchJob" class="com.csii.batch.job.DayTransferJob" parent="abstractJob"> -->
+<!-- 		<param name="allowedHost">${pp.batch.hostName}</param> -->
+		
+<!-- 		<list name="triggerList"> -->
+<!-- 			<ref>dayBatchExpireTrigger</ref> -->
+<!-- 		</list> -->
+<!-- 		<list name="listeners"> -->
+<!-- 			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" /> -->
+<!-- 		</list> -->
+<!-- 		<list name ="transactions"> -->
+<!-- 			<param>daydataTransfer</param> -->
+<!-- 			<param>clearing</param> -->
+<!-- 			<param>settlement</param> -->
+<!-- 			<param>endBatch</param> -->
+<!-- 		</list> -->
+<!-- 		<ref name="coreController">coreController</ref> -->
+<!-- 	</bean> -->
+	
+</config>

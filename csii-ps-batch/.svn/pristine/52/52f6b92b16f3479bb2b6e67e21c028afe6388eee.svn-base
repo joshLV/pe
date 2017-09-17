@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+
+<configuration debug="false">
+
+	<!-- jmxConfigurator /-->
+
+	<conversionRule conversionWord="short" converterClass="com.csii.pe.common.logging.ShortLoggerConverter" />
+
+	<conversionRule conversionWord="count" converterClass="com.csii.pe.common.logging.CountingConverter" />
+
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+			%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger %m%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE"
+		class="com.csii.pe.common.logging.DynamicRollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>
+			/home/epay/batch/log/batch.log.%d{yyyy-MM-dd}.log.zip
+		</File>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+			%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger %m%n
+			</Pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.springframework" additivity="false">
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<logger name="java.sql" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<logger name="com.csii.pe.channel.http" additivity="false">
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<logger name="com.csii.pe.common.security.command" additivity="false">
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+	
+	<logger name="org.apache.xml.security" additivity="false">
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+
+	<logger name="com" additivity="false">
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</logger>
+	
+	<root>
+		<level value="info" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>

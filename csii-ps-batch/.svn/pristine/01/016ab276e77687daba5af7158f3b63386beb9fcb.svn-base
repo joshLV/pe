@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.batch">
+    <!-- 查询商户统一结算成功的机构个数    -->
+	<select id="querySuccessProcessList" resultClass="java.util.List">
+		<![CDATA[
+			SELECT 
+				BC.* 
+			FROM 
+				FT_BATCH_CTRL BC 
+			WHERE 
+				BC.BP_PHASE = '6' 
+			AND 
+				BC.BP_STATUS = 'S'
+			AND 
+				BC.BP_CLEARDATE = (
+									SELECT 
+										BUS_CLEARDATE 
+									FROM 
+										FT_BUSSETTING 
+									WHERE 
+										BUS_DEPARTMENTID = 'collector'
+								  )
+		]]>
+	</select>
+
+</sqlMap>

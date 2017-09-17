@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+
+<sqlMap namespace="pp.core">
+	
+
+	
+	<resultMap id="DepartmentEntity" class="com.csii.pp.entity.DepartmentEntity">
+		<result property="departmentId" column="departmentid"/>
+		<result property="bankId" column="bankid"/>
+		<result property="parentId" column="parentid"/>
+		<result property="departmentType" column="departmenttype"/>
+		<result property="departmentDate" column="departmentdate"/>
+		<result property="departmentCode" column="departmentcode"/>
+		<result property="departmentName" column="departmentname"/>
+		<result property="province" column="province"/>
+		<result property="city" column="city"/>
+		<result property="address" column="address"/>
+		<result property="zipCode" column="zipcode"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="status" column="status"/>
+	</resultMap>
+	
+	<resultMap id="DepartmentAndProcess" class="java.util.HashMap">
+		<result property="DepartmentId" column="departmentid"/>
+		<result property="BankId" column="bankid"/>
+		<result property="ParentId" column="parentid"/>
+		<result property="DepartmentType" column="departmenttype"/>
+		<result property="DepartmentDate" column="departmentdate"/>
+		<result property="DepartmentCode" column="departmentcode"/>
+		<result property="DepartmentName" column="departmentname"/>
+		<result property="Province" column="province"/>
+		<result property="City" column="city"/>
+		<result property="Address" column="address"/>
+		<result property="ZipCode" column="zipcode"/>
+		<result property="Phone" column="phone"/>
+		<result property="Email" column="email"/>
+		<result property="DepartmentStatus" column="status"/>
+		<result property="ProcessId" column="pid"/>
+		<result property="ProcessHost" column="host"/>
+		<result property="ProcessPort" column="pid"/>
+		<result property="ProcessStatus" column="processstatus"/>
+	</resultMap>
+	
+	<select id="queryDepartmentEntity" resultMap="DepartmentEntity" parameterClass="Object">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				ft_department 
+			WHERE 
+				departmentId = #departmentId#
+		]]>
+	</select>
+	
+	
+	<select id="queryDepartmentList" resultMap="DepartmentEntity">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				ft_department 
+			WHERE 
+				1 = 1
+		]]>
+	</select>
+	
+	<update id="updateDepartmentEntity" parameterClass="com.csii.pp.entity.DepartmentEntity">
+		<![CDATA[
+			UPDATE 
+				ft_department 
+			SET 
+				bankid = #bankId#,
+				parentid = #parentId#,
+				departmenttype = #departmentType#,
+				departmentdate = #departmentDate#,
+				departmentcode = #departmentCode#,
+				departmentname = #departmentName#,
+				province = #province#,
+				city = #city#,
+				address = #address#,
+				zipcode = #zipCode#,
+				phone = #phone#,
+				email = #email#,
+				status = #status#
+			WHERE 
+				departmentId = #departmentId#
+		]]>
+	</update>
+	
+	<update id="updateDepartmentEntityDate" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				ft_department 
+			SET 
+				departmentdate = #DepartmentDate#
+			WHERE 
+				departmentId = #DepartmentId#
+		]]>
+	</update>
+	
+	<select id="queryDepartmentAndProcessList" resultMap="DepartmentAndProcess">
+		<![CDATA[
+			SELECT 
+				dept.*,
+				pro.pid,
+				pro.host,
+				pro.port,
+				pro.status AS processstatus 
+			FROM 
+				ft_department dept,
+				ft_process pro 
+			WHERE 
+				dept.departmentid = pro.departmentid
+		]]>
+	</select>
+	
+	<select id="queryDepartmentAndProcess" parameterClass="Object" resultMap="DepartmentAndProcess">
+		<![CDATA[
+			SELECT 
+				dept.*,
+				pro.pid,
+				pro.host,
+				pro.port,
+				pro.status AS processstatus 
+			FROM
+				ft_department dept,
+				ft_process pro 
+			WHERE 
+				dept.departmentid = pro.departmentid 
+			AND 
+				dept.departmentid = #DepartmentId#
+		]]>
+	</select>
+	
+	<select id="queryDepartmentDate" resultClass="java.util.Date" parameterClass="Object">
+		<![CDATA[
+			SELECT 
+				departmentdate 
+			FROM 
+				ft_department 
+			WHERE 
+				departmentId = #departmentId#
+		]]>
+	</select>
+
+</sqlMap>

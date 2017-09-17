@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+	<!-- 支付平台数据库连接配置 -->
+	<dataSource id="ppDataSource" class="com.csii.pp.core.SecretDataSource" destroy-method="close">
+	    <param name="driverClassName">${pp.db.driver}</param>
+		<param name="url">${pp.db.url}</param>
+		<param name="username">${pp.db.username}</param>
+		<param name="password">${pp.db.password}</param>
+		<param name="initialSize">${pp.db.initialSize}</param>
+		<param name="maxActive">${pp.db.maxActive}</param>
+		<param name="maxIdle">${pp.db.maxIdle}</param>
+		<param name="minIdle">${pp.db.minIdle}</param>
+		<param name="validationQuery">SELECT COUNT(*) FROM FSP_SEQNO</param>
+	</dataSource>
+</config>

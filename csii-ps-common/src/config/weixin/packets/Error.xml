@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlPacket rootName="packet" parsePrefix="r" formatPrefix="p" encoding="UTF-8" xmlFileEncoding="UTF-8">
+	<xmlSegment>
+		<fixStringElement name="_exceptionMessageCode" trim="true"/>
+		<fixStringElement name="_exceptionMessage" trim="true"/>
+	</xmlSegment>
+	<include include="NULL"/>
+</xmlPacket>

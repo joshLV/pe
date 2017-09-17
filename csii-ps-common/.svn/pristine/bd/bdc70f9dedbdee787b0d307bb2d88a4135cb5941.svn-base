@@ -1,0 +1,155 @@
+# properties for DRCBank DEV #
+######################################数据库配置
+
+
+#Mysql
+pp.db.driver=com.mysql.jdbc.Driver
+pp.db.url=jdbc:mysql://115.182.90.202:3306/fsptest?autoReconnect=true&characterEncoding=utf-8
+pp.db.username=fsptest
+pp.db.password=3x7F4ltHY8w=
+pp.db.initialSize=1
+pp.db.maxActive=3
+pp.db.maxIdle=3
+pp.db.minIdle=1
+########################################
+#代理服务器
+pp.weixin.useProxy=false
+pp.weixin.proxyHost=192.168.6.69
+pp.weixin.proxyPort=80
+#微信证书路径和密码
+#pp.weixin.keystorePath=e:/app/epay/jks/apiclient_cert.p12
+#pp.weixin.keystorePassword=1368662602
+#pp.weixin.tenPaykey=xudong12345678xudong12345678csii
+pp.weixin.keystorePassword=1430459002
+pp.weixin.tenPaykey=Bos95594201701131375110615595594
+#微信二维码支付统一下单接口请求参数配置：
+#tenpayQRcode.appId=wx11c21f4979caeb35
+#tenpayQRcode.appSecret=342651336163af9fe0c7b3aafd645331
+#tenpayQRcode.merchentId=1368662602
+#tenpayQRcode.sub_mch_id=1375086202
+tenpayQRcode.appId=wx9a684aae0b524f3d
+tenpayQRcode.appSecret=b58e8f9e76cafdf549e89fa513d512aa
+tenpayQRcode.merchentId=1430459002
+tenpayQRcode.sub_mch_id=19971052
+#查询订单
+pp.weixin.orderquery.url=https://api.mch.weixin.qq.com/pay/orderquery
+#关闭订单
+pp.wenxin.closeorder.url=https://api.mch.weixin.qq.com/pay/closeorder
+#转换短链接
+pp.wenxin.changeshort.url=https://api.mch.weixin.qq.com/tools/shorturl
+
+#统一下单
+pp.weixin.unifiedorder.url=https://api.mch.weixin.qq.com/pay/unifiedorder
+#刷卡支付
+pp.weixin.micropay.url=https://api.mch.weixin.qq.com/pay/micropay
+#申请退款 added by zhangss 20161223
+pp.weixin.refund.url=https://api.mch.weixin.qq.com/secapi/pay/refund
+#查询退款 added by zhangss 20161223
+pp.weixin.refundquery.url=https://api.mch.weixin.qq.com/pay/refundquery
+#交易保障 added by zhangss 20161223
+pp.weixin.report.url=https://api.mch.weixin.qq.com/payitil/report
+#撤销订单 added by zhangss 20161227
+pp.weixin.reverse.url=https://api.mch.weixin.qq.com/secapi/pay/reverse
+#下载对账单 added by zhangss 20161227
+pp.weixin.downloadbill.url=https://api.mch.weixin.qq.com/pay/downloadbill
+#授权码查询openid  added by zhangss 20161227
+pp.weixin.authcodetoopenid.url=https://api.mch.weixin.qq.com/tools/authcodetoopenid
+
+pp.weixin.unifiedorder.notifyUrl=http://devwx.csii.com.cn/paygate/wxnotify
+
+#日终批量
+pp.batch.schedule= 40 46 11 * * ?
+pp.batch.hostName=
+#清算每次读取的订单条数
+pp.batch.queryCount=10000
+pp.transtype.pay=00
+pp.transtype.withdraw=01
+pp.transtype.cancle=02
+
+pp.weixin.scheduler.recurrentCronTrigger.cronExpression.querypay= 0 0/1 * * * ?
+pp.weixin.scheduler.recurrentCronTrigger.cronExpression.cutoff=0 06 10 * * ?
+pp.weixin.times=3
+
+pp.weixin.merchantkey=1234567890abcdef
+
+#定时任务查询线程池
+querywxtrans.scheduler.initSize=5
+querywxtrans.scheduler.maxSize=20
+querywxtrans.scheduler.minSize=5
+querywxtrans.scheduler.queueSize=10
+querywxtrans.scheduler.keepAliveTime=10000
+
+platform.domain=http://devwx.csii.com.cn/paygate/qr/
+
+pp.apk.downUrl=http://devwx.csii.com.cn/paygate/psmain
+
+pp.msgAppId=1400024324
+pp.msgAppKey=81227f88a20510385ea411b1c0ed576d
+pp.mercheckingfile.path = /Users/xueyu/Project/
+#日间批量
+pp.daybatch.schedule=0 0 0 * * ?
+#微信系统日切
+pp.cutoff.schedule=0 0 0 * * ?
+#process启动进程线程池 进程启动线程池，线程池大小=进程并发数×2
+pp.process.threadpool.initSize=6
+pp.process.threadpool.maxSize=6
+pp.process.threadpool.minSize=6
+pp.process.threadpool.queueSize=100
+pp.process.threadpool.keepAliveTime=30000
+
+#渤海对账文件
+pp.batch.settFilePath=D:/app/epay/
+pp.batch.platformNo=PT000001
+pp.batch.cbhb.url=http://221.239.93.142:9085/front/Transfer.do
+
+#渤海回盘文件
+pp.scheduler.recurrentCronTrigger.cronExpression.backfile=0 0/3 * * * ?
+pp.scheduler.localFile=D:/app/epay/
+#渤海回盘结算文件状态同步查询
+pp.scheduler.recurrentCronTrigger.cronExpression.settFileStatusQuery=0 0/2 * * * ?
+#商户通知
+mernotify.scanserver.delay=300000
+mernotify.scanserver.period=300000
+
+#stfp.host=61.181.136.124
+#stfp.username=csiisftp
+#stfp.password=csiisftp
+#stfp.port=222
+
+stfp.host=115.182.90.202
+stfp.username=root
+stfp.password=zhifu-app@Csii20161019
+stfp.port=1022
+
+
+#ALIPAY
+pp.mybank.request2.url=https://fcsupergw.dl.alipaydev.com/open/api/common/request2.htm
+pp.mybank.requestasync.url=https://fcsupergw.dl.alipaydev.com/open/api/common/requestasync.htm
+pp.alipay.url=https://openapi.alipaydev.com/gateway.do
+pp.alipay.downloadPath=D:/testzip/
+#支付宝异步同步地址
+pp.alipay.notifyUrl=http://devwx.csii.com.cn/paygate/alipayNotify?trans_id=aliNotify
+
+
+#ALIPAY transport 
+mybank.TransformerFactory.debug = true
+mybank.TransformerFactory.cacheEnable=true
+paygate.mybank.transport.host=127.0.0.1
+paygate.mybank.transport.port=18002
+paygate.mybank.transport.timeout=90000
+epay.mybank.xmlPacketParser.debug=true
+paygate.mybank.transformtransport.debug=false
+paygate.mybank.transformtransport.dumpPath=D:/home/epay/transport/alipay
+epay.mybank.transport.endTagName=document
+
+pp.weixin.scheduler.recurrentCronTrigger.cronExpression.mybankMerchant=0 0/30 * * * ?
+
+mybank.sftp.host=115.182.90.202
+mybank.sftp.username=root
+mybank.sftp.password=zhifu-app@Csii20161019
+mybank.sftp.port=1022
+mybank.downloadPath=/home/isvrecon/sftp_root/isv/
+mybank.localPath=/home/csiihj-pay/file/mybank/
+
+pp.batch.processNum=2
+pp.batch.schedule.collectorExpireTrigger=0 0/15 * * * ?

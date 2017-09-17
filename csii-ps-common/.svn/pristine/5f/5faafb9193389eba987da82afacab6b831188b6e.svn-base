@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Group SYSTEM "packetutf8.dtd">
+                                
+<Group name="document" xmlHead="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;">
+	<Group name="request">
+						<Group name="head">
+							<xmlTag tagName="Version">
+								<String name="Version" defaultValue="1.0.0"></String>
+							</xmlTag>
+							<xmlTag tagName="Appid">
+								<String name="Appid"></String>
+							</xmlTag>
+							<xmlTag tagName="Function">
+								<String name="Function"></String>
+							</xmlTag>
+							<xmlTag tagName="ReqTime">
+								<String name="ReqTime"></String>
+							</xmlTag>
+							<xmlTag tagName="ReqMsgId">
+								<String name="ReqMsgId"></String>
+							</xmlTag>
+							<xmlTag tagName="InputCharset">
+								<String name="InputCharset" defaultValue="UTF-8"></String>
+							</xmlTag>
+							<xmlTag tagName="Reserve">
+								<String name="Reserve"></String>
+							</xmlTag>
+						</Group>
+						<Group name="body">	<include keyName="_TransName"></include></Group>
+	</Group>
+	
+</Group>

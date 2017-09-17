@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/config/epay/system.properties=UTF-8
+encoding//src/config/epay/systemdev.properties=UTF-8
+encoding//src/config/epay/systemtest.properties=UTF-8
+encoding//src/config/message/error_zh_CN.properties=UTF-8

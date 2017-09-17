@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+
+	<!-- mainController适配器 -->
+	<bean id="mainControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">mainController</ref>
+	</bean>
+	
+	<!-- MVC controller -->
+	<bean id="mainController" class="com.csii.pe.channel.http.servlet.MainController" >
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+<!-- 		<ref name="constantsMap">constantsMap</ref> -->
+		<ref name="idResolver">idResolver</ref>
+		<ref name="contextResolver">contextResolver</ref>
+		<ref name="exceptionHandler">pagateexceptionHandler</ref>
+	</bean>
+	
+	<bean id="idResolver" class="com.csii.pe.channel.http.TransactionIdResolver">
+		<param name="idParameterName">txnType</param>
+	</bean>
+	
+	<bean id="contextResolver" class="com.csii.pe.channel.http.servlet.DefaultContextResolver"></bean>
+	
+	<bean id="pagateexceptionHandler" class="com.csii.pe.channel.http.servlet.HttpViewExceptionHandler">
+		<param name="defaultErrorView">stream,Error</param>
+		<param name="defaultPublicErrorView">stream,Error</param>
+	</bean>
+	
+</config>

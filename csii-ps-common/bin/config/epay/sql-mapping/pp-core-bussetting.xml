@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.core">
+
+	<resultMap id="BusinessEntity" class="com.csii.pp.entity.BusinessEntity">
+		<result property="departmentId" column="Bus_DepartmentId"/>
+		<!--result property="systemStatus" column="Bus_SystemStatus" /-->
+		<result property="businessNo" column="Bus_BusinessNo" />
+		<result property="headOfficeAcctNo" column="Bus_HeadOfficeAcctNo" />
+		<result property="preClearDate" column="Bus_PreClearDate" />
+		<result property="clearDate" column="Bus_ClearDate" />
+		<result property="cutOffProcDate" column="Bus_CutOffProcDate" />
+		<result property="cutOffProcStatus" column="Bus_CutOffProcStatus" />
+		<result property="profitPeriod" column="Bus_ProfitPeriod" />
+		<result property="merRepTimes" column="Bus_MerRespTimes" />
+		<result property="merRepInterval" column="Bus_MerRespInterval" />
+		<result property="withdrawMonths" column="Bus_withdrawMonths" />
+	</resultMap>
+	
+	<select id="queryBusinessList" resultMap="BusinessEntity">
+		<![CDATA[
+			SELECT * FROM FT_BUSSETTING WHERE 1=1
+		]]>
+	</select>
+	
+	<select id="queryBusinessEntity" parameterClass="String" resultMap="BusinessEntity">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				FT_BUSSETTING 
+			WHERE 
+				Bus_DepartmentId = #departmentId#
+		]]>
+	</select>
+	
+	<update id="updateBusinessEntity" parameterClass="com.csii.pp.entity.BusinessEntity">
+		<![CDATA[
+		UPDATE 
+			FT_BUSSETTING 
+		SET 
+			Bus_SystemStatus = #systemStatus#,
+			Bus_HeadOfficeAcctNo = #headOfficeAcctNo#,
+			Bus_BusinessNo = #businessNo#,
+			Bus_PreClearDate = #preClearDate#,
+			Bus_ClearDate = #clearDate#,
+			Bus_CutOffProcDate = #cutOffProcDate#,
+			Bus_CutOffProcStatus = #cutOffProcStatus#,
+			Bus_ProfitPeriod = #profitPeriod#,
+			Bus_MerRespTimes = #merRepTimes#,
+			Bus_MerRespInterval = #merRepInterval#,
+			Bus_withdrawMonths = #withdrawMonths# 
+		WHERE 
+			Bus_DepartmentId = #departmentId#
+		]]>
+	</update>
+	
+	
+	
+<resultMap class="com.csii.pp.entity.ProcessEntity" id="ProcessEntity">
+		<result property="pid" column="PID" />
+		<result property="host" column="HOST" />
+		<result property="port" column="PORT" />
+		<result property="departmentId" column="DEPARTMENTID" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+
+
+<select id="queryProcessListByCondition" parameterClass="HashMap" resultMap="ProcessEntity">
+		<![CDATA[
+			SELECT 
+				PID, 
+				HOST, 
+				PORT, 
+				DEPARTMENTID, 
+				STATUS 
+			FROM	
+				FT_PROCESS
+			WHERE 
+				 HOST=#Host#
+			AND STATUS='0'
+		]]>
+	</select>
+<!-- 	limit 0,(#QueryNumber# - (SELECT COUNT(*) FROM FT_PROCESS WHERE STATUS = '9' AND HOST = #Host#)) -->
+<!-- 			AND -->
+	
+</sqlMap>

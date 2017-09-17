@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="jar" name="csii-pp-batch">
+	
+	<property name="jar.location" value="D:" />
+	<property name="jar.name" value="batch" />
+	
+    <property name="csii-pp-lib.location" value="../lib"/>
+    <property name="csii-pp-common.location" value="../csii-pp-common"/>
+	
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+	
+    <path id="EAR Libraries.libraryclasspath"/>
+	
+    <path id="csii-pp-lib.classpath">
+        <fileset dir="${csii-pp-lib.location}" includes="**/*.jar" />
+        <path refid="EAR Libraries.libraryclasspath"/>
+    </path>
+	
+    <path id="csii-pp-common.classpath">
+        <pathelement location="${csii-pp-common.location}/bin"/>
+        <path refid="csii-pp-lib.classpath"/>
+        <path refid="EAR Libraries.libraryclasspath"/>
+    </path>
+	
+	
+	
+    <path id="csii-pp-batch.classpath">
+        <pathelement location="bin"/>
+    	<path refid="csii-pp-lib.classpath"/>
+        <path refid="csii-pp-common.classpath"/>
+    	
+    </path>
+	
+	<!-- 初始化，建立bin目录，并复制src下所有配置文件 -->
+    <target name="init-project">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+	
+	<target name="init-refprojects">
+		<mkdir dir="${csii-pp-common.location}/bin"/>
+        <copy includeemptydirs="false" todir="${csii-pp-common.location}/bin">
+            <fileset dir="${csii-pp-common.location}/src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+		
+		
+		
+	</target>
+	
+	<!-- 清理，删除bin目录 -->
+    <target name="clean-project">
+    	<echo message="清理项目"/>
+        <delete dir="bin"/>
+    </target>
+	
+	<!-- 清理引用项目bin目录 -->
+    <target name="clean-refprojects" depends="clean-project">
+		<echo message="清理依赖项目"/>
+    	<delete dir="${csii-pp-common.location}/bin"/>
+    	
+    </target>
+	
+	<target name="clean" depends="clean-refprojects" />
+	
+    <target name="build-refprojects" depends="init-refprojects">
+    	<echo message="构建依赖项目"/>
+        <javac  encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="${csii-pp-common.location}/bin" source="${source}" target="${target}" includeAntRuntime="false">
+            <src path="${csii-pp-common.location}/src"/>
+        	<compilerarg value="-Xlint:unchecked"/> 
+            <classpath refid="csii-pp-common.classpath"/>
+        </javac>
+    	
+    	
+
+    </target>
+	
+    <target name="build-project" depends="init-project">
+    	<echo message="构建项目"/>
+        <javac  encoding="utf-8" debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}" includeAntRuntime="false">
+            <src path="src"/>
+        	<compilerarg value="-Xlint:unchecked"/> 
+            <classpath refid="csii-pp-batch.classpath"/>
+        </javac>
+    </target>
+	
+	<target name="build" depends="clean,build-refprojects,build-project"/>
+	
+	<target name="jar" depends="build">
+		<copy todir="bin" overwrite="true">
+		    <fileset dir="${csii-pp-common.location}/bin" />
+		</copy>
+		
+		
+		
+		<delete file="${jar.location}/${jar.name}.jar" />
+		
+		<jar destfile="${jar.location}/${jar.name}.jar" basedir="bin" />
+		
+		<echo message="导出jar文件:${jar.location}/${jar.name}.jar" />
+	</target>
+</project>

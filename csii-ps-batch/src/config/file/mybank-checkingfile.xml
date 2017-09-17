@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<segment><!--网商对账文件  -->
+    <varString name="MerchantId" type="D," ></varString>  
+    <varString name="HostSeqNo" type="D," ></varString>  
+    <varString name="TransSeqNo" type="D," ></varString>  
+    <varString name="TransType" type="D," ></varString>  
+    <varString name="Currency" type="D," ></varString>  
+    <varBigDecimal name="TransAmount" type="D," ></varBigDecimal>  
+    <varBigDecimal name="FeeRate" type="D," ></varBigDecimal>  
+    <varBigDecimal name="FeeAmount" type="D," ></varBigDecimal>  
+    <varString name="ClearAMount" type="D," ></varString>  
+    <varString name="OrgHostSeqNo" type="D," ></varString>
+    <varTimestamp name="EndTime" type="D," pattern="yyyy-MM-dd HH:mm:ss" ></varTimestamp>    
+    <varString name="Remark" type="D," ></varString> 
+    <varString name="SettleType" type="D," ></varString>  
+</segment>

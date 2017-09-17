@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="pp.batch">
+	
+	<delete id="deleteHTCheckError" parameterClass="HashMap">
+		<![CDATA[
+			DELETE FROM 
+				HT_CHECK_ERROR  
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_HostDate = #ClearDate#
+		]]>
+	</delete>
+	
+	<!-- 删除核心对帐明细表 -->
+	<delete id="deleteCheckError" parameterClass="HashMap">
+		<![CDATA[
+			DELETE FROM 
+				BT_CHECK_ERROR 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_HostDate = #ClearDate#
+		]]>
+	</delete>
+	
+	<!-- 删除核心对帐明细表 -->
+	<delete id="deleteCheckErrorSingle" parameterClass="HashMap">
+		<![CDATA[
+			DELETE FROM 
+				BT_CHECK_ERROR 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_HostDate = #ClearDate#
+			AND
+			    TRANS_HostSeqno = #HostSeqNo#
+		]]>
+	</delete>
+	
+	<insert id="transferCheckErrorToHistory" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				HT_CHECK_ERROR 
+			SELECT 
+				* 
+			FROM 
+				BT_CHECK_ERROR 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_HostDate = #ClearDate#
+		]]>
+	</insert>
+	
+	<!-- 插入核心对帐明细表 -->
+	<insert id="insertHostCheckError" parameterClass="com.csii.pp.order.Order">
+		  INSERT INTO 
+		  	BT_CHECK_ERROR(
+		  	<dynamic prepend=" ">
+		    	<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="transId">TRANS_ID</isNotEmpty>
+	            <isNotEmpty prepend="," property="transDate">Trans_Date</isNotEmpty>
+	            <isNotEmpty prepend="," property="hostDate">Trans_HostDate</isNotEmpty>
+	            <isNotEmpty prepend="," property="tellerId">Trans_TellerId</isNotEmpty>
+	            <isNotEmpty prepend="," property="userAcctNo">Trans_PayAcctNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="rcvAcctNo">Trans_RcvAcctNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="amount">Trans_Amt</isNotEmpty>
+	            <isNotEmpty prepend="," property="currency">Trans_Currency</isNotEmpty>
+	            <isNotEmpty prepend="," property="status">Trans_Status</isNotEmpty>
+	            <isNotEmpty prepend="," property="checkStatus">Trans_CheckStatus</isNotEmpty>
+	            <isNotEmpty prepend="," property="transDeptId">Trans_DepartmentId</isNotEmpty>
+			</dynamic>) 
+		  	VALUES (
+		  	<dynamic prepend=" ">
+		  		<isNotEmpty prepend="," property="transSeqNo">#transSeqNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="hostSeqNo">#hostSeqNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="transId">#transId#</isNotEmpty>
+				<isNotEmpty prepend="," property="transDate">#transDate#</isNotEmpty>
+				<isNotEmpty prepend="," property="hostDate">#hostDate#</isNotEmpty>
+		        <isNotEmpty prepend="," property="tellerId">#tellerId#</isNotEmpty>
+				<isNotEmpty prepend="," property="userAcctNo">#userAcctNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="rcvAcctNo">#rcvAcctNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="amount">#amount#</isNotEmpty>
+		        <isNotEmpty prepend="," property="currency">#currency#</isNotEmpty>
+				<isNotEmpty prepend="," property="status">#status#</isNotEmpty>
+		        <isNotEmpty prepend="," property="checkStatus">#checkStatus#</isNotEmpty>
+		        <isNotEmpty prepend="," property="transDeptId">#transDeptId#</isNotEmpty>
+			</dynamic>)
+	</insert>
+	
+	
+	<!-- 插入核心对帐明细表 -->
+	<insert id="insertCheckError" parameterClass="HashMap">
+		  INSERT INTO 
+		  	BT_CHECK_ERROR(
+		  	<dynamic prepend=" ">
+		    	<isNotEmpty prepend="," property="TransSeqNo">Trans_SeqNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="HostSeqNo">Trans_HostSeqNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="TransDate">Trans_Date</isNotEmpty>
+	            <isNotEmpty prepend="," property="HostDate">Trans_HostDate</isNotEmpty>
+	            <isNotEmpty prepend="," property="BusinessNo">Trans_BusinessNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="BusDeptId">Trans_BusDeptId</isNotEmpty>
+	            <isNotEmpty prepend="," property="AcctDeptId">Trans_AcctDeptId</isNotEmpty>
+	            <isNotEmpty prepend="," property="TransCode">Trans_Id</isNotEmpty>
+	            <isNotEmpty prepend="," property="TellerId">Trans_TellerId</isNotEmpty>
+	            <isNotEmpty prepend="," property="PayAcctNo">Trans_PayAcctNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="RcvAcctNo">Trans_RcvAcctNo</isNotEmpty>
+	            <isNotEmpty prepend="," property="TransAmount">Trans_Amt</isNotEmpty>
+	            <isNotEmpty prepend="," property="Currency">Trans_Currency</isNotEmpty>
+	            <isNotEmpty prepend="," property="DCFlag">Trans_DCFlag</isNotEmpty>
+	            <isNotEmpty prepend="," property="TransStatus">Trans_Status</isNotEmpty>
+	            <isNotEmpty prepend="," property="CheckStatus">Trans_CheckStatus</isNotEmpty>
+	            <isNotEmpty prepend="," property="DepartmentId">Trans_DepartmentId</isNotEmpty>
+	             <isNotEmpty prepend="," property="BankId">Trans_BankId</isNotEmpty>
+			</dynamic>) 
+		  	VALUES (
+		  	<dynamic prepend=" ">
+		  		<isNotEmpty prepend="," property="TransSeqNo">#TransSeqNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="HostSeqNo">#HostSeqNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="TransDate">#TransDate#</isNotEmpty>
+				<isNotEmpty prepend="," property="HostDate">#HostDate#</isNotEmpty>
+		        <isNotEmpty prepend="," property="BusinessNo">#BusinessNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="BusDeptId">#BusDeptId#</isNotEmpty>
+				<isNotEmpty prepend="," property="AcctDeptId">#AcctDeptId#</isNotEmpty>
+				<isNotEmpty prepend="," property="TransCode">#TransCode#</isNotEmpty>
+		        <isNotEmpty prepend="," property="TellerId">#TellerId#</isNotEmpty>
+				<isNotEmpty prepend="," property="PayAcctNo">#PayAcctNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="RcvAcctNo">#RcvAcctNo#</isNotEmpty>
+				<isNotEmpty prepend="," property="TransAmount">#TransAmount#</isNotEmpty>
+		        <isNotEmpty prepend="," property="Currency">#Currency#</isNotEmpty>
+				<isNotEmpty prepend="," property="DCFlag">#DCFlag#</isNotEmpty>
+				<isNotEmpty prepend="," property="TransStatus">#TransStatus#</isNotEmpty>
+		        <isNotEmpty prepend="," property="CheckStatus">#CheckStatus#</isNotEmpty>
+		        <isNotEmpty prepend="," property="DepartmentId">#DepartmentId#</isNotEmpty>
+		        <isNotEmpty prepend="," property="BankId">#BankId#</isNotEmpty>
+			</dynamic>)
+	</insert>
+
+</sqlMap>

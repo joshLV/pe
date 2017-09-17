@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!ELEMENT inboundPacket  (segment,include,(mapAlias)?,(mapAlias)?) >
+<!ATTLIST inboundPacket
+	name CDATA "packet"
+	nameOfBodyLength CDATA "BodyLength"
+	formatPrefix CDATA "format"
+	parsePrefix CDATA "parse"
+	
+>
+
+<!ELEMENT outboundPacket (segment,include,include?,(mapAlias)?,(mapAlias)? ) >
+<!ATTLIST outboundPacket
+	name CDATA "packet"
+	nameOfBodyLength CDATA "BodyLength"
+	nameOfReturnCode CDATA  #IMPLIED
+	valueOfReturnCode CDATA #IMPLIED
+	formatPrefix CDATA "format"
+	parsePrefix CDATA "parse"
+	
+>
+
+
+<!ELEMENT iso8583Packet  (bitMap,(include | iso8583Fields ),iso8583Segment?,(mapAlias)?,(mapAlias)?) >
+<!ATTLIST iso8583Packet
+	name CDATA "packet"
+	
+>
+
+<!ELEMENT include  (#PCDATA) >
+<!ATTLIST include
+	include CDATA #IMPLIED
+	keyName CDATA #IMPLIED
+	prefixName CDATA #IMPLIED	
+	defaultInclude CDATA #IMPLIED	
+	condition CDATA #IMPLIED	
+ 
+>
+
+<!ELEMENT bitMap (#PCDATA)>
+<!ATTLIST bitMap
+	defaultValue CDATA #IMPLIED
+	bits  CDATA #IMPLIED
+>
+
+
+
+<!ELEMENT mapAlias  (mapAlias |elementAlias)+ >
+<!ATTLIST mapAlias
+	name CDATA #REQUIRED
+	alias CDATA #IMPLIED
+>
+
+
+
+
+<!ELEMENT elementAlias (#PCDATA)>
+<!ATTLIST elementAlias
+	name CDATA #REQUIRED
+	alias CDATA #IMPLIED
+	defaultValue CDATA #IMPLIED	
+	mapping CDATA #IMPLIED
+	cutLength CDATA "0"
+	mergeNames CDATA #IMPLIED
+	mergeDelimeter CDATA #IMPLIED
+
+>
+
+
+<!ELEMENT VirtualSegment  (segment|include| iso8583Packet)* >
+<!ATTLIST VirtualSegment
+	name CDATA "VirtualSegment"
+>
+
+
+
+<!ELEMENT iso8583Fields  (fix|var|varCounter|segment|fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort| idxField |fixFilterString)+ >
+<!ATTLIST iso8583Fields
+	bitMap CDATA #REQUIRED
+	beginOffset CDATA  #IMPLIED
+>
+
+<!ELEMENT iso8583Segment  (fix|var|varCounter|segment|fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort| idxField|fixFilterString )+ >
+<!ATTLIST iso8583Segment
+	bitMap CDATA #REQUIRED
+>
+
+<!ELEMENT segment  (bean|bitMap|fix|var|segment|include|xmlTag|xmlPair|xmlMap|xmlPairMap|Group |varCounter|skip |bcd |fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|varDouble|varFloat|varShort| idxField |array| name|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer|fixFilterString | mergeFields | expr)* >
+<!ATTLIST segment
+	name CDATA "segment"
+	parse2Context (true|false) 'false' 	
+>
+
+<!ELEMENT bean  (fix|var|segment|xmlTag|xmlPair|xmlMap|xmlPairMap|Group |varCounter|skip |bcd |fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|varDouble|varFloat|varShort| idxField |array| name|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer|fixFilterString )* >
+<!ATTLIST bean
+	name CDATA "bean"
+	beanClassName CDATA  #IMPLIED	
+>
+
+<!ELEMENT name (var| fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer) >
+<!ATTLIST name
+	tagName CDATA #IMPLIED
+	tagPrefix CDATA #IMPLIED	
+	type CDATA #IMPLIED		
+>
+
+<!ELEMENT bcd (Date|Timestamp|Time|fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber ) >
+<!ATTLIST bcd
+	name CDATA "bcd"
+>
+
+
+<!ELEMENT Group  (xmlMap|xmlPairMap|Group|xmlTag|xmlPair|xmlObject|include|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer| idxField |array)* >
+<!ATTLIST Group
+	name CDATA "group"
+	tagName CDATA #IMPLIED
+	option (true|false) 'false' 
+	xmlHead CDATA #IMPLIED
+	format (true|false) 'true'
+	xmlAttributes CDATA #IMPLIED
+	skipBody (true|false) 'false'
+	includePrefix CDATA #IMPLIED		 
+>
+
+<!ELEMENT mapNode  (xmlMap|xmlPairMap|Group|xmlTag|xmlPair|xmlObject|include|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer| idxField |array)* >
+<!ATTLIST mapNode
+	name CDATA "mapNode" 
+>
+
+
+<!ELEMENT xmlMap   (#PCDATA) >
+<!ATTLIST xmlMap
+	name CDATA "xmlMap"
+	tagName CDATA #IMPLIED
+	option (true|false) 'false' 
+	xmlHead CDATA #IMPLIED
+	format (true|false) 'true'
+	xmlAttributes CDATA #IMPLIED
+	skipBody (true|false) 'false'	
+	mapping CDATA #IMPLIED
+	fieldsList CDATA #IMPLIED
+	encoding CDATA "UTF-8"	
+	skipTag (true|false) 'false'		 
+>
+
+<!ELEMENT xmlPairMap   (#PCDATA) >
+<!ATTLIST xmlPairMap
+	name CDATA "xmlPairMap"
+	tagName CDATA #IMPLIED
+	option (true|false) 'false' 
+	xmlHead CDATA #IMPLIED
+	format (true|false) 'true'
+	xmlAttributes CDATA #IMPLIED
+	skipBody (true|false) 'false'	
+	mapping CDATA #IMPLIED
+	fieldsList CDATA #IMPLIED
+	encoding CDATA "UTF-8"	
+	skipTag (true|false) 'false'
+	pairTagName CDATA "param"
+	nameTagName CDATA "param-name"
+	valueTagName CDATA "param-value"
+			 
+>
+
+<!ELEMENT xmlTag (bean|xmlMap|xmlPairMap|Group|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer| idxField)>
+<!ATTLIST xmlTag
+	tagName CDATA #IMPLIED
+	format (true|false) 'true' 
+	skipEmpty (true|false) 'false' 	
+	xmlAttributes CDATA #IMPLIED
+	skipBody (true|false) 'false'		 		
+>
+
+<!ELEMENT xmlPair (xmlMap|xmlPairMap|Group|Field|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer| idxField)>
+<!ATTLIST xmlPair
+	aliasName CDATA #IMPLIED
+	format (true|false) 'true' 
+	skipEmpty (true|false) 'false' 	
+	pairTagName CDATA "param"
+	nameTagName CDATA "param-name"
+	valueTagName CDATA "param-value"
+
+>
+
+
+<!ELEMENT xmlObject (#PCDATA)>
+<!ATTLIST xmlObject
+	name CDATA #REQUIRED
+	tagName CDATA #IMPLIED	
+	option (true|false) 'false' 	
+	defaultValue CDATA #IMPLIED
+	xmlAttributes CDATA #IMPLIED
+	skipBody (true|false) 'false'		 			
+>
+
+
+<!ELEMENT Field (#PCDATA)>
+<!ATTLIST Field
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT String (#PCDATA)>
+<!ATTLIST String
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	trim (true|false) 'true'
+	quotTrim (true|false) 'false'
+	u3000Trim (true|false) 'false'
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	zeroDelimit (true|false) 'false'
+	xml (true|false) 'false'	
+>
+
+<!ELEMENT Number (#PCDATA)>
+<!ATTLIST Number
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+<!ELEMENT Long (#PCDATA)>
+<!ATTLIST Long
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+<!ELEMENT Integer (#PCDATA)>
+<!ATTLIST Integer
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+
+
+<!ELEMENT Amount (#PCDATA)>
+<!ATTLIST Amount
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	length CDATA #REQUIRED	
+	decimal CDATA "2"
+	signed  (true|false)  'false'
+	withDelimeter  (true|false)  'false'	
+>
+
+<!ELEMENT BigDecimal (#PCDATA)>
+<!ATTLIST BigDecimal
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT Boolean (#PCDATA)>
+<!ATTLIST Boolean
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT Byte (#PCDATA)>
+<!ATTLIST Byte
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+<!ELEMENT Char (#PCDATA)>
+<!ATTLIST Char
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+<!ELEMENT Double (#PCDATA)>
+<!ATTLIST Double
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+
+<!ELEMENT Float (#PCDATA)>
+<!ATTLIST Float
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+<!ELEMENT Short (#PCDATA)>
+<!ATTLIST Short
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+
+<!ELEMENT Date (#PCDATA)>
+<!ATTLIST Date
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT Time (#PCDATA)>
+<!ATTLIST Time
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED	
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT Timestamp (#PCDATA)>
+<!ATTLIST Timestamp
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+
+<!ELEMENT externAlias  (externThrowable|exLeafState|exLeafState2|exListState|exListState2|exMapState|exMapState2|exDefaultIdComparator|externSqlDate|externSqlTime|externTimestamp|externInteger|externLong|externDouble|externFloat|externShort|externBigDecimal|externBigInteger|externBoolean|externByte|externChar|externString|externBean|exBean|simBean|refBean|externUserItem|externContext|externClientInfo |externUser |simUser|refUser|exUser| externTimeZone|externDate|externCalendar|externLocale| externMap| externMap2|externMap3|externList|externList2|externSet|externSet2|externLinkedHashMap|externLinkedHashMap2|externLinkedHashMap3|externLinkedList|externLinkedList2|externLinkedHashSet|externLinkedHashSet2|externStringArray|externByteArray|externObjectArray|externBigDecimalArray|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString |fixLong|fixInteger| varString | varFixString |varLong|varInteger| varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort  )* >
+<!ATTLIST externAlias
+	name CDATA "extern"
+	mapping CDATA "/extern/aliasmapping.properties"
+>
+
+<!ELEMENT externThrowable (#PCDATA)>
+<!ATTLIST externThrowable
+	name CDATA #REQUIRED
+>
+
+<!ELEMENT externString (#PCDATA)>
+<!ATTLIST externString
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	width    CDATA #REQUIRED
+>
+
+<!ELEMENT externInteger (#PCDATA)>
+<!ATTLIST externInteger
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+
+<!ELEMENT externLong (#PCDATA)>
+<!ATTLIST externLong
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+<!ELEMENT externDouble (#PCDATA)>
+<!ATTLIST externDouble
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+<!ELEMENT externFloat (#PCDATA)>
+<!ATTLIST externFloat
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+<!ELEMENT externShort (#PCDATA)>
+<!ATTLIST externShort
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+
+<!ELEMENT externBigDecimal (#PCDATA)>
+<!ATTLIST externBigDecimal
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+<!ELEMENT externBigInteger (#PCDATA)>
+<!ATTLIST externBigInteger
+	name CDATA #REQUIRED
+	width    CDATA #REQUIRED
+>
+<!ELEMENT externBoolean (#PCDATA)>
+<!ATTLIST externBoolean
+	name CDATA #REQUIRED
+>
+<!ELEMENT externByte (#PCDATA)>
+<!ATTLIST externByte
+	name CDATA #REQUIRED
+>
+<!ELEMENT externChar (#PCDATA)>
+<!ATTLIST externChar
+	name CDATA #REQUIRED
+>
+
+
+<!ELEMENT externMap (#PCDATA)>
+<!ATTLIST externMap
+	name CDATA "map"
+>
+
+<!ELEMENT externLinkedHashMap (#PCDATA)>
+<!ATTLIST externLinkedHashMap
+	name CDATA "lkmap"
+>
+
+<!ELEMENT externMap2 (#PCDATA)>
+<!ATTLIST externMap2
+	name CDATA "MP"
+>
+
+<!ELEMENT externLinkedHashMap2 (#PCDATA)>
+<!ATTLIST externLinkedHashMap2
+	name CDATA "LKMP"
+>
+
+<!ELEMENT externMap3 (#PCDATA)>
+<!ATTLIST externMap3
+	name CDATA "Mp"
+>
+
+<!ELEMENT externLinkedHashMap3 (#PCDATA)>
+<!ATTLIST externLinkedHashMap3
+	name CDATA "LKmp"
+>
+
+
+<!ELEMENT externList (#PCDATA)>
+<!ATTLIST externList
+	name CDATA "list"
+>
+
+<!ELEMENT externLinkedList (#PCDATA)>
+<!ATTLIST externLinkedList
+	name CDATA "lklist"
+>
+
+<!ELEMENT externSet (#PCDATA)>
+<!ATTLIST externSet
+	name CDATA "set"
+>
+
+<!ELEMENT externLinkedHashSet (#PCDATA)>
+<!ATTLIST externLinkedHashSet
+	name CDATA "lkset"
+>
+
+
+<!ELEMENT externList2 (#PCDATA)>
+<!ATTLIST externList2
+	name CDATA "LIST"
+>
+
+<!ELEMENT externLinkedList2 (#PCDATA)>
+<!ATTLIST externLinkedList2
+	name CDATA "LKLIST"
+>
+
+<!ELEMENT externSet2 (#PCDATA)>
+<!ATTLIST externSet2
+	name CDATA "SET"
+>
+
+<!ELEMENT externLinkedHashSet2 (#PCDATA)>
+<!ATTLIST externLinkedHashSet2
+	name CDATA "LKSET"
+>
+
+
+<!ELEMENT externContext (#PCDATA)>
+<!ATTLIST externContext
+	name CDATA "context"
+>
+
+<!ELEMENT externClientInfo (#PCDATA)>
+<!ATTLIST externClientInfo
+	name CDATA "clientinfo"
+>
+
+<!ELEMENT externUser (#PCDATA)>
+<!ATTLIST externUser
+	name CDATA "user"
+>
+
+<!ELEMENT exUser (#PCDATA)>
+<!ATTLIST exUser
+	name CDATA "user"
+>
+<!ELEMENT simUser (#PCDATA)>
+<!ATTLIST simUser
+	name CDATA "user"
+>
+<!ELEMENT refUser (#PCDATA)>
+<!ATTLIST refUser
+	name CDATA "U"
+>
+
+
+<!ELEMENT externUserItem (#PCDATA)>
+<!ATTLIST externUserItem
+	name CDATA "useritem"
+>
+
+
+
+<!ELEMENT externDate (#PCDATA)>
+<!ATTLIST externDate
+	name CDATA "date"
+>
+
+<!ELEMENT externSqlDate (#PCDATA)>
+<!ATTLIST externSqlDate
+	name CDATA "sqldate"
+>
+
+<!ELEMENT externSqlTime (#PCDATA)>
+<!ATTLIST externSqlTime
+	name CDATA "sqltime"
+>
+
+<!ELEMENT externTimestamp (#PCDATA)>
+<!ATTLIST externTimestamp
+	name CDATA "timestamp"
+>
+
+
+
+<!ELEMENT externTimeZone (#PCDATA)>
+<!ATTLIST externTimeZone
+	name CDATA "TimeZone"
+>
+
+
+<!ELEMENT externCalendar (#PCDATA)>
+<!ATTLIST externCalendar
+	name CDATA "calendar"
+>
+
+
+<!ELEMENT externLocale (#PCDATA)>
+<!ATTLIST externLocale
+	name CDATA "locale"
+>
+
+<!ELEMENT externBean (#PCDATA)>
+<!ATTLIST externBean
+	name CDATA "bean"
+>
+
+<!ELEMENT exBean (#PCDATA)>
+<!ATTLIST exBean
+	name CDATA "bean"
+>
+
+<!ELEMENT simBean (#PCDATA)>
+<!ATTLIST simBean
+	name CDATA "bean"
+>
+
+<!ELEMENT refBean (#PCDATA)>
+<!ATTLIST refBean
+	name CDATA "x"
+>
+
+
+<!ELEMENT exLeafState (#PCDATA)>
+<!ATTLIST exLeafState
+	name CDATA "leaf"
+>
+<!ELEMENT exListState (#PCDATA)>
+<!ATTLIST exListState
+	name CDATA "lsstate"
+>
+<!ELEMENT exMapState (#PCDATA)>
+<!ATTLIST exMapState
+	name CDATA "mapstate"
+>
+
+<!ELEMENT exLeafState2 (#PCDATA)>
+<!ATTLIST exLeafState2
+	name CDATA "LFS"
+>
+<!ELEMENT exListState2 (#PCDATA)>
+<!ATTLIST exListState2
+	name CDATA "LS"
+>
+<!ELEMENT exMapState2 (#PCDATA)>
+<!ATTLIST exMapState2
+	name CDATA "MS"
+>
+
+
+<!ELEMENT exDefaultIdComparator (#PCDATA)>
+<!ATTLIST exDefaultIdComparator
+	name CDATA "eDIC"
+>
+
+
+<!ELEMENT externByteArray (#PCDATA)>
+<!ATTLIST externByteArray
+	name CDATA "byte[]"
+>
+
+
+<!ELEMENT externStringArray (#PCDATA)>
+<!ATTLIST externStringArray
+	name CDATA "string[]"
+>
+
+<!ELEMENT externObjectArray (#PCDATA)>
+<!ATTLIST externObjectArray
+	name CDATA "object[]"
+>
+
+<!ELEMENT externBigDecimalArray (#PCDATA)>
+<!ATTLIST externBigDecimalArray
+	name CDATA "decimal[]"
+>
+
+
+
+<!ELEMENT skip (#PCDATA)>
+<!ATTLIST skip
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	filling CDATA " "
+>
+
+<!ELEMENT fix (segment)>
+<!ATTLIST fix
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+>
+
+
+
+<!ELEMENT fixField (#PCDATA)>
+<!ATTLIST fixField
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT fixString (#PCDATA)>
+<!ATTLIST fixString
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	trim (true|false) 'true'
+	quotTrim (true|false) 'false'
+	u3000Trim (true|false) 'false'
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	zeroDelimit (true|false) 'false'
+	checkLength  (true|false) 'true'	
+	
+>
+
+<!ELEMENT fixNumberString (#PCDATA)>
+<!ATTLIST fixNumberString
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	trim (true|false) 'false'
+	u3000Trim (true|false) 'false'
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	zeroDelimit (true|false) 'false'
+	checkLength  (true|false) 'true'	
+	
+>
+
+
+<!ELEMENT fixNumber (#PCDATA)>
+<!ATTLIST fixNumber
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+<!ELEMENT fixLong (#PCDATA)>
+<!ATTLIST fixLong
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+<!ELEMENT fixInteger (#PCDATA)>
+<!ATTLIST fixInteger
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "false"
+>
+
+
+<!ELEMENT fixBinaryNumber (#PCDATA)>
+<!ATTLIST fixBinaryNumber
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0x0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	add CDATA "0"
+	minus CDATA "0"
+	binary CDATA "true"
+>
+
+<!ELEMENT fixPackDecimal (#PCDATA)>
+<!ATTLIST fixPackDecimal
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0x0"
+	option  (true|false) 'true'
+	defaultValue CDATA ""
+	decimal CDATA "2"
+	signed  (true|false)  'true'	
+>
+
+<!ELEMENT fixBullBCD (#PCDATA)>
+<!ATTLIST fixBullBCD
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0x0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	decimal CDATA "0"
+	signed  (true|false)  'false'	
+>
+
+
+<!ELEMENT fixAmount (#PCDATA)>
+<!ATTLIST fixAmount
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	decimal CDATA "2"
+	signed  (true|false)  'false'
+	withDelimeter  (true|false)  'false'		
+>
+
+<!ELEMENT fixBigDecimal (#PCDATA)>
+<!ATTLIST fixBigDecimal
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'false' 
+	filling CDATA "0"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT fixDate (#PCDATA)>
+<!ATTLIST fixDate
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT fixTime (#PCDATA)>
+<!ATTLIST fixTime
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT fixTimestamp (#PCDATA)>
+<!ATTLIST fixTimestamp
+	name CDATA #REQUIRED
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+
+<!--
+ supported type:
+  B: binary type length, for example, "B", "BB"
+  L: visual character type length, "L", "LL", "LLL"
+  D: delimetr "D0x20"
+  F: read/write a line of a file  "FUNIX" or "FDOS" 
+  R: refer to another field as length "Rrecordnum"
+-->
+
+<!ELEMENT var (var|segment|include|xmlTag|xmlPair|xmlMap|xmlPairMap|Group |varCounter|skip |bcd |fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort| idxField |array| name|Date|Timestamp|Time|Amount|BigDecimal|Boolean|Byte|Char|Double|Float|Short|String|Number|Long|Integer)>
+<!ATTLIST var
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+>
+
+<!ELEMENT varField (#PCDATA)>
+<!ATTLIST varField
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+>
+
+<!ELEMENT varString (#PCDATA)>
+<!ATTLIST varString
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+    trim	(true|false) 'true'
+   	quotTrim (true|false) 'false'
+	u3000Trim (true|false) 'false' 
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	   
+>
+
+<!ELEMENT varFixString (#PCDATA)>
+<!ATTLIST varFixString
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	length CDATA #REQUIRED	
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+    trim	(true|false) 'true'
+    left	(true|false) 'true'    
+	u3000Trim (true|false) 'false' 
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	   
+>
+
+
+<!ELEMENT varNumber (#PCDATA)>
+<!ATTLIST varNumber
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	binary CDATA "false"
+>
+
+<!ELEMENT varLong (#PCDATA)>
+<!ATTLIST varLong
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	binary CDATA "false"
+>
+
+<!ELEMENT varInteger (#PCDATA)>
+<!ATTLIST varInteger
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	binary CDATA "false"
+>
+
+
+<!ELEMENT varBinaryNumber (#PCDATA)>
+<!ATTLIST varBinaryNumber
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	binary CDATA "true"
+>
+
+<!ELEMENT varPackDecimal (#PCDATA)>
+<!ATTLIST varPackDecimal
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	length CDATA #REQUIRED
+	decimal CDATA "2"
+	signed  (true|false)  'true'		
+>
+
+<!ELEMENT varBullBCD (#PCDATA)>
+<!ATTLIST varBullBCD
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+	length CDATA #REQUIRED
+	decimal CDATA "0"
+	signed  (true|false)  'false'		
+>
+
+
+<!ELEMENT varAmount (#PCDATA)>
+<!ATTLIST varAmount
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	length CDATA #REQUIRED
+	option  (true|false) 'true'	
+	decimal CDATA "2"
+	signed  (true|false)  'false'	
+	withDelimeter  (true|false)  'false'		
+>
+
+<!ELEMENT varBigDecimal (#PCDATA)>
+<!ATTLIST varBigDecimal
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+>
+
+<!ELEMENT varDouble (#PCDATA)>
+<!ATTLIST varDouble
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+>
+
+<!ELEMENT varFloat (#PCDATA)>
+<!ATTLIST varFloat
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+>
+<!ELEMENT varShort (#PCDATA)>
+<!ATTLIST varShort
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	defaultValue CDATA #IMPLIED
+	option  (true|false) 'true'	
+>
+
+
+<!ELEMENT varDate (#PCDATA)>
+<!ATTLIST varDate
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED	
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT varTimestamp (#PCDATA)>
+<!ATTLIST varTimestamp
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED	
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+
+<!ELEMENT varTime (#PCDATA)>
+<!ATTLIST varTime
+	name CDATA #REQUIRED
+	type CDATA #REQUIRED	
+	pattern CDATA #IMPLIED
+	encoding CDATA "UTF-8"
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+>
+
+<!ELEMENT idxField ((fixCounter|varCounter)?,(var|segment|bean|xmlTag|xmlPair|xmlMap|xmlPairMap|Group |varCounter |fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort| idxField |array |name) )>
+<!ATTLIST idxField
+	name CDATA #REQUIRED
+	ignoreException (true|false) 'false'
+	condition CDATA #IMPLIED
+    maxLoop CDATA #IMPLIED
+    skipEndLength CDATA #IMPLIED
+>
+
+<!ELEMENT array ((fixCounter|varCounter)?,(segment|xmlTag|xmlPair|xmlMap|xmlPairMap|Group |varCounter |fixField|fixDate|fixTimestamp|fixTime|fixAmount|fixBigDecimal| fixString | fixNumberString | fixNumber|fixLong|fixInteger| fixBinaryNumber  |fixPackDecimal|fixBullBCD | varField| varString | varFixString |varPackDecimal|varBullBCD|varNumber|varLong|varInteger| varBinaryNumber | varDate|varTimestamp|varTime|varAmount|varBigDecimal|Byte|Char|Boolean|varDouble|varFloat|varShort| idxField |array ) )>
+<!ATTLIST array
+	name CDATA #REQUIRED
+	ignoreException (true|false) 'false'
+>
+
+<!ELEMENT fixCounter (#PCDATA)>
+<!ATTLIST fixCounter
+	value CDATA #REQUIRED
+>
+
+<!ELEMENT varCounter (#PCDATA)>
+<!ATTLIST varCounter
+    name CDATA "counter"
+	type CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+>
+
+<!ELEMENT fixFilterString (#PCDATA)>
+<!ATTLIST fixFilterString
+	name CDATA #REQUIRED
+	length CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	leftJustified (true|false) 'true' 
+	filling CDATA " "
+	option  (true|false) 'true'
+	defaultValue CDATA #IMPLIED
+	trim (true|false) 'true'
+	u3000Trim (true|false) 'false'
+	formatPattern CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+	zeroDelimit (true|false) 'false'	
+	
+	prefix CDATA #IMPLIED
+>
+
+<!ELEMENT mergeFields (#PCDATA)>
+<!ATTLIST mergeFields
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	names CDATA #REQUIRED
+	delimeter CDATA #IMPLIED
+	mapping CDATA #IMPLIED
+>
+
+<!ELEMENT expr (#PCDATA)>
+<!ATTLIST expr
+	name CDATA #REQUIRED
+	encoding CDATA "UTF-8"
+	expr CDATA #REQUIRED
+	mapping CDATA #IMPLIED
+>

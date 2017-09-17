@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	 <comment>
+
+	 PowerEngine Main Configuration
+
+	 Mode:
+	 Mode.PROD
+
+	 </comment>
+	 <entry key="CurrentMode" >Mode.DEV</entry>
+
+	 <entry key="CommonConfig" >
+ 			classpath:/config/epay/batch-schedule.xml,
+ 			classpath:/config/epay/batch-transaction.xml,
+ 			classpath:/config/epay/batch-template.xml,
+ 			classpath:/config/epay/batch-clear.xml,
+ 			classpath:/config/epay/batch-collector.xml,
+	 </entry>
+
+	 <entry key="Mode.DEV" >
+			classpath:/config/epay/peconfigdev.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+	<entry key="Mode.TEST" >
+			classpath:/config/epay/peconfigtest.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+	 <entry key="Mode.PROD" >
+			classpath:/config/epay/peconfig.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+
+
+
+</properties>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="pp.batch">
+
+	<!-- 核心对帐明细表结果映射 -->
+	<resultMap id="hostHistoryMap" class="java.util.HashMap">
+		<result property="BusinessNo" column="Trans_BusinessNo" />
+		<result property="HostDate" column="Trans_HostDate" />
+		<result property="HostSeqNo" column="Trans_HostSeqNo" />
+		<result property="TransDate" column="Trans_Date" />
+		<result property="TransSeqNo" column="Trans_SeqNo" />
+		<result property="TransCode" column="Trans_Id" />
+		<result property="BusDeptId" column="Trans_BusDeptId" />
+		<result property="AcctDeptId" column="Trans_AcctDeptId" />
+		<result property="TellerId" column="Trans_TellerId" />
+		<result property="PayAcctNo" column="Trans_PayAcctNo" />
+		<result property="RcvAcctNo" column="Trans_RcvAcctNo" />
+		<result property="Currency" column="Trans_Currency" />
+		<result property="DCFlag" column="Trans_DCFlag" />
+		<result property="TransStatus" column="Trans_Status" />
+		<result property="CheckStatus" column="Trans_CheckStatus" />
+		<result property="TransAmount" column="Trans_Amt" />
+		<result property="DepartmentId" column="Trans_DepartmentId" />
+		<result property="BankId" column="Trans_BankId" />
+	</resultMap>
+
+	<!-- 查询核心对帐明细表 -->
+	<select id="queryHostHistoryForCheck" resultMap="hostHistoryMap" parameterClass="HashMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				BT_HOST_TRANS  
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_CheckStatus=#CheckStatus#
+			LIMIT 0,#QueryNumber#
+		]]>
+	</select>
+	
+	<select id="queryCountFromHtHostTrans" parameterClass="HashMap" resultClass="java.lang.Integer">
+		<![CDATA[
+			SELECT 
+				COUNT(*) 
+			FROM 
+				HT_HOST_TRANS  
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_Hostdate = #ClearDate#
+		]]>
+	</select>
+	
+	<!-- 按照指定机构号删除核心对帐明细表 -->
+	<delete id="deleteHostHistoryByDeptId" parameterClass="Object">
+		<![CDATA[
+			DELETE FROM 
+				BT_HOST_TRANS 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+		]]>
+	</delete>
+	
+	<!-- 按日期删除核心对帐明细表 -->
+	<delete id="deleteHostHistoryByDeptIdAndDate" parameterClass="HashMap">
+		<![CDATA[
+			DELETE FROM 
+				HT_HOST_TRANS  
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND
+				Trans_Hostdate = #ClearDate#
+		]]>
+	</delete>
+		
+	<delete id="transferHostHistoryToHistory" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				HT_HOST_TRANS 		            
+			SELECT 
+				* 
+			FROM 
+				BT_HOST_TRANS  
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+		]]>
+	</delete>
+	
+	<!-- 插入核心对帐明细表 -->
+	<insert id="insertHostHistory" parameterClass="HashMap">
+		<![CDATA[
+		  INSERT INTO 
+		  	BT_HOST_TRANS(
+		        Trans_SeqNo,
+	            Trans_HostSeqNo,
+	            Trans_Date,
+	            Trans_HostDate,
+	            Trans_BusinessNo,
+	            Trans_BusDeptId,
+	            Trans_AcctDeptId,
+	            Trans_Id,
+	            Trans_TellerId,
+	            Trans_PayAcctNo,
+	            Trans_RcvAcctNo,
+	            Trans_Amt,
+	            Trans_Currency,
+	            Trans_DCFlag,
+	            Trans_Status,
+	            Trans_CheckStatus,
+	            Trans_DepartmentId,
+	            Trans_BankId) 
+		  VALUES 
+			  	(#TransSeqNo#,
+				#HostSeqNo#,
+				#TransDate#,
+				#ClearDate#,
+			    #BusinessNo#,
+				#BusDeptId#,
+				#DeptId#,
+				#TransName#,
+			    #TellerId#,
+				#PayAcctNo#,
+				#RcvAcctNo#,
+				#TransAmount#, 
+			   	#Currency#,
+				#DCFlag#,
+				#TransStatus#,
+				#CheckStatus#,
+				#DepartmentId#,
+				#BankId#)
+	]]>
+	</insert>
+	
+	<!-- 修改核心对帐明细表的对帐标志 -->
+	<update id="updateHostHistoryCheckStatus" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				BT_HOST_TRANS 
+			SET 
+				Trans_CheckStatus=#CheckStatus#
+		   	WHERE 
+		   		Trans_HostSeqNo=#HostSeqNo#
+		   	AND 
+		   		Trans_HostDate=#HostDate# 
+		]]>
+	</update>
+	
+	<update id="updateAgreeWithdraw" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				bt_clear_trans
+			SET 
+				trans_step = '5'
+		   	WHERE 
+		   		trans_cleardate = #ClearDate#
+		   	AND 
+		   		TRANS_DEPARTMENTID='corp'
+		   	and 
+		   		TRANS_TYPE='02'
+		]]>
+	</update>
+	
+	<!-- 逻辑集中查出核心对账文件所漏交易 -->
+	<resultMap class="java.util.HashMap" id="cleartransmap">
+		<result property="agTransSeqno" column="TRANS_AGSEQNO" />
+	</resultMap>
+	
+	<resultMap class="java.util.HashMap" id="hosttransmap">
+		<result property="agTransSeqno" column="TRANS_HOSTSEQNO" />
+	</resultMap>
+	
+	<select id="queryTotalFromBtClearTrans" resultMap="cleartransmap">
+	<![CDATA[
+		SELECT 
+			TRANS_AGSEQNO
+		FROM 
+			BT_CLEAR_TRANS
+		WHERE
+		    TRANS_DEPARTMENTID=#DepartmentId#
+		AND
+		    TRANS_CLEARDATE=#ClearDate#
+		AND
+		    TRANS_HOSTRESPCODE = '00000000'
+		AND
+		    TRANS_STATUS <> '01'
+	]]>
+	</select>
+	
+	<select id="queryTotalFromHtHostTrans" resultMap="hosttransmap">
+	<![CDATA[
+		SELECT 
+			TRANS_HOSTSEQNO
+		FROM 
+			BT_HOST_TRANS
+	    WHERE
+	        TRANS_DEPARTMENTID=#DepartmentId#
+		AND
+		    TRANS_HOSTDATE=#ClearDate#
+	         
+	]]>
+	</select>
+	
+	<insert id="insertBtCheckDiffer" parameterClass="java.util.HashMap">
+	<![CDATA[
+	       INSERT INTO BT_CHECK_DIFFER 
+	       SELECT * FROM BT_CLEAR_TRANS WHERE TRANS_AGSEQNO=#agTransSeqno# AND TRANS_CLEARDATE=#ClearDate#
+	]]>
+	</insert>
+
+</sqlMap>

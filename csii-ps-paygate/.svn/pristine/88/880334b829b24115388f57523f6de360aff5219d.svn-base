@@ -1,0 +1,4 @@
+/*! vx-ui - v0.0.1 - 2013-08-07
+* http://www.csii.com.cn/hercules/v
+* Copyright (c) 2013 CSII; Licensed : BSD */
+!function(){var a={};vx.module("vLocale",[]).value("$locale",a),a.id="zh-cn",a.DATETIME_FORMATS={TITLE:["年","月","日"],MONTH:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],SHORTMONTH:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],DAY:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],SHORTDAY:["周日","周一","周二","周三","周四","周五","周六"],AMPMS:["上午","下午"],medium:"yyyy-M-d ah:mm:ss","short":"yy-M-d ah:mm",fullDate:"y年M月d日EEEE",longDate:"y年M月d日",mediumDate:"yyyy-M-d",shortDate:"yy-M-d",mediumTime:"ah:mm:ss",shortTime:"ah:mm"},a.NUMBER_FORMATS={DECIMAL_SEP:".",GROUP_SEP:",",PATTERNS:[{minInt:1,minFrac:0,maxFrac:3,posPre:"",posSuf:"",negPre:"-",negSuf:"",gSize:3,lgSize:3},{minInt:1,minFrac:2,maxFrac:2,posPre:"¤",posSuf:"",negPre:"¤-",negSuf:"",gSize:3,lgSize:3}],CURRENCY_SYM:"¥"};var b={},c={};a.FIELDS=b;a.MESSAGES=c;}();

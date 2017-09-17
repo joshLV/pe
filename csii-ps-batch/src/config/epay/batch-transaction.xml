@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<!--日切处理 -->
+	<transaction id="cutOff" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">cutOffAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">6</param>
+			<param name="currentPhase">0</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	
+	<action id="cutOffAction" class="com.csii.batch.action.CutOffAction"></action>
+	
+	<!--数据转移 -->
+	<transaction id="dataTransfer" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">dataTransferAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">0</param>
+			<param name="currentPhase">1</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	<action id="dataTransferAction" class="com.csii.batch.action.DataTransferAction">
+	</action>
+	
+	<!-- 加载对帐文件 -->
+	<transaction id="loadFile" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">loadFileAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">1</param>
+			<param name="currentPhase">2</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	<action id="loadFileAction" class="com.csii.batch.action.LoadHostFileAction">
+		<map name="actionMap">
+			<ref name="0">loadWeiXinFileAction</ref>
+			<ref name="2">loadAlipayFileAction</ref>
+		</map>
+	</action>
+	
+	<bean id="fileDescTransformerFactory" class="com.csii.pe.transform.TransformerFactory">
+		<param name="path">/config/file/</param>
+		<param name="debug">false</param>
+		<param name="cacheEnable">true</param>
+	</bean>
+	
+	<action id="abstractLoadHostCheckingFileAction" class="com.csii.batch.action.AbstractLoadHostCheckingFileAction" abstract="true">
+		<param name="retryTimes">3</param>
+		<param name="delayTime">100</param>
+		<ref name="transformerFactory">fileDescTransformerFactory</ref>
+		<ref name="wxUtil">wxUtil</ref>
+		<ref name="sftpFileTransfer">mybankSFTPFileTransfer</ref>
+		<param name="downloadPath">${mybank.downloadPath}</param>
+		<param name="localPath">${mybank.localPath}</param>
+		<param name="url">${pp.alipay.url}</param>
+		<param name="downloadPathForALi">${pp.alipay.downloadPath}</param>
+	</action>
+	
+	<bean id="mybankSFTPFileTransfer" class="com.csii.pp.sftp.SFTPFileTransfer">
+		<param name="host">${mybank.sftp.host}</param>
+		<param name="username">${mybank.sftp.username}</param>
+		<param name="password">${mybank.sftp.password}</param>
+		<param name="port">${mybank.sftp.port}</param>
+	</bean>
+	
+	<action id="loadWeiXinFileAction" class="com.csii.batch.action.LoadWeiXinFileAction" parent="abstractLoadHostCheckingFileAction">
+		<param name="fileDescription">wx-checkingfile</param>
+	</action>
+	
+	<action id="loadMybankFileAction" class="com.csii.batch.action.LoadMybankFileAction" parent="abstractLoadHostCheckingFileAction">
+		<param name="fileDescription">mybank-checkingfile</param>
+	</action>
+	
+	<action id="loadAlipayFileAction" class="com.csii.batch.action.LoadAlipayFileAction" parent="abstractLoadHostCheckingFileAction">
+		<param name="fileDescription">alipay-checkingfile</param>
+	</action>
+	<!--对帐处理 -->
+	<transaction id="checking" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">checkingAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">2</param>
+			<param name="currentPhase">3</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	<action id="checkingAction" class="com.csii.batch.action.CheckingAction">
+	    <param name="queryCount">${pp.batch.queryCount}</param>
+		<list name="checkerList">
+		   <ref>btClearTransAction</ref>
+	       <ref>btHostTransAction</ref>  
+		</list>
+	</action>
+	
+	<action id="btClearTransAction" class="com.csii.batch.action.BtClearTransCheckingAction">
+		<param name="queryCount">${pp.batch.queryCount}</param>
+		<map name="checkerMap">
+			<ref name="0">coreSystemChecker</ref>
+			<ref name="1">coreSystemChecker</ref>
+			<ref name="2">coreSystemChecker</ref>
+		</map>
+	</action>
+	<action id="btHostTransAction" class="com.csii.batch.action.BthostCheckingAction">
+		<param name="queryCount">${pp.batch.queryCount}</param>
+		<ref name="check">btHostChecker</ref>
+	</action>
+	<bean name="btHostChecker" class="com.csii.batch.check.BthostClearingChecker">
+		<ref name="orderManager">orderManager</ref>
+	</bean>
+	
+	<bean name="coreSystemChecker" class="com.csii.batch.check.SequenceChecker">
+		<list name="checkers">
+			<ref>clearingChecker</ref>
+		</list>
+	</bean>
+	
+	<bean name="clearingChecker" class="com.csii.batch.check.ClearingChecker">
+		<ref name="orderManager">orderManager</ref>
+	</bean>
+	
+	<!--清分处理 -->
+	<transaction id="clearing" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">clearingAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">3</param>
+			<param name="currentPhase">4</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	<action id="clearingAction" class="com.csii.batch.action.ClearingAction">
+	    <param name="queryCount">${pp.batch.queryCount}</param>
+		<ref name="clearingerFactory">clearingerFactory</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	
+	<!--结算处理 -->
+	<transaction id="settlement" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">settlementAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">4</param>
+			<param name="currentPhase">5</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	<action id="settlementAction" class="com.csii.batch.action.SettlementAction">
+		<ref name="settSeqNoGenerator">settSeqNoGenerator</ref>
+		<map name="generateBankSettFileMap">
+			<ref name="1368662602">boshSettFileAction</ref><!-- K：上海银行BankId；V：上海银行资金结算文件 1430459002（上海）-->
+<!--  			<ref name="1451570602">cbhbSettFileAction</ref>K：渤海银行BankId；V：渤海银行资金结算文件 -->
+		</map>
+	</action>
+	
+	
+	<!--批量结束 -->
+	<transaction id="endBatch" template="stepBatchTemplate">
+		<actions>
+			<ref name="action">endBatchAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">5</param>
+			<param name="currentPhase">6</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	
+	<action id="endBatchAction" class="com.csii.batch.action.EndBatchAction" >
+		<param name="month">12</param>
+	</action>
+</config>

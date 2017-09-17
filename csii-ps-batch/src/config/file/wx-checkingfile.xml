@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<segment><!--微信对账文件  -->
+	<!--交易时间,公众账号ID,商户号,子商户号,设备号,微信订单号,商户订单号,用户标识,交易类型,交易状态,付款银行,货币种类,总金额,企业红包金额,微信退款单号,商户退款单号,退款金额,企业红包退款金额,退款类型,退款状态,商品名称,商户数据包,手续费,费率 -->
+    <varTimestamp name="wxtransdatetime" type="D," pattern="yyyy-MM-dd HH:mm:ss" ></varTimestamp>  
+    <varString name="appid" type="D," ></varString>  
+    <varString name="mch_id" type="D," ></varString>  
+    <varString name="sub_mch_id" type="D," ></varString>  
+    <varString name="device_info" type="D," ></varString>  
+    <varString name="transaction_id" type="D," ></varString>  
+    <varString name="out_trade_no" type="D," ></varString>  
+    <varString name="userid" type="D," ></varString>  
+    <varString name="trade_type" type="D," ></varString>  
+    <varString name="trans_status" type="D," ></varString>  
+    <varString name="bankid" type="D," ></varString>  
+    <varString name="fee_type" type="D," ></varString>  
+    <varBigDecimal name="total_fee" type="D," ></varBigDecimal>  
+    <varBigDecimal name="redpacket_fee" type="D," ></varBigDecimal>  
+    <varString name="refund_id" type="D," ></varString> 
+    <varString name="out_refund_no" type="D," ></varString>  
+    <varBigDecimal name="refund_fee" type="D," ></varBigDecimal>  
+    <varBigDecimal name="refund_redpacket_fee" type="D," ></varBigDecimal>  
+    <varString name="refund_fee_type" type="D," ></varString>  
+    <varString name="refund_status" type="D," ></varString>  
+    <varString name="goods_name" type="D," ></varString>  
+    <varString name="attach" type="D," ></varString>  
+    <varBigDecimal name="feeamount" type="D," ></varBigDecimal>  
+    <varString name="fee_rate" type="D," ></varString>  
+</segment>

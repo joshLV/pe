@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<segment><!--alipay对账文件  -->
+<!--支付宝交易号,商户订单号,业务类型,商品名称,创建时间,完成时间,门店编号,门店名称,操作员,终端号,对方账户,订单金额（元）,商家实收（元）,支付宝红包（元）,集分宝（元）,
+支付宝优惠（元）,商家优惠（元）,券核销金额（元）,券名称,商家红包消费金额（元）,卡消费金额（元）,退款批次号,服务费（元）,实收净额（元）,商户识别号,交易方式,备注-->
+    <varString name="appid" type="D," ></varString>  <!--支付宝交易号  -->
+    <varString name="out_trade_no" type="D," ></varString>  <!--商户订单号  -->
+    <varString name="trade_type" type="D," ></varString>  <!--业务类型  -->
+    <varString name="goodsName" type="D," ></varString>  <!-- 商品名称 -->
+    <varTimestamp name="creatTime" type="D," pattern="yyyy-MM-dd HH:mm:ss" ></varTimestamp>  <!--创建时间  -->
+    <varTimestamp name="endTime" type="D," pattern="yyyy-MM-dd HH:mm:ss" ></varTimestamp>  <!--完成时间  -->
+    <varString name="storeId" type="D," ></varString>  <!-- 门店编号 -->
+    <varString name="storeName" type="D," ></varString>  <!-- 门店名称 -->
+    <varString name="tellerId" type="D," ></varString>  <!--操作员  -->
+    <varString name="trmId" type="D," ></varString>  <!--终端号  -->
+    <varString name="accNo" type="D," ></varString>  <!--对方账户  -->
+    <varBigDecimal name="transAmt" type="D," ></varBigDecimal>  <!-- 订单金额（元） -->
+    <varBigDecimal name="merRealRcv" type="D," ></varBigDecimal>  <!--商家实收（元）  -->
+    <varBigDecimal name="alipayrb" type="D," ></varBigDecimal>  <!--支付宝红包（元）  -->
+    <varBigDecimal name="jifenbao" type="D," ></varBigDecimal>  <!--集分宝（元）  -->
+    <varBigDecimal name="alipayDiscount" type="D," ></varBigDecimal><!--支付宝优惠（元）  -->
+    <varBigDecimal name="merDiscount" type="D," ></varBigDecimal><!--商家优惠（元）  -->
+    <varBigDecimal name="voucherDiscount" type="D," ></varBigDecimal><!--券核销金额（元）  -->
+    <varString name="voucherName" type="D," ></varString> <!-- 券名称 -->
+    <varBigDecimal name="merhb" type="D," ></varBigDecimal><!-- 商家红包消费金额（元） -->
+    <varBigDecimal name="cardpay" type="D," ></varBigDecimal><!-- 卡消费金额（元） -->
+    <varString name="out_refund_no" type="D," ></varString>  <!--退款批次号  -->
+    <varBigDecimal name="server" type="D," ></varBigDecimal><!--服务费（元）  -->
+    <varBigDecimal name="paidCapital" type="D," ></varBigDecimal><!-- 实收净额（元） -->
+    <varString name="merId" type="D," ></varString>  <!-- 商户识别号 -->
+    <varString name="paytype" type="D," ></varString>  <!--交易方式  -->
+    <varString name="remark" type="D," ></varString>  <!-- 备注 -->
+</segment>

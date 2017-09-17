@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+
+	<bean id="placeholderConfig" class="com.csii.uibs.HierarchicalPropertyPlaceholderConfigurer">
+		<ref name="commonResourceLocationResolver">commonResourceLocationResolver</ref>
+
+		<list name="locations">
+			<param>classpath:/config/epay/system.properties</param>
+		</list>
+	</bean>
+	
+</config>

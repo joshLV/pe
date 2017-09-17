@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+</head>
+
+<body>
+    <script charset="utf-8">
+
+    (function() {
+    	var transId = "QAPPID"
+    	//截取商户token
+        var HrefArr = location.href.split("/");
+        var merchantToken = HrefArr[HrefArr.length - 1];
+        
+       	var domain = "http://wxhj.csii.com.cn" 
+         	//var domain = "http://devwx.csii.com.cn" 
+    	
+            var aj = $.ajax( {  
+                url:domain+'/paygate/psmain?merToken='+merchantToken+'&txnType='+transId,// 跳转到 action  
+                data:{},  
+                type:'post',  
+                cache:false,  
+                dataType:'json',  
+                success:function(data) {  
+                var appid = data.APPID;
+                var alipayAppid = data.ALIPAYAPPID;
+        
+        //时间戳(解决缓存问题)
+        var timeStamp = new Date().getTime();
+
+        //重定向url(配置域名)
+       var baseUrl = domain+"/paygate/keypos/index.html?timestamp=" + timeStamp;
+
+        //微信浏览器
+       if (navigator.userAgent.indexOf("MicroMessenger") > 0) {
+            var BrowserType = "tenpay";
+            
+                	var redirect_uri = baseUrl + "&browsertype=" + BrowserType + "&merchanttoken=" + merchantToken + "&showwxpaytitle=1";
+                    //重定向
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
+                    appid +
+                    "&redirect_uri=" +
+                    encodeURIComponent(redirect_uri) +
+                    "&response_type=code&scope=snsapi_base#wechat_redirect";
+            
+        } else if (navigator.userAgent.indexOf("AlipayClient") > 0) {
+            //支付宝浏览器
+            var BrowserType = "alipay";
+            var redirect_uri = baseUrl + "&browsertype=" + BrowserType + "&merchanttoken=" + merchantToken;
+
+            //重定向
+            window.location.href = "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" +
+            alipayAppid +
+                "&redirect_uri=" +
+                encodeURIComponent(redirect_uri) +
+                "&scope=auth_base";
+        }  else {
+            window.close();
+        }
+                }
+            });
+
+    })();
+    </script>
+</body>
+
+</html>

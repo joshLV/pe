@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.core">
+	<!-- 商户结果集 -->
+	<resultMap id="MerchantMap" class="com.csii.pp.merchant.Merchant">
+		<result property="id" column="mer_id" />
+		<result property="name" column="mer_name" />
+		<result property="merShortName" column="mer_shortname" />
+		<result property="merPhoneNo" column="mer_phoneno" />
+		<result property="merAddr" column="mer_addr" />
+		<result property="merRemark" column="mer_remark" />
+		<result property="merSite" column="mer_site" />
+		<result property="manageType" column="manage_type" />
+		<result property="manageId" column="manage_id" />
+		<result property="manageDesc" column="manage_desc" />
+		<result property="corporationName" column="corporation_name" />
+		<result property="corporationCertNo" column="corporation_certno" />
+		<result property="merLinkName" column="mer_linkname" />
+		<result property="merLinkPhoneNo" column="mer_linkphoneno" />
+		<result property="merLinkEmail" column="mer_linkemail" />
+		<result property="merSettAcctType" column="mer_settaccttype" />
+		<result property="merSettAcctBankNo" column="mer_settacctbankno" />
+		<result property="merSettAcctBankName" column="mer_settacctbankname" />
+		<result property="merSettAcctCity" column="mer_settacctcity" />
+		<result property="merSettAcctNo" column="mer_settacctno" />
+		<result property="merType" column="mer_type" />
+		<result property="merParentId" column="mer_parentid" />
+		<result property="cifManagerId" column="cifmanager_id" />
+		<result property="cifManagerName" column="cifmanager_name" />
+		<result property="merLevel" column="mer_level" />
+		<result property="agentId" column="agent_id" />
+		<result property="merStatus" column="mer_status"/>
+		<result property="merToken" column="mch_token"/>
+		<result property="merBankId" column="mer_bankid"/>
+		<result property="merSettName" column="mer_settacctname"/>
+		<result property="merInnerFeeAmt" column="mer_innerfeeamt"/>
+		
+	</resultMap>
+
+	<resultMap id="merchantCtrlResultMap" class="java.util.HashMap">
+		<result property="MerchantId" column="Mer_Id" />
+		<result property="ChannelId" column="Channel_Id" />
+		<result property="TransId" column="Trans_Id" />
+		<result property="PerTransLimit" column="MerTc_PerTransLimit" />
+		<result property="PerDayLimit" column="MerTc_PerDayLimit" />
+		<result property="PerDayAmt" column="MerTc_DayAmt" />
+		<result property="PerDayAmtDate" column="MerTc_DayAmtDate" />
+		<result property="Status" column="MerTc_Status" />
+		<result property="OpenUser" column="MerTc_OpenUser" />
+		<result property="CloseDate" column="MerTc_CloseDate" />
+		<result property="CloseUser" column="Channel_CloseUser" />
+		<result property="ModifyDate" column="Channel_ModifyDate" />
+		<result property="ModifyUser" column="Channel_ModifyUser" />
+		<result property="PayType" column="Pay_Type" />
+		<result property="CardType" column="Card_Type" />
+		<result property="MerName" column="Mer_Name" />
+	</resultMap>
+	<sql id="merchantColumn">
+		mer_id,mer_name,mer_shortname,mer_phoneno,mer_addr,mer_remark,mer_site,manage_type,manage_id,manage_desc,
+		corporation_name,corporation_certno,mer_linkname,mer_linkphoneno,mer_linkemail,mer_settaccttype,
+		mer_settaccttype,mer_settacctbankno,mer_settacctbankname,mer_settacctcity,mer_settacctno,mer_type,mer_parentid,cifmanager_id,
+		cifmanager_name,mer_level,agent_id,mer_status,mch_token,mer_bankid,mer_settacctname,mer_innerfeeamt
+	</sql>
+
+	<!-- 查询商户信息 -->
+	<select id="qryParentMerId" parameterClass="java.util.HashMap" resultMap="MerchantMap">
+		select 
+			<include refid="merchantColumn"/> 
+		from 
+			fsp_merchant f 
+		where 
+			f.mer_id = #sub_mch_id#
+	</select>
+	
+	<!-- 查询商户信息 -->
+	<select id="qryMerId" parameterClass="java.util.HashMap" resultMap="MerchantMap">
+		select 
+			<include refid="merchantColumn"/>  
+		from 
+			fsp_merchant f 
+		where 
+			f.mer_id = #mer_id#
+	</select>
+	
+	<!-- 查询商户信息 -->
+	<select id="qryMerInfoByToken" parameterClass="java.util.HashMap" resultMap="MerchantMap">
+		select 
+			<include refid="merchantColumn"/>  
+		from 
+			fsp_merchant f 
+		where 
+			f.mch_token = #mchToken#
+	</select>
+	
+	<!-- 查询商户信息 -->
+	<select id="queryMerchant" parameterClass="java.lang.String" resultMap="MerchantMap">
+		select 
+			<include refid="merchantColumn"/>  
+		from 
+			fsp_merchant f 
+		where 
+			f.mer_id = #id#
+	</select>
+	
+	<!-- 商户结果集 -->
+	<resultMap id="MerchantSettMap" class="com.csii.pp.merchant.MerchantSett">
+		<result property="id" column="mer_id" />
+		<result property="transId" column="trans_id" />
+		<result property="feeType" column="fee_type" />
+		<result property="feeAmt" column="fee_amt" />
+		<result property="settPeriod" column="sett_period" />
+	</resultMap>
+	<!-- 查询商户信息 -->
+	<select id="queryMerchantSett" parameterClass="java.util.HashMap" resultMap="MerchantSettMap">
+		select 
+			* 
+		from 
+			ft_merctrl f 
+		where 
+			f.mer_id = #merId#
+		and
+		    f.trans_id = #payType#
+		and
+		    f.department_id = #departmentId#
+	</select>
+	
+	<!-- 查询商户信息 -->
+	<select id="queryMerSettList" parameterClass="java.lang.String" resultMap="MerchantSettMap">
+		select 
+			*
+		from 
+			ft_merctrl
+		where
+		    department_id= #DepartmentId#
+	</select>
+	<!-- 通道结果集 -->
+	<resultMap id="PassageWayMap" class="java.util.HashMap">
+		<result property="passageWayName" column="passageway_name" />
+		<result property="payType" column="pay_type" />
+		<result property="departmentId" column="pay_departmentid" />
+		<result property="merId" column="bankid" />
+		<result property="rate" column="rate" />
+		<result property="openDate" column="open_date" />
+		<result property="modifyDate" column="modify_date" />
+	</resultMap>
+	<!-- 查询通道信息 -->
+	<select id="queryPassageWay" parameterClass="java.util.HashMap" resultMap="PassageWayMap">
+		select 
+			* 
+		from 
+			ft_pay_passageway f 
+		where 
+			f.bankid = #bankId#
+		and
+		    f.pay_type = #payType#
+		and
+		    f.pay_departmentid = #departmentId#
+	</select>
+	
+	<!-- 银行商户参数结果集 -->
+	<resultMap id="MerBankParameterMap" class="java.util.HashMap">
+	    <result property="bankId" column="bankid" />
+		<result property="departmentId" column="departmentid" />
+		<result property="merId" column="mer_id" />
+		<result property="keystorePath" column="keyspath" />
+		<result property="keystorePassword" column="keyspasswd" />
+		<result property="paysignkey" column="paysignkey" />
+		<result property="appId" column="appId" />
+		<result property="appSecret" column="appSecret" />
+		<result property="alipayAppId" column="alipayappid" />
+		<result property="alipayBankPriKey" column="alipaybankprikey" />
+		<result property="alipayPubKey" column="alipaypubkey" />
+		<result property="mybankAppId" column="mybankappid" />
+		<result property="mybankJfPriKey" column="mybankjfprikey" />
+		<result property="mybankPubKey" column="mybankpubkey" />
+		<result property="mybankIsvOrgId" column="mybankisvorgid" />
+	</resultMap>
+	<!-- 查询银行商户参数信息 -->
+	<select id="queryMerBankParameter" parameterClass="java.util.HashMap" resultMap="MerBankParameterMap">
+		select 
+			* 
+		from 
+			ft_bank_parameter
+		where 
+			bankid = #bankId#
+		AND
+		    departmentid = #departmentId#
+	</select>
+	
+	<select id="queryAllMerBankParameter" parameterClass="java.lang.String" resultMap="MerBankParameterMap">
+		select 
+			* 
+		from 
+			ft_bank_parameter
+		WHERE
+		    departmentid = #departmentId# 
+	</select>
+	
+	<!-- 查询银行商户参数信息 -->
+	<select id="queryMerBankParameterByDepartmentId" parameterClass="java.lang.String" resultMap="MerBankParameterMap">
+		select 
+			* 
+		from 
+			ft_bank_parameter
+		where 
+			bankid = #bankId#
+	</select>
+	
+	<resultMap id="AgentMap" class="java.util.HashMap">
+		<result property="agtName" column="agt_name" />
+	</resultMap>
+	
+	<select id="queryAgentName" parameterClass="java.util.HashMap" resultMap="AgentMap">
+		select 
+			agt_name 
+		from 
+			fsp_agent 
+		where
+			agent_id=#AgentId#
+	</select>
+	<resultMap id="AgentInfoMap" class="java.util.HashMap">
+		<result property="agtBankId" column="agt_bankId" />
+		<result property="agtName" column="agt_name" />
+	</resultMap>
+	
+	<select id="queryAgentBankId" parameterClass="java.util.HashMap" resultMap="AgentInfoMap">
+		select 
+			agt_bankId,agt_name  
+		from 
+			fsp_agent 
+		where
+			agent_id=#agentId#
+	</select>
+	<select id="queryMerchantTransCtrlDynamic" resultMap="merchantCtrlResultMap" parameterClass="java.util.HashMap">
+		<![CDATA[
+		SELECT  a.Mer_Id,
+		        a.Channel_Id,
+		        a.Trans_Id,
+		        a.MerTc_PerTransLimit,
+		        a.MerTc_PerDayLimit,
+		        a.MerTc_DayAmt,
+		        a.MerTc_DayAmtDate,
+		        a.MerTc_Status,
+		        a.MerTc_OpenUser,
+		        a.MerTc_CloseDate,		        
+		        a.Channel_CloseUser,
+				a.Channel_ModifyDate,
+				a.Channel_ModifyUser,
+				a.Card_Type,
+				a.Pay_Type,
+				b.Mer_Name
+		FROM FSP_MER_LIMITCTRL a,FSP_MERCHANT b
+		]]>
+		WHERE a.Mer_Id=b.Mer_Id
+		<dynamic prepend="AND">
+			<isNotEmpty prepend="and" property="MerchantId">
+				a.Mer_Id=#MerchantId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ChannelId">
+				a.Channel_Id=#ChannelId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="TransId">
+				a.Trans_Id=#TransId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="Status">
+				a.MerTc_Status=#Status#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PayType">
+				a.Pay_Type=#PayType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CardType">
+				a.Card_Type=#CardType#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 更新限额 -->
+	<update id="updateMerLimitCtrl" parameterClass="java.util.HashMap">
+		<![CDATA[	
+		UPDATE FSP_MER_LIMITCTRL SET
+			MERTC_DAYAMT=#PerDayAmt#,
+			MERTC_DAYAMTDATE=#PerDayAmtDate#
+		WHERE MER_ID=#MerchantId#
+			
+		]]>
+	</update>
+	<!-- 回滚限额 -->
+	<update id="updateMerBackLimitCtrl" parameterClass="java.util.HashMap">
+		<![CDATA[	
+		UPDATE FSP_MER_LIMITCTRL SET
+			MERTC_DAYAMT=#dayAmt#
+		WHERE MER_ID=#merId#
+		]]>
+	</update>
+	<!-- 新增商户-->
+	<insert id="insertMerchant" parameterClass="java.util.HashMap">
+	  	INSERT INTO
+	  		FSP_MERCHANT(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">MER_ID</isNotEmpty>
+			<isNotEmpty prepend="," property="merName">mer_name</isNotEmpty>
+			<isNotEmpty prepend="," property="mchToken">mch_token</isNotEmpty>  <!-- 1 -->
+			<isNotEmpty prepend="," property="merShortname">mer_shortname</isNotEmpty>
+			<isNotEmpty prepend="," property="mer_phoneno">mer_phoneno</isNotEmpty>
+			<isNotEmpty prepend="," property="merAddr">mer_addr</isNotEmpty>
+			<isNotEmpty prepend="," property="merMark">mer_remark</isNotEmpty>
+			<isNotEmpty prepend="," property="merSite">mer_site</isNotEmpty> <!-- 1 -->
+			<isNotEmpty prepend="," property="manageType">manage_type</isNotEmpty>
+			<isNotEmpty prepend="," property="manageId">manage_id</isNotEmpty> 
+			<isNotEmpty prepend="," property="manageDesc">manage_desc</isNotEmpty>
+			<isNotEmpty prepend="," property="corporationName">corporation_name</isNotEmpty>
+			<isNotEmpty prepend="," property="corporationCertno">corporation_certno</isNotEmpty>
+			<isNotEmpty prepend="," property="certFrontpicture">cert_frontpicture</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="certBackpicture">cert_backpicture</isNotEmpty>
+			<isNotEmpty prepend="," property="buslicensePicture">buslicense_picture</isNotEmpty>
+			<isNotEmpty prepend="," property="orgcertPicture">orgcert_picture</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkname">mer_linkname</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkphoneno">mer_linkphoneno</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkemail">mer_linkemail</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettaccttype">mer_settaccttype</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettacctbankno">mer_settacctbankno</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettacctbankname">mer_settacctbankname</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettacctcity">mer_settacctcity</isNotEmpty>
+			<isNotEmpty prepend="," property="settacctNo">mer_settacctno</isNotEmpty>
+			<isNotEmpty prepend="," property="merType">mer_type</isNotEmpty>
+			<isNotEmpty prepend="," property="merParentid">mer_parentid</isNotEmpty>
+			<isNotEmpty prepend="," property="cifmanagerId">cifmanager_id</isNotEmpty>
+			<isNotEmpty prepend="," property="cifmanagerName">cifmanager_name</isNotEmpty>
+			<isNotEmpty prepend="," property="merLevel">mer_level</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="agentId">agent_id</isNotEmpty>
+			<isNotEmpty prepend="," property="merStatus">mer_status</isNotEmpty>
+			,mer_opendate
+			<isNotEmpty prepend="," property="merModifydate">mer_modifydate</isNotEmpty>
+			<isNotEmpty prepend="," property="merClosedate">mer_closedate</isNotEmpty>
+			<isNotEmpty prepend="," property="orderId">order_id</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merSettacctbranch">mer_settacctbranch</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merBankid">mer_bankid</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merSettacctname">mer_settacctname</isNotEmpty>
+			<isNotEmpty prepend="," property="authStatus">auth_status</isNotEmpty>
+			<isNotEmpty prepend="," property="merSubmitdate">mer_submitdate</isNotEmpty>
+			<isNotEmpty prepend="," property="taxPicture">tax_picture</isNotEmpty>
+			<isNotEmpty prepend="," property="FastMerFlag">FastMerFlag</isNotEmpty>
+			<isNotEmpty prepend="," property="merInnerFeeAmt">mer_innerfeeamt</isNotEmpty>
+			<isNotEmpty prepend="," property="subAppid">sub_appid</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merName">#merName#</isNotEmpty>
+			<isNotEmpty prepend="," property="mchToken">#mchToken#</isNotEmpty>  <!-- 1 -->
+			<isNotEmpty prepend="," property="merShortname">#merShortname#</isNotEmpty>
+			<isNotEmpty prepend="," property="mer_phoneno">#mer_phoneno#</isNotEmpty>
+			<isNotEmpty prepend="," property="merAddr">#merAddr#</isNotEmpty>
+			<isNotEmpty prepend="," property="merMark">#merMark#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSite">#merSite#</isNotEmpty> <!-- 1 -->
+			<isNotEmpty prepend="," property="manageType">#manageType#</isNotEmpty>
+			<isNotEmpty prepend="," property="manageId">#manageId#</isNotEmpty> 
+			<isNotEmpty prepend="," property="manageDesc">#manageDesc#</isNotEmpty>
+			<isNotEmpty prepend="," property="corporationName">#corporationName#</isNotEmpty>
+			<isNotEmpty prepend="," property="corporationCertno">#corporationCertno#</isNotEmpty>
+			<isNotEmpty prepend="," property="certFrontpicture">#certFrontpicture#</isNotEmpty>
+			<isNotEmpty prepend="," property="certBackpicture">#certBackpicture#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="buslicensePicture">#buslicensePicture#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="orgcertPicture">#orgcertPicture#</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkname">#merLinkname#</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkphoneno">#merLinkphoneno#</isNotEmpty>
+			<isNotEmpty prepend="," property="merLinkemail">#merLinkemail#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettaccttype">#merSettaccttype#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettacctbankno">#merSettacctbankno#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merSettacctbankname">#merSettacctbankname#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSettacctcity">#merSettacctcity#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="settacctNo">#settacctNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merType">#merType#</isNotEmpty>
+			<isNotEmpty prepend="," property="merParentid">#merParentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="cifmanagerId">#cifmanagerId#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="cifmanagerName">#cifmanagerName#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merLevel">#merLevel#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentId">#agentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merStatus">#merStatus#</isNotEmpty>
+			,curdate()
+			<isNotEmpty prepend="," property="merModifydate">#merModifydate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merClosedate">#merClosedate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orderId">#orderId#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merSettacctbranch">#merSettacctbranch#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merBankid">#merBankid#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="merSettacctname">#merSettacctname#</isNotEmpty><!-- 1 -->
+			<isNotEmpty prepend="," property="authStatus">#authStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSubmitdate">#merSubmitdate#</isNotEmpty>
+			<isNotEmpty prepend="," property="taxPicture">#taxPicture#</isNotEmpty>
+			<isNotEmpty prepend="," property="FastMerFlag">#FastMerFlag#</isNotEmpty>
+			<isNotEmpty prepend="," property="merInnerFeeAmt">#merInnerFeeAmt#</isNotEmpty>
+			<isNotEmpty prepend="," property="subAppid">#subAppid#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	<!-- 新增商户手续费率-->
+	<insert id="insertMerFeeCtrl" parameterClass="java.util.HashMap">
+	  	INSERT INTO
+	  		FT_MERCTRL(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">mer_id</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">trans_id</isNotEmpty>
+			<isNotEmpty prepend="," property="feeType">fee_type</isNotEmpty> <!-- 1 -->
+			<isNotEmpty prepend="," property="feeAmt">fee_amt</isNotEmpty>
+			<isNotEmpty prepend="," property="settPeriod">sett_period</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">department_id</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="feeType">#feeType#</isNotEmpty> <!-- 1 -->
+			<isNotEmpty prepend="," property="feeAmt">#feeAmt#</isNotEmpty>
+			<isNotEmpty prepend="," property="settPeriod">#settPeriod#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">#departmentId#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	
+	<resultMap id="agentInfoMap" class="java.util.HashMap">
+		<result property="agtId" column="agent_id" />
+		<result property="agtName" column="agt_name" />
+		<result property="agtShName" column="agt_shortname" />
+		<result property="agtPhone" column="agt_phoneno" />
+		<result property="agtAddr" column="agt_addr" />
+		<result property="agtRemark" column="agt_remark" />
+		<result property="agtSite" column="agt_site" />
+		<result property="manageType" column="manage_type" />
+		<result property="manageId" column="manage_id" />
+		<result property="manageDesc" column="manage_desc" />
+		<result property="corpName" column="corporation_name" />
+		<result property="corpCertNo" column="corporation_certno" />
+		<result property="agtLinkName" column="agt_linkname" />
+		<result property="agtLinkPhone" column="agt_linkphoneno" />
+		<result property="agtLinkEmail" column="agt_linkemail" />
+		<result property="agtSettAcctType" column="agt_settaccttype" />
+		<result property="agtSettAcctBankNo" column="agt_settacctbankno" />
+		<result property="agtSettAcctBankNm" column="agt_settacctbankname" />
+		<result property="agtSettAcctCity" column="agt_settacctcity" />
+		<result property="agtSettAcctNo" column="agt_settacctno" />
+		<result property="agtSettacctName" column="agt_settacctname" />
+		<result property="agtType" column="agt_type" />
+		<result property="agtParentId" column="agt_parentid" />
+		<result property="cifManagerId" column="cifmanager_id" />
+		<result property="cifManagerNm" column="cifmanager_name" />
+		<result property="agtLevel" column="agt_level" />
+		<result property="agtStatus" column="agt_status" />
+		<result property="agtBankId" column="agt_bankId" />
+		<result property="agtOpenDt" column="agt_opendate" />
+		<result property="agtSettAcctDeptNo" column="agt_settacctdeptno" />
+		<result property="agtSettAcctDeptNm" column="agt_settacctdeptname" />
+		<result property="agtHighestFlag" column="agt_highestFlag" />
+		<result property="agtInnerfeeamt" column="agt_innerfeeamt" />
+		
+	</resultMap>
+	
+	<select id="queryAgentInfoById" resultMap="agentInfoMap" parameterClass="java.util.HashMap">
+		SELECT  
+			agent_id,
+			agt_name,
+			agt_shortname,
+			agt_phoneno,
+			agt_addr,
+			agt_remark,
+			agt_site,
+			manage_type,
+			manage_id,
+			manage_desc,
+			corporation_name,
+			corporation_certno,
+			agt_linkname,
+			agt_linkphoneno,
+			agt_linkemail,
+			agt_settaccttype,
+			agt_settacctbankno,
+			agt_settacctbankname,
+			agt_settacctcity,
+			agt_settacctno,
+			agt_settacctname,
+			agt_type,
+			agt_parentid,
+			cifmanager_id,
+			cifmanager_name,
+			agt_level,
+			agt_status,
+			agt_bankId,
+			agt_opendate,
+			agt_settacctdeptno,
+			agt_settacctdeptname,
+			agt_highestFlag,
+			agt_innerfeeamt
+		FROM FSP_AGENT
+		WHERE agent_id=#agentId#
+	</select>
+	
+	<resultMap id="innerInfoMap" class="java.util.HashMap">
+		<result property="acctbankno" column="acctbankno" />
+		<result property="acctno" column="acctno" />
+		<result property="acctname" column="acctname" />
+		<result property="bankid" column="bankid" />
+		<result property="merName" column="merName" />
+		<result property="bankName" column="bankName" />
+	</resultMap>
+	
+	<select id="queryInnerInfo" resultMap="innerInfoMap" parameterClass="java.lang.String">
+		SELECT  
+			acctbankno,
+			acctno,
+			acctname,
+			bankid,
+			merName,
+			bankName
+		FROM FSP_INNERINFO
+		WHERE bankid=#bankId#
+	</select>
+	
+	<select id="qryAllMerchant" parameterClass="java.util.HashMap" resultMap="MerchantMap">
+		select 
+			<include refid="merchantColumn"/> 
+		from 
+			fsp_merchant f 
+		where 
+			f.mer_status = '0' 
+	</select>
+	
+	 <!-- **FT_MER_CERT**-->
+    <resultMap id="KeyContentMap" class="java.util.HashMap">
+		<result property="keyId" column="KEY_ID" />
+		<result property="keyContent" column="KEY_CONTENT" />
+		<result property="keySn" column="KEY_SN" />
+		<result property="keyUpLoadDate" column="KEY_UPLOADDATE" />
+	</resultMap>
+	<!--接入方key查询 -->
+	<select id="queryKeyContent" parameterClass="java.lang.String" resultMap="KeyContentMap">
+		<![CDATA[
+	  	SELECT
+			 KEY_ID,
+			 KEY_CONTENT,
+			 KEY_SN,
+			 KEY_UPLOADDATE
+		FROM 
+			FT_KEY
+	   	WHERE 
+	   		KEY_ID=#keyId#
+		]]>
+	</select>
+	 <!-- **FT_MER_KEY**-->
+    <resultMap id="MERKeyMap" class="java.util.HashMap">
+		<result property="keyId" column="KEY_ID" />
+		<result property="merId" column="KEY_ID" />
+		<result property="keyContent" column="KEY_CONTENT" />
+		<result property="systemResurl" column="SYSTEM_RESURL" />
+	</resultMap>
+	<!-- 新增商户KEY对应表-->
+	<insert id="insertMerKey" parameterClass="java.util.HashMap">
+	  	INSERT INTO
+	  		FT_MER_KEY(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">mer_id</isNotEmpty>
+			<isNotEmpty prepend="," property="KeyId">key_id</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="MerchantId">#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="KeyId">#KeyId#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	<!--商户KEY对应查询 -->
+	<select id="queryMerKey" parameterClass="java.lang.String" resultMap="MERKeyMap">
+		<![CDATA[
+	  	SELECT
+			 A.KEY_ID,
+			 A.MER_ID,
+			 B.KEY_CONTENT,
+			 B.SYSTEM_RESURL 
+		FROM 
+			FT_MER_KEY A,FT_KEY B
+	   	WHERE 
+	   		A.KEY_ID = B.KEY_ID  AND A.MER_ID=#merId#
+		]]>
+	</select>
+	
+	<resultMap id="merchantNofifyResultMap" class="java.util.HashMap">
+		<result property="_TransSeqNo" column="TRANS_SEQNO" />
+		<result property="_TransDate" column="TRANS_DATE" />
+		<result property="MerchantId" column="MER_ID" />
+		<result property="Plain" column="PLAIN" />
+		<result property="Signature" column="SIGNATURE" />
+		<result property="MerchantUrl" column="MER_URL" />
+		<result property="SendTimes" column="SEND_TIMES" />
+	</resultMap>
+	
+	<!-- 查询支付机构商户号 -->
+	<select id="queryDepartMerId" parameterClass="java.util.HashMap" resultClass="java.lang.String">
+		select 
+			deptmerid
+		from 
+			fsp_merchant_deptmerid
+		where 
+			mer_id = #merId#
+		AND
+		    departmentid = #departmentId#
+	</select>
+	
+	<resultMap id="merchantDeptMerIdMap" class="java.util.HashMap">
+		<result property="merId" column="mer_id" />
+		<result property="departmentId" column="departmentid" />
+		<result property="deptMerId" column="deptmerid" />
+		<result property="mybankOrderNo" column="mybankorderno" />
+	</resultMap>
+	<!-- 查询支付机构商户号 -->
+	<select id="queryMybankMerchantnull" parameterClass="java.util.HashMap" resultMap="merchantDeptMerIdMap">
+		select 
+			mer_id,
+			departmentid,
+			deptmerid,
+			mybankorderno
+		from 
+			fsp_merchant_deptmerid
+		where 
+		    departmentid = 'mybank'
+		and
+		    (deptmerid is null or deptmerid='')
+		and
+		    mybankopenstate = '0'
+	</select>
+	
+	<update id="updateMerchantDeptMerId" parameterClass="java.util.HashMap">
+		<![CDATA[	
+		UPDATE
+		    fsp_merchant_deptmerid 
+		SET
+			deptmerid=#deptMerId#,
+			mybankopenstate=#mybankOpenState#
+		WHERE 
+		    mer_id=#merId#
+		AND
+		    departmentid=#departmentId#	
+		]]>
+	</update>
+
+</sqlMap>

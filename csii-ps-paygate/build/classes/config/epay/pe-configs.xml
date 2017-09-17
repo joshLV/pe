@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	 <comment>
+
+	 PowerEngine Main Configuration
+
+	 Mode:
+	 Mode.DEV
+	 Mode.TEST
+	 Mode.PROD
+
+	 </comment>
+	 <entry key="CurrentMode" >Mode.DEV</entry>
+
+	 <entry key="CommonConfig" >
+	 	classpath:/config/epay/paygate/http-paygate.xml,
+	 	classpath:/config/epay/paygate/main-paygate.xml,
+	 	classpath:/config/epay/paygate/transaction-paygate.xml,
+	 	classpath:/config/epay/paygate/transaction-merchant.xml,
+	 	classpath:/config/epay/paygate/template-paygate.xml,
+	 	classpath:/config/epay/paygate/http-weixin.xml,
+	 	classpath:/config/epay/paygate/common-paygate.xml,
+	 	classpath:/config/epay/paygate/checker-paygate.xml,
+	 	classpath:/config/epay/paygate/schedule-paygate.xml,
+	 	classpath:/config/epay/paygate/transaction-common.xml,
+	 	classpath:/config/epay/paygate/transaction-notify.xml,
+	 	classpath:/config/epay/mybank/transaction-paygate-mybank.xml,
+	 	classpath:/config/epay/alipay/transaction-paygate-alipay-zhilian.xml
+	 	
+	 </entry>
+
+
+	 <entry key="Mode.DEV" >
+			classpath:/config/epay/peconfigdev.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+	 <entry key="Mode.TEST" >
+			classpath:/config/epay/peconfigtest.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+	 <entry key="Mode.PROD" >
+			classpath:/config/epay/peconfig.xml,
+			classpath:/config/epay/svc-db.xml,
+	 </entry>
+
+</properties>

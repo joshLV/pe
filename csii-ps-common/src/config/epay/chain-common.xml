@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<command id="delegateCommand" class="com.csii.pe.chain.command.DelegateCommand" />
+	
+	<command id="styleValidationCommand" class="com.csii.pe.chain.command.StyleValidationCommand" />
+	
+	<command id="verifySignCommand" class="com.csii.pp.command.VerifySignCommand">
+		<param name="key">${pp.weixin.merchantkey}</param>
+		<ref name="merchantXmlSignature">merchantXmlSignature</ref>
+	</command>
+	
+	<chain id="emptyChain">
+		<commands>
+		</commands>
+	</chain>
+	
+	<chain id="defaultChain">
+		<commands>
+			<ref>styleValidationCommand</ref>
+			<ref>delegateCommand</ref>
+		</commands>
+	</chain>
+
+	<chain id="mgmtChain">
+		<commands>
+			<ref>styleValidationCommand</ref>
+			<ref>verifySignCommand</ref>
+			<ref>delegateCommand</ref>
+		</commands>
+	</chain>
+
+	<chain id="chainForGeneralTrs">
+		<commands>
+			<!-- <ref>styleValidationCommand</ref><ref>verifySignCommand</ref> -->
+			
+			<ref>delegateCommand</ref>
+		</commands>
+	</chain>
+</config>

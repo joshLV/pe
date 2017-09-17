@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<!-- *****************************************************************************-->
+	<!-- ******************************微信二维码支付（对内商户版）************************* -->
+	<!-- *****************************************************************************-->
+	<!-- 微信二维码支付订单信息 -->
+	<action id="prepareTenpayOrderAction" class="com.csii.weixin.common.action.PrepareTenpayOrderAction">
+		<ref name="paymentSeqNoGenerator">paymentSeqNoGenerator</ref>
+	</action>
+
+	<action id="addOrderAction" class="com.csii.weixin.common.action.AddOrderAction" />
+
+	<!-- 支付后控制 -->
+	<action id="aftTenpayAction" class="com.csii.weixin.common.action.AftTenpayAction">
+		<ref name="orderManager">orderManager</ref>
+	</action>
+
+	<!-- 撤销订单流水号 -->
+	<action id="prepareCancleOrderAction" class="com.csii.weixin.common.action.PrepareCancleOrderAction">
+		<ref name="cancleOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+
+	<!-- 申请退款订单流水号 -->
+	<action id="prepareRefundOrderAction" class="com.csii.weixin.common.action.PrepareRefundOrderAction">
+		<ref name="refundOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+
+	<!-- 退款订单检查 -->
+	<action id="preRefundCheckOrderAction" class="com.csii.weixin.common.action.PreRefundCheckOrderAction" />
+
+	<action id="aftRefundAction" class="com.csii.weixin.common.action.AftRefundAction" >
+	   <ref name="orderManager">orderManager</ref>
+	</action>
+
+	<action id="AftClodAction" class="com.csii.weixin.common.action.AftClodAction" >
+	   <ref name="orderManager">orderManager</ref>
+	</action>
+
+	<action id="preQryAction" class="com.csii.weixin.common.action.PreQryAction" >
+	   <ref name="orderManager">orderManager</ref>
+	</action>
+
+	<action id="aftQryPayAction" class="com.csii.weixin.common.action.AftQryPayAction">
+		<ref name="orderManager">orderManager</ref>
+		<ref name="merchantSendAction">merchantSendAction</ref>
+	</action>
+	
+	<action id="aftQryRefundAction" class="com.csii.weixin.common.action.AftQryRefundAction">
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	
+	<!-- 支付订单检查 -->
+	<action id="prepayCheck" class="com.csii.weixin.common.action.CheckAction">
+		<list name="checkers">
+		    <ref>prePayCheckAction</ref>
+			<ref>merchantTransCtrlChecker</ref>	
+		</list>
+	</action>
+	
+	<action id="prePayCheckAction" class="com.csii.weixin.common.action.PrePayCheckOrderAction" >
+	</action>
+	
+	<action id="merchantTransCtrlChecker" class="com.csii.weixin.common.action.MerchantTransCtrlChecker">
+	</action>
+	
+	<!-- *****************************************************************************-->
+	<!-- ******************************微信二维码支付（对外商户版）************************* -->
+	<!-- *****************************************************************************-->
+	<!-- 微信二维码支付订单信息 -->
+	<action id="prepareTenpayForMerOrderAction" class="com.csii.weixin.common.action.PrepareTenpayForMerOrderAction">
+		<ref name="paymentSeqNoGenerator">paymentSeqNoGenerator</ref>
+	</action>
+	<!-- 申请退款准备订单 -->
+	<action id="prepareRefundForMerOrderAction" class="com.csii.weixin.common.action.PrepareRefundForMerOrderAction">
+		<ref name="refundOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	<!-- 退款订单返回 -->
+	<action id="aftRefundForMerAction" class="com.csii.weixin.common.action.AftRefundForMerAction" >
+	   <ref name="orderManager">orderManager</ref>
+	</action>
+	<!-- 撤销准备订单 -->
+	<action id="prepareCancleForMerOrderAction" class="com.csii.weixin.common.action.PrepareCancleForMerOrderAction">
+		<ref name="cancleOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	<!-- 商户信息检查 -->
+	<action id="merchantInfoChecker" class="com.csii.weixin.common.action.MerchantInfoChecker">
+	</action>
+	<action id="duplicateOrderChecker" class="com.csii.weixin.common.action.DuplicateOrderChecker">
+		<ref name="orderManager">orderManager</ref> 
+	</action>
+	
+	<!-- alipay支付订单信息 -->
+	<action id="prepareMybankOrderAction" class="com.csii.weixin.common.action.PrepareMybankOrderAction">
+		<ref name="paymentSeqNoGenerator">paymentSeqNoGenerator</ref>
+	</action>
+	
+	
+	<!-- 支付宝申请退款订单流水号 -->
+	<action id="prepareRefundOrderForALAction" class="com.csii.mybank.trans.action.PrepareRefundOrderForALAction">
+		<ref name="refundOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	
+	<!-- 支付宝撤销订单流水号 -->
+	<action id="prepareCancleOrderForALAction" class="com.csii.mybank.trans.action.PrepareCancleOrderForALAction">
+		<ref name="cancleOrderSeqNoGenerator">paymentSeqNoGenerator</ref>
+		<ref name="orderManager">orderManager</ref>
+	</action>
+	
+	<action id="aftMybankPayAction" class="com.csii.weixin.common.action.AftMybankPayAction">
+		<ref name="orderManager">orderManager</ref>
+	</action>
+</config>

@@ -1,0 +1,126 @@
+<div v-controller="KeyPosCtrl">
+    <!-- 下单页 -->
+    <div v-page v-transition="slide" title="">
+        <form name="form1" v-init="init()" v-submit="ToResult()">
+            <!-- 商户信息 -->
+            <script type="text/javascript">
+            </script>
+            <div class="merchant-row">
+                <div>
+                    <img v-src="{{merchantLogo}}">
+                </div>
+                <div class="mc-name">
+                    {{merchantName}}
+                </div>
+                <!--  <div class="mc-site gray">
+                    -&nbsp;&nbsp;{{merchantAdd}}
+                </div>
+                <div class="mc-phone gray">
+                    {{merchantPhone}}
+                </div>-->
+            </div>
+            <div class="row" v-show="flag==1">
+                <div class="col-4">
+                    会员号
+                </div>
+              <div class="col-8">
+                    <input placeholder="请输入创富港会员号"   name="MemId"   v-model="MemId" v-pattern="^[0-9]{8}$" class="form-control" />
+              </div> 
+             </div>
+             <br/>
+            <!-- 金额信息 -->
+            <div class="row">
+                <div class="col-4">
+                    金额(￥)
+                </div>
+                <div class="col-8">
+                    <input placeholder="请输入消费金额" type="number" name="Amount"  ui-number v-model="Amount" class="form-control" />
+                </div>
+            </div>
+            <br/>
+            <div class="div" v-show="form1.MemId.$error.pattern">会员号格式不符</div>
+            <button class="btn-info bg-color" type="submit" id="SUBMITBTN">
+                确定
+            </button>
+        </form>
+    </div>
+    <!-- 支付成功结果页 -->
+    <div v-page v-transition="slide" title=''>
+        <!-- 大背景 -->
+        <div class="bg-color whole-div">
+            <!-- 白色模块 -->
+            <div class="white-div">
+                <div class="result-title">
+                    {{merchantName}}<!-- &nbsp;-&nbsp;{{merchantAdd}} -->
+                </div>
+                <hr class="line">
+                <div class="result-amount font-color">
+                    ￥{{TradeResult.total_fee/100|number:2}}
+                </div>
+                <div class="resrow gray center">
+                    支付时间：{{TradeResult.trans_datetime}}
+                </div>
+                <button class="resbtn-info result-btn bg-color" v-click="Close()">
+                    完成
+                </button>
+                <hr class="line">
+                <img class="result-ad" v-src="{{randomObj.img}}?1.0" v-click="recommend(randomObj.url)">
+            </div>
+            <img v-show="payDepartment=='1'" src="img/icon-footer.png" class="logo-pay">
+            <img v-show="payDepartment=='2'" src="img/alipay-footer.png" class="logo-pay">
+        </div>
+    </div>
+    <!-- 支付处理中结果页 -->
+    <div v-page v-transition="slide" title=''>
+        <!-- 大背景 -->
+        <div class="bg-color whole-div">
+            <!-- 白色模块 -->
+            <div class="white-div">
+                <div class="result-title">
+                    {{merchantName}}<!-- &nbsp;-&nbsp;{{merchantAdd}} -->
+                </div>
+                <hr class="line">
+                <div class="icon-div">
+                    <img src="img/do.png">
+                </div>
+                <div class="resrow gray center">
+                    支付处理中（<span class="red">￥{{TradeResult.total_fee/100|number:2}}</span>）
+                </div>
+                <button class="resbtn-info result-btn bg-color" v-click="Close()">
+                    返回
+                </button>
+                <hr class="line">
+                <img class="result-ad" v-src="{{randomObj.img}}?1.0" v-click="recommend(randomObj.url)">
+            </div>
+            <img v-show="payDepartment=='1'" src="img/icon-footer.png" class="logo-pay">
+            <img v-show="payDepartment=='2'" src="img/alipay-footer.png" class="logo-pay">
+        </div>
+    </div>
+    <!-- 支付失败结果页 -->
+    <div v-page v-transition="slide" title=''>
+        <!-- 大背景 -->
+        <div class="bg-color whole-div">
+            <!-- 白色模块 -->
+            <div class="white-div">
+                <div class="result-title">
+                    {{merchantName}}<!-- &nbsp;-&nbsp;{{merchantAdd}} -->
+                </div>
+                <hr class="line">
+                <div class="icon-div">
+                    <img src="img/fail.png">
+                </div>
+                <div class="resrow gray center">
+                    支付失败（<span class="red">￥{{TradeResult.total_fee/100|number:2}}</span>）
+                </div>
+                <button class="resbtn-info result-btn bg-color" v-click="Close()">
+                    返回
+                </button>
+                <hr class="line">
+                <img class="result-ad" v-src="{{randomObj.img}}?1.0" v-click="recommend(randomObj.url)">
+            </div>
+            <img v-show="payDepartment=='1'" src="img/icon-footer.png" class="logo-pay">
+            <img v-show="payDepartment=='2'" src="img/alipay-footer.png" class="logo-pay">
+        </div>
+    </div>
+</div>
+<script src="KeyPos.js?3.0"></script>

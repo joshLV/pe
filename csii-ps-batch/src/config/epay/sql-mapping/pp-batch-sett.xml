@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="pp.batch">
+
+    <!-- 结算明细表 -->
+	<resultMap id="merTransMap" class="java.util.HashMap">
+		<result property="transSeqNo" column="Trans_SeqNo" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="transDateTime" column="Trans_DateTime" />
+		<result property="merchantId" column="Mer_Id" />
+		<result property="subMerchantId" column="Sub_Mer_Id" />
+		<result property="amount" column="Trans_Amt" />
+		<result property="feeAmount" column="Trans_FeeAmt" />
+		<result property="transType" column="TRANS_TYPE" />
+		<result property="clearDate" column="trans_cleardate" />
+		<result property="departmentId" column="Trans_DepartmentId" />
+		<result property="settStatus" column="Trans_settstatus" />
+		<result property="payType" column ="Pay_Type" />
+		<result property="payAcctNo" column ="PAY_ACCTNO" />
+		<result property="payAcctBankNo" column ="PAY_ACCTBANKNO" />
+		<result property="bankId" column ="Trans_BankId" />
+	</resultMap>
+	
+	<!-- 插入结算明细表 -->
+	<insert id="insertBtMerTrans" parameterClass="HashMap">
+		<![CDATA[
+		  INSERT INTO 
+		  	BT_MER_TRANS(
+		        Trans_SeqNo,
+	            Trans_Date,
+	            Trans_DateTime,
+	            Mer_Id,
+	            Sub_Mer_Id,
+	            Trans_Amt,
+	            Trans_FeeAmt,
+	            Trans_Type,
+	            Trans_ClearDate,
+	            Trans_DepartmentId,
+	            Trans_settstatus,
+	            Pay_Type,
+	            PAY_ACCTNO,
+	            PAY_ACCTBANKNO,
+	            TRANS_SETTDATE,
+	            Trans_BankId) 
+		  VALUES 
+			  	(#TransSeqNo#,
+				#TransDate#,
+				#TransDateTime#,
+				#MerchantId#,
+			    #SubMerchantId#,
+				#TransAmount#,
+				#FeeAmount#,
+				#TransType#,
+				#ClearDate#,
+			    #DepartmentId#,
+			    #SettStatus#,
+			    #PayType#,
+			    #SettAcctNo#,
+			    #SettAcctBankNo#,
+			    #SettDate#,
+			    #BankId#)
+	]]>
+	</insert>
+
+
+    <!--  插入商户结算记录  -->
+	<insert id="insertMerchantSett" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				BT_MER_SETT1(
+			    	Trans_SettSeqNo,
+					Trans_ClearDate,
+					Trans_Date,
+			        Trans_DateTime,
+			        Trans_HostDate,
+			        Trans_HostSeqNo,
+			        Trans_HostRespCode,
+			        Trans_SendStatus,
+			        Mer_Id,
+			        Trans_SettDeptId,
+			        Trans_SettAcctNo,
+			        Trans_SettAcctType,
+			        Trans_SettAcctKind,
+			        Trans_Amt,
+			        Trans_MerAcctType,
+			        Trans_DepartmentId,
+			        TRANS_BANKID,
+			        Trans_BriefCode)	       
+			VALUES (
+				#SettlementSeqNo#,
+				#ClearDate#,
+				#TransDate#,
+			    #TransDateTime#,
+			    #HostDate#,
+			    #HostSeqNo#,
+			    #HostRespCode#,
+			    #TransferStatus#,
+			    #MerchantId#,
+			    #PayAcctDeptId#,
+			    #PayAcctNo#,
+			    #PayAcctType#, 
+			    #PayAcctKind#,
+			    #TransAmount#,
+			    #MerchantTransType#,
+			    #DepartmentId#,
+			    #BankId#,
+			    #BriefCode#)
+		]]>
+	</insert>
+	
+	<!-- 查询 -->
+	<select id="queryMerTransBySubMerId" parameterClass="HashMap" resultMap="merTransMap">
+		select 
+			*
+		from 
+			bt_mer_trans
+		where
+		    Sub_Mer_Id=#SubMerId#
+		AND
+		    Pay_Type =#PayType#
+		AND
+		    Trans_ClearDate=#ClearDate#
+		AND
+		    Trans_DepartmentId=#DepartmentId#
+		AND
+		    Trans_SettStatus ='0'
+	</select>
+	
+	<!-- 查询 -->
+	<update id="updateMerTransStatus" parameterClass="HashMap" >
+		update
+			bt_mer_trans1
+	    set
+	    Trans_SettStatus ='1'
+		where
+		    Mer_Id=#MerchantId#
+		AND
+		    Trans_SettDate=#SettDate#
+		AND
+		    Trans_DepartmentId=#DepartmentId#
+		AND
+		    Trans_SettStatus ='0'
+	</update>
+	
+	<insert id="insertHtmertransBySettdate" parameterClass="HashMap">
+	   INSERT INTO
+	       HT_MER_TRANS
+	   SELECT 
+	     *
+	   FROM
+	      BT_MER_TRANS 
+	   WHERE
+	      TRANS_ClearDATE = #ClearDate#
+	   AND 
+	     TRANS_DEPARTMENTID = #DepartmentId#
+	</insert>
+	<delete id="deleteBtmertransBySettDate" parameterClass="HashMap">
+	  DELETE FROM
+	     BT_MER_TRANS
+	  WHERE
+	     TRANS_CLEARDATE = #ClearDate#
+	  AND 
+	     TRANS_DEPARTMENTID = #DepartmentId#
+	</delete>
+	
+	
+<!-- 	<delete id="deleteMerchantSettByDepartmentAndDate" parameterClass="HashMap"> -->
+<!-- 		DELETE FROM  -->
+<!-- 			BT_MER_SETT  -->
+<!-- 	   	WHERE  -->
+<!-- 	   		TRANS_CLEARDATE = #ClearDate# -->
+<!-- 	   	AND  -->
+<!-- 	   		TRANS_DEPARTMENTID = #DepartmentId# -->
+<!-- 	</delete> -->
+
+	<delete id="deleteMerchantSettByDepartmentAndDate" parameterClass="HashMap">
+		DELETE FROM 
+			BT_MER_SETT1 
+	   	WHERE 
+	   		TRANS_ClearDATE = #ClearDate#
+	   	AND 
+	   		TRANS_DEPARTMENTID = #DepartmentId#
+	</delete>
+	
+	<!--  统计待结算的手续费台帐结果集  -->
+	<resultMap id="merchantTransSettMap" class="HashMap">
+		<result property="TotalCount" column="TotalCount" />
+		<result property="TransAmount" column="TotalAmount" />
+	    <result property="MerchantTransType" column="Trans_MerAcctType" />
+		<result property="MerchantId" column="Mer_Id" />
+		<result property="PayAcctDeptId" column="Trans_SettDeptId" />
+		<result property="PayAcctNo" column="Trans_SettAcctNo" />
+		<result property="PayAcctType" column="Trans_SettAcctType" />
+		<result property="PayAcctKind" column="Trans_SettAcctKind" />
+		<result property="DepartmentId" column="Trans_DepartmentId" />
+		<result property="BriefCode" column="Trans_BriefCode" />
+		<result property="BankId" column="Trans_BankId" />
+	</resultMap>
+	
+	<select id="queryMerchantTransForSett" resultMap="merchantTransSettMap" parameterClass="HashMap">
+		<![CDATA[
+			SELECT 
+				COUNT(TRANS_SETTACCTNO) AS TotalCount,
+				SUM(Trans_Amt) AS TotalAmount,
+				TRANS_SETTACCTNO,
+				TRANS_SETTDEPTID,
+				TRANS_SETTACCTTYPE,
+				TRANS_SETTACCTKIND,
+				Mer_Id,
+				Trans_DepartmentId,
+				Trans_BankId,
+				Trans_MerAcctType,
+				Trans_BriefCode
+			FROM 
+				BT_MER_TRANS1
+			WHERE 
+				Trans_SettDate = #SettDate#
+			AND 
+				Trans_DepartmentId = #DepartmentId# 
+			AND
+			    Trans_SettStatus = #SettStatus#
+		    GROUP BY 
+		    	Trans_SettDeptId,
+				Trans_SettAcctNo,
+				Trans_SettAcctType,
+				Trans_SettAcctKind,  
+				Trans_MerAcctType,
+				Mer_Id,
+				Trans_DepartmentId,
+				Trans_BankId,
+				Trans_BriefCode
+				]]>
+	</select>
+	
+	
+	<resultMap id="merSettMap" class="java.util.HashMap">
+		<result property="settDate" column="trans_cleardate" />
+		<result property="settAcctNo" column="trans_settacctno" />
+		<result property="settAcctBankNo" column="trans_settdeptid" />
+		<result property="id" column="mer_id" />
+		<result property="totalAmt" column="trans_amt" />
+		<!-- <result property="DepartmentId" column="Trans_DepartmentId" /> -->
+	</resultMap>
+	
+	<select id="queryMerchantSettForInner0" resultMap="merSettMap" parameterClass="HashMap">
+		<![CDATA[
+			SELECT 
+				trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id,
+				sum(trans_amt) as trans_amt
+			FROM 
+				BT_MER_SETT1
+			WHERE 
+				Trans_ClearDate = #ClearDate#
+			AND
+			    Trans_SendStatus = #SettlementStatus#
+		    AND 
+		   		trans_settdeptid='313290000017'
+		   	AND
+		   		trans_bankId=#bankId#
+		   	group by 
+		   		trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id
+		]]>
+	</select>
+	
+	<select id="queryMerchantSett" resultMap="merSettMap" parameterClass="HashMap">
+		<![CDATA[	
+		   	SELECT 
+				trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id,
+				sum(trans_amt) as trans_amt
+			FROM 
+				BT_MER_SETT1
+			WHERE 
+				Trans_ClearDate = #ClearDate#
+			AND
+			    Trans_SendStatus = #SettlementStatus#
+		   	AND
+		   		trans_bankId=#bankId#
+		   	group by 
+		   		trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id
+		]]>
+	</select>
+	
+	<!-- 结算文件 -->
+	<resultMap id="settFileDetailMap" class="java.util.HashMap">
+		<result property="settSeqNo" column="Sett_SeqNo" />
+		<result property="settDate" column="Sett_Date" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="merId" column="Mer_Id" />
+		<result property="merName" column="Mer_Name" />
+	 	<result property="transAmount" column="Trans_Amount" />
+	 	<result property="transFeeAmount" column="Trans_FeeAmount" />
+	 	<result property="transSettAmount" column="Trans_SettAmount" />
+	 	<result property="settAcctNo" column="Sett_AcctNo" />
+	 	<result property="settBankNo" column="Sett_BankNo" />
+	 	<result property="settStatus" column="Sett_Status" />
+	 	<result property="sileBatchNo" column="File_BatchNo" />
+	 	<result property="transDepartmentId" column="Trans_DepartmentId" />
+	 	<result property="settAcctName" column="Sett_AcctName" />
+	 	<result property="transBankId" column="Trans_BankId" />
+	</resultMap>
+	<select id="queryMerchantSettfileDetail" parameterClass="HashMap" resultMap="settFileDetailMap" >
+		<![CDATA[
+			SELECT 
+				*
+			FROM 
+				bt_settfiledetail
+			WHERE 
+				Trans_Date = #transDate#
+			AND 
+				Mer_Id = #merId# 
+			AND
+			    Sett_AcctNo = #settAcctNo#
+		]]>
+	</select>
+	
+	<select id="querySettfileDetail" parameterClass="HashMap" resultMap="settFileDetailMap" >
+		<![CDATA[
+			SELECT 
+				*
+			FROM 
+				bt_settfiledetail
+			WHERE 
+				Sett_Status in ('2','3') 
+		]]>
+	</select>
+	
+	<delete id="deleteFileDetailByDate" parameterClass="HashMap">
+		DELETE FROM 
+			bt_settfiledetail 
+	   	WHERE 
+	   		Trans_Date = #SettlementDate#
+	   	AND 
+	   		Trans_DepartmentId = #DepartmentId#
+	</delete>
+	
+	<delete id="deleteSettfileDetail" parameterClass="HashMap">
+		DELETE FROM 
+			bt_settfiledetail 
+	   	WHERE 
+	   		Sett_Status = #settStatus#
+	</delete>
+	
+	<update id="updateSettfileDetailByDate" parameterClass="HashMap" >
+		update
+			bt_settfiledetail
+	    set 
+	    Sett_Status =#settStatus# 
+		where
+		    Sett_SeqNo=#settSeqNo#
+		AND
+		    Sett_Date=#settDate#
+	</update>
+	
+	<update id="updateSettfileDetailByStatus" parameterClass="HashMap" >
+		update
+			bt_settfiledetail
+	    set 
+	    Sett_Status =#settStatus#
+		where
+		    Sett_Status=#settStatus1#
+	</update>
+	
+	<insert id="transferSettfileDetailToHistory" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				ht_settfiledetail 
+			SELECT 
+				* 
+			FROM 
+				bt_settfiledetail 
+			WHERE 
+				Sett_Status = #settStatus# 
+		]]>
+	</insert>
+	<insert id="insertfileDetail" parameterClass="HashMap">
+	INSERT INTO
+		bt_settfiledetail(
+			Sett_SeqNo,
+			Sett_Date,
+			Trans_Date,
+			Mer_Id,
+			Mer_Name,
+<!-- 			Trans_Amount, -->
+<!-- 			Trans_FeeAmount, -->
+			Trans_SettAmount, 
+			Sett_AcctNo,
+			Sett_BankNo,
+			Sett_Status,
+			File_BatchNo,
+			Trans_DepartmentId,
+			Sett_AcctName,
+			Trans_BankId,
+			brief_Code
+		)values(
+			#settSeqNo#,
+			#settDate#,
+			#transDate#,
+			#id#,
+			#merName#,
+			<!-- #totalAmt#,
+			#totalFeeAmt#, -->
+			#settAmount#,
+			#settAcctNo#,
+			#settAcctBankNo#,
+			#status#,
+			#batchNo#,
+			#DepartmentId#,
+			#settAcctName#,
+			#bankId#,
+			#briefCode#
+		)
+	       
+	</insert>
+	
+	<insert id="insertfileInfo" parameterClass="HashMap">
+	INSERT INTO
+		bt_settfile(
+			File_BatchNo,
+			Trans_Date,
+			File_SettDate,
+			File_Name,
+			File_Status,
+			File_Type,
+			Trans_BankId,
+			Trans_DepartmentId
+		)values(
+			#batchNo#,
+			#transDate#,
+			#settDate#,
+			#fileName#,
+			#status#,
+			#fileType#,
+			#bankId#,
+			#departmentId#
+		)
+		</insert>
+		
+		<select id="queryMerchantSettForOut" resultMap="merSettMap" parameterClass="HashMap">
+		<![CDATA[
+			SELECT 
+				trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id,
+				sum(trans_amt) as trans_amt
+			FROM 
+				BT_MER_SETT1
+			WHERE 
+				Trans_ClearDate = #ClearDate#
+			AND
+			    Trans_SendStatus = #SettlementStatus#
+		    AND 
+		   		trans_settdeptid<>'313290000017'
+		   	AND
+		   		trans_bankId=#bankId#
+		   	group by 
+		   		trans_settacctno,
+				trans_Settdeptid,
+				trans_cleardate,
+				mer_id
+		]]>
+	</select>
+	
+	<delete id="deleteFileByDate" parameterClass="HashMap">
+		DELETE FROM 
+			bt_settfile 
+	   	WHERE 
+	   		Trans_Date = #SettlementDate#
+	   	AND 
+	   		Trans_DepartmentId = #DepartmentId#
+	</delete>
+	<!-- 对账文件生成状态表 -->
+	<resultMap id="settFileMap" class="java.util.HashMap">
+		<result property="fileBatchNo" column="File_BatchNo" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="fileSettDate" column="File_SettDate" />
+		<result property="fileName" column="File_Name" />
+		<result property="fileStatus" column="File_Status" />
+		<result property="fileType" column="File_Type" />
+		<result property="transBankId" column="Trans_BankId" />
+		<result property="transDepartmentId" column="Trans_DepartmentId" />
+	</resultMap>
+	<select id="selectSettfile" parameterClass="HashMap" resultMap="settFileMap">
+		select  *  FROM 
+			 bt_settfile 
+	   	WHERE 
+	   		Trans_BankId = #transBankid#  and File_Status =#fileStatus#
+	   	AND 
+	   		Trans_DepartmentId = #DepartmentId#
+	</select>
+	<update id="updateSettfile" parameterClass="HashMap" >
+		update
+			bt_settfile
+	    set 
+	    File_Status =#fileStatus#
+		where
+		    File_BatchNo=#fileBatchNo#
+		AND
+		    File_SettDate=#fileSettDate#
+	</update>
+	<!-- 回盘文件明细表 -->
+	<resultMap id="hostSettFileMap" class="java.util.HashMap">
+		<result property="settSeqNo" column="Sett_SeqNo" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="fileName" column="File_Name" />
+		<result property="merId" column="Mer_Id" />
+		<result property="settAcctNo" column="Sett_AcctNo" />
+		<result property="settBankNo" column="Sett_BankNo" />
+		<result property="settBankName" column="Sett_BankName" />
+		<result property="settAcctName" column="Sett_AcctName" />
+		<result property="transSettAmount" column="Trans_SettAmount" />
+		<result property="settStatus" column="Sett_Status" />
+	</resultMap>
+	<!-- 回盘文件数据表 -->
+	<insert id="insertHostFileDetail" parameterClass="HashMap">
+	INSERT INTO
+		bt_host_settfiledetail(
+			Sett_SeqNo,
+			Trans_Date,
+			File_Name,
+			Mer_Id,
+			Sett_AcctNo,
+			Sett_BankNo,
+			Sett_BankName，
+			Sett_AcctName，
+			Trans_SettAmount, 
+			Sett_Status,
+			Trans_CheckStatus
+		)values(
+			#settSeqNo#,
+			#transDate#,
+			#fileName#,
+			#id#,
+			#settAcctNo#,
+			#settAcctBankNo#,
+			#bankName#,
+			#settAcctName#,
+			#settAmount#,
+			#settStatus#，
+			#checkStatus#
+		)
+	</insert>
+	<!-- 查询核心对帐明细表 -->
+	<select id="queryHostSettfileDetailForCheck" resultMap="hostSettFileMap" parameterClass="HashMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				bt_host_settfiledetail   
+			WHERE 
+				Trans_Date = #ClearDate# 
+			AND 
+				Sett_Status=#CheckStatus#
+			LIMIT 0,#QueryNumber#
+		]]>
+	</select>
+</sqlMap>

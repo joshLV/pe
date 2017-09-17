@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!--properties resource="config/system.properties " /-->
+
+	<settings useStatementNamespaces="true" />
+	
+	<sqlMap resource="config/epay/sql-mapping/alias.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-core-order.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-core-bussetting.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-core-clearingsetting.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-core-department.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-core-merchant.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-batch-trans.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-batch-hosthistory.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-batch-checkerror.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-batch-sett.xml" />
+	<sqlMap resource="config/epay/sql-mapping/pp-batch-collector.xml" />
+</sqlMapConfig>

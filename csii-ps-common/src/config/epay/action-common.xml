@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+	<!-- 占位符action -->
+	<action id="Placeholder" class="com.csii.pe.action.PlaceholderAction" />
+	
+	<action id="dummyAction" class="com.csii.ibs.action.DummyAction"/>
+	
+    <!-- 空检查 -->
+	<action id="dummyCheckAction" class="com.csii.pp.checker.CheckAction">
+		<list name="checkers"></list>
+	</action>
+	
+</config>

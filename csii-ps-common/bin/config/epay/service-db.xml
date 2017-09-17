@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<!-- 联机交易，商户结算交易，手续费结算交易流水号产生器 -->
+	<idFactory id="paymentSeqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">{yyyyMMdd}{##########}</param>
+		<param name="type">01</param>
+		<param name="step">50</param>
+	</idFactory>
+	
+	<idFactory id="userSeqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">{yyyyMMdd}{##########}</param>
+		<param name="type">02</param>
+		<param name="step">100</param>
+	</idFactory>
+	
+	<idFactory id="settSeqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">S{##########}</param>
+		<param name="type">03</param>
+		<param name="step">16</param>
+	</idFactory>
+	<idFactory id="seqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">F{##########}</param>
+		<param name="type">04</param>
+		<param name="step">16</param>
+	</idFactory>
+	
+		<!-- 商户号流水生成器 -->
+	<idFactory id="merchantIdSeqNoGenenrator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">{yyyyMMdd}{##########}</param>
+		<param name="type">05</param>
+		<param name="step">50</param>
+	</idFactory>
+	
+	<idFactory id="tellerSeqIdFactory" class="com.csii.pe.service.id.JdbcIdFactory">
+	   <param name="type">1</param>
+		<param name="length">8</param>
+		<!-- <param name="prefix">1</param> -->
+		<param name="datePrefix">false</param>
+		<param name="dateFormat">yyyyMMddHHmmss</param>		
+		<param name="updateSql">update EMD_SEQNO set SEQ_NO=SEQ_NO+? where SEQ_NAME=?</param>
+		<param name="selectSql">select SEQ_NO from  EMD_SEQNO where SEQ_NAME=?</param>
+		<param name="insertSql">insert into EMD_SEQNO(SEQ_NAME, SEQ_NO) values(? , 0)</param>
+		<ref name="dataSource">ppDataSource</ref>
+	</idFactory>
+	
+	<idFactory id="clearSeqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">C{##########}</param>
+		<param name="type">05</param>
+		<param name="step">16</param>
+	</idFactory>
+	
+	<idFactory id="fileSeqNoGenerator" class="com.csii.pe.service.id.StepSequenceFactory">
+		<ref name="table">idFactoryTable</ref>
+		<param name="format">B{##########}</param>
+		<param name="type">04</param>
+		<param name="step">30</param>
+	</idFactory>
+
+	<bean id="idFactoryTable" class="com.csii.pe.service.id.IdTable">
+		<ref name="dataSource">ppDataSource</ref>
+		<param name="tableName">fsp_seqno</param>
+		<param name="typeColName">fsp_type</param>
+		<param name="idColName">fsp_seqno</param>
+	</bean>
+	
+	<sqlExecutor id="ppSqlExecutor">
+		<param name="showSql">true</param>
+		<ref name="dataSource">ppDataSource</ref>
+	</sqlExecutor>
+
+	<bean id="ppSqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<bean name="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+			<param name="configLocation">classpath:/config/epay/sqlMapConfig.xml</param>
+			<ref name="dataSource">ppDataSource</ref>
+		</bean>
+	</bean>
+
+	<bean id="_jdbcAccessAwareProcessor" class="com.csii.pe.config.support.JdbcAccessAwareProcessor">
+		<ref name="sqlExecutor">ppSqlExecutor</ref>
+		<ref name="sqlMap">ppSqlMapClientTemplate</ref>
+		<ref name="transactionTemplate">ppTxTemplate</ref>
+	</bean>
+
+	<transactionTemplate id="ppTxTemplate">
+		<ref name="transactionManager">ppTxManager</ref>
+		<param name="propagationBehaviorName">PROPAGATION_REQUIRED</param>
+		<param name="isolationLevelName">ISOLATION_READ_COMMITTED</param>
+		<param name="readOnly">false</param>
+		<param name="timeout">1500</param><!-- in seconds -->
+	</transactionTemplate>
+
+	<transactionManager id="ppTxManager">
+		<ref name="dataSource">ppDataSource</ref>
+	</transactionManager>
+</config>

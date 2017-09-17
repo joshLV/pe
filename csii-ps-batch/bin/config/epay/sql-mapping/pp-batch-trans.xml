@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.batch">
+
+
+
+	<!--  删除交易历史表中指定省中心，指定清算日期的记录  -->
+	<delete id="deleteTransByClearDate" parameterClass="HashMap">
+		<![CDATA[
+		    DELETE FROM
+		    	OT_TRANS 
+		   	WHERE 
+		   		Trans_DepartmentId = #DepartmentId# 
+		    AND 
+		   		Trans_ClearDate = #ClearDate#
+	   	]]>
+	</delete>
+	<!-- 查询交易历史表中当前省中心，当前清算日期记录总数 -->
+	<select id="querytotalHistoryTrans" parameterClass="java.util.HashMap" resultClass="java.lang.Integer" >
+	
+		<![CDATA[
+            SELECT 
+                COUNT(*)
+            FROM
+		    	HT_TRANS
+		   	WHERE 
+		   		Trans_DepartmentId = #DepartmentId# 
+		    AND 
+		   		Trans_ClearDate = #ClearDate#
+		]]>
+		
+	</select>
+
+	<!--  删除交易历史表中当前省中心，当前清算日期的记录  -->
+	<delete id="deleteHistoryTransByClearDate" parameterClass="HashMap">
+		<![CDATA[
+		    DELETE FROM
+		    	HT_TRANS
+		   	WHERE 
+		   		Trans_DepartmentId = #DepartmentId# 
+		    AND 
+		   		Trans_ClearDate = #ClearDate#
+	   	]]>
+	</delete>
+	
+	<!--  将交易流水表中的内容移到历史交易流水表中  -->
+	<insert id="transferTransToHistoryByClearDate" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				HT_TRANS
+			SELECT 
+				* 
+			FROM 
+				OT_TRANS 
+		    WHERE 
+		    	Trans_DepartmentId = #DepartmentId# 
+		    AND 
+		    	Trans_ClearDate = #ClearDate#
+		]]>
+	</insert>
+	
+	<!--  将交易流水表中的内容移到清算交易流水表中  -->
+	<insert id="transferTransToClearByClearDate" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				BT_CLEAR_TRANS 
+			SELECT 
+				* 
+			FROM 
+				OT_TRANS 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_ClearDate = #ClearDate#      
+		]]>
+	</insert>	
+	
+	<update id="updateHistoryTransProcStatusByClearDate" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				HT_TRANS 
+			SET 
+				Trans_ProcStatus = #TransStatus# 
+			WHERE 
+			 	Trans_DepartmentId = #DepartmentId# 
+			AND 
+			 	Trans_ClearDate = #ClearDate#
+		]]>
+	</update>
+	<update id="updateHistoryTransProcStatusByClearDateAndOrder" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				HT_TRANS 
+			SET 
+				Trans_ProcStatus = #TransStatus# 
+			WHERE 
+			 	Trans_DepartmentId = #Trans_DepartmentId# 
+			AND 
+			 	Trans_ClearDate = #Trans_ClearDate# and Trans_seqno=#Trans_seqno#
+		]]>
+	</update>
+	
+	
+	<resultMap id="UpdateOrderMap" class="HashMap">
+		<result property="Trans_DepartmentId" column="Trans_DepartmentId" />
+		<result property="Trans_ClearDate" column="Trans_ClearDate"/>
+		<result property="Trans_seqno" column="Trans_seqno"/>
+		
+	</resultMap>
+	
+	<select id="queryHistoryTransProcStatusByClearDate" parameterClass="java.util.HashMap" resultMap="UpdateOrderMap" >
+	
+		<![CDATA[
+		select Trans_DepartmentId,Trans_ClearDate,Trans_seqno  from HT_TRANS WHERE 
+			 	Trans_ProcStatus='9' and Trans_DepartmentId = #DepartmentId# 
+			AND 
+			 	Trans_ClearDate = #ClearDate#  
+		]]>
+		
+	</select>
+	<insert id="insertBtDayClearTrans" parameterClass="HashMap">
+	   INSERT INTO  
+	            BT_DAYCLEAR_TRANS
+	   (SELECT  * FROM BT_CLEAR_TRANS 
+			WHERE  
+			 	Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_ClearDate = #ClearDate#)
+	</insert>
+	<delete id="deleteBtDayClearTrans" parameterClass="HashMap">
+	   DELETE  FROM BT_DAYCLEAR_TRANS 
+			WHERE  
+			 	Trans_DepartmentId = #DepartmentId# 
+			AND 
+		<![CDATA[		Trans_ClearDate <= #ClearDate#   ]]>
+	</delete>
+	<delete id="deleteClearTrans" parameterClass="HashMap">
+		<![CDATA[
+			DELETE FROM 
+				BT_CLEAR_TRANS 
+			WHERE  
+			 	Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_ClearDate = #ClearDate#
+		]]>
+	</delete>
+	
+	
+	<!--  将交易历史表中指定省中心，指定日期之前的记录转移到总历史表中  -->
+	<insert id="transferHistoryToHistoryAll" parameterClass="HashMap">
+		<![CDATA[
+			INSERT INTO 
+				HT_TRANS_ALL 
+			SELECT 
+				* 
+			FROM 
+				HT_TRANS 
+			WHERE 
+				Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_ClearDate = #ClearDate#
+		]]>
+	</insert>
+	
+	<!--  删除交易历史表中指定省中心，指定清算日期之前的记录  -->
+	<delete id="deleteHistoryBeforeDate" parameterClass="HashMap">
+		<![CDATA[
+		    DELETE FROM
+		    	HT_TRANS
+		   	WHERE 
+		   		Trans_DepartmentId = #DepartmentId# 
+			AND 
+				Trans_ClearDate = #ClearDate#
+	   	]]>
+	</delete>
+	
+	<update id="updateHistoryTransSystemTraceNo" parameterClass="HashMap">
+		<![CDATA[
+			UPDATE 
+				HT_TRANS 
+			SET 
+				TRANS_SYSTEMCODE = #SystemTraceNo#,
+				TRANS_HOSTDATETIME = #TransDateTime#
+			WHERE 
+			 	Trans_AGSeqno = #HostSeqNo# 
+			AND 
+			 	Trans_ClearDate = #ClearDate#
+			AND (TRANS_SYSTEMCODE is null or TRANS_HOSTDATETIME is null)
+		]]>
+	</update>
+	
+	
+		
+	<resultMap id="OrderMap" class="com.csii.pp.order.Order">
+		<result property="transSeqNo" column="Trans_SeqNo" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="transDateTime" column="Trans_DateTime" />
+		<result property="merSeqNo" column="Trans_MerSeqNo" />
+		<result property="merTransDate" column="Trans_MerDate" />
+		<result property="merTransDateTime" column="TRANS_MERDATETIME" />
+		<result property="hostSeqNo" column="Trans_HostSeqNo" />
+		<result property="hostDate" column="Trans_HostDate" />
+		<result property="hostDateTime" column="TRANS_HOSTDATETIME" />
+		<result property="orgMerSeqNo" column="Trans_OrgMerSeqNo" />
+		<result property="orgMerTransDate" column="Trans_OrgMerDate" />
+		<result property="orgTransSeqNo" column="Trans_OrgSeqNo" />
+		<result property="orgTransDate" column="Trans_OrgDate" />
+		<result property="orgTransDateTime" column="Trans_OrgDateTime" />
+		<result property="orgHostSeqNo" column="Trans_OrgHostSeqNo" />
+		<result property="orgHostDate" column="Trans_OrgHostDate" />
+		<result property="transId" column="Trans_Id" />
+		<result property="merchantId" column="Mer_Id" />
+		<result property="subMerchantId" column="Sub_Mer_Id" />
+		<result property="amount" column="Trans_Amt" />
+		<result property="currency" column="Trans_Currency" />
+		<result property="amount1" column="Trans_Amt1" />
+		<result property="amount2" column="Trans_Amt2" />
+		<result property="amount3" column="Trans_Amt3" />
+		<result property="amount4" column="Trans_Amt4" />
+		<result property="feeAmount" column="Trans_FeeAmt" />
+		<result property="costFeeAmount" column="Trans_CostFeeAmt" />
+		<result property="agentFeeAmount" column="Trans_AgentFeeAmt" />
+		<result property="returnCode" column="Trans_ReturnCode" />
+		<result property="returnMsg" column="TRANS_ReturnMsg" />
+		<result property="status" column="Trans_Status" />
+		<result property="step" column="Trans_Step" />
+		<result property="procStatus" column="Trans_ProcStatus" />
+		<result property="remark1" column="Trans_Remark1" />
+		<result property="remark2" column="Trans_Remark2" />
+		<result property="transType" column="TRANS_TYPE" />
+		<result property="appid" column="APPID" />
+		<result property="openid" column="OPENID" />
+		<result property="bankType" column="BankType" />
+		<result property="agentid" column="agent_id" />
+		<result property="bankId" column="bank_id" />
+		<result property="clearDate" column="trans_cleardate" />
+		<result property="departmentId" column="Trans_DepartmentId" />
+		<result property="payType" column="pay_type" />
+		<result property="cashierId" column="cashier_id" />
+		<result property="cashierName" column="cashier_name" />
+		<result property="merWxId" column="Mer_WxId" />
+		<result property="merMemId" column="mer_memid" />
+	</resultMap>
+	
+	<select id="queryDayClearTrans"  resultMap="OrderMap" >
+	
+		<![CDATA[
+		select 
+				*
+		from
+			ot_trans
+		where 
+			trans_step='0'
+		AND 
+			trans_status not in ('01','08')
+		and 
+			trans_returncode='000000'
+		]]>
+		
+	</select>
+
+	<insert id="insertBtDayClearTransOrder" parameterClass="com.csii.pp.order.Order">
+		INSERT INTO BT_DAYCLEAR_TRANS(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4 </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">#cashierName#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+<!-- 更新清算订单 -->
+	<update id="updateDayClearOrder" parameterClass="com.csii.pp.order.Order">
+		UPDATE
+		BT_DAYCLEAR_TRANS
+		SET
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date=#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime=#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo=#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate=#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME=#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo=#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate=#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME=#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo=#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate=#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo=#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate=#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime=#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo=#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate=#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id=#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id=#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id=#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId=#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt=#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency=#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1=#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2=#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3=#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4=#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt=#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt=#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt=#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode=#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg=#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status=#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step=#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus=#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1=#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2=#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE=#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID=#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID=#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType=#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id=#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate=#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId=#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id=#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name=#cashierName#</isNotEmpty>
+		</dynamic>
+		WHERE Trans_SeqNo=#transSeqNo#
+	</update>
+	
+	
+	<insert id="insertMerchantTrans" parameterClass="java.util.HashMap">
+		INSERT INTO BT_MER_TRANS1(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="ClearSeqNo">TRANS_CLEARSEQNO</isNotEmpty>
+			<isNotEmpty prepend="," property="TransSeqNo">TRANS_SEQNO</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantSeqNo">TRANS_MERSEQNO</isNotEmpty>
+			<isNotEmpty prepend="," property="ClearDate">TRANS_CLEARDATE</isNotEmpty>
+			<isNotEmpty prepend="," property="SettlementDate">TRANS_SETTDATE</isNotEmpty>
+			<isNotEmpty prepend="," property="TransDate">TRANS_DATE</isNotEmpty>
+			<isNotEmpty prepend="," property="TransDateTime">TRANS_DATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="SettlementStatus">TRANS_SETTSTATUS</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantTransType">TRANS_MERACCTTYPE</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantId">MER_ID</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctDeptId">TRANS_SETTDEPTID</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctNo">TRANS_SETTACCTNO</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctType">TRANS_SETTACCTTYPE</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctKind">TRANS_SETTACCTKIND</isNotEmpty>
+			<isNotEmpty prepend="," property="TransAmount">TRANS_AMT</isNotEmpty>
+			<isNotEmpty prepend="," property="DepartmentId">TRANS_DEPARTMENTID</isNotEmpty>
+			<isNotEmpty prepend="," property="BankId">TRANS_BANKID</isNotEmpty>
+			<isNotEmpty prepend="," property="BriefCode">TRANS_BRIEFCODE</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="ClearSeqNo">#ClearSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="TransSeqNo">#TransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantSeqNo">#MerchantSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="ClearDate">#ClearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettlementDate">#SettlementDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="TransDate">#TransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="TransDateTime">#TransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettlementStatus">#SettlementStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantTransType">#MerchantTransType#</isNotEmpty>
+			<isNotEmpty prepend="," property="MerchantId">#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctDeptId">#SettAcctDeptId#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctNo">#SettAcctNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctType">#SettAcctType#</isNotEmpty>
+			<isNotEmpty prepend="," property="SettAcctKind">#SettAcctKind#</isNotEmpty>
+			<isNotEmpty prepend="," property="TransAmount">#TransAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="DepartmentId">#DepartmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="BankId">#BankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="BriefCode">#BriefCode#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+</sqlMap>

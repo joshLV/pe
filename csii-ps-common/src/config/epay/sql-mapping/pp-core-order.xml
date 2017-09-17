@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.core">
+
+	<insert id="insertOrder" parameterClass="com.csii.pp.order.Order">
+		INSERT INTO OT_TRANS(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4 </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name</isNotEmpty>
+			<isNotEmpty prepend="," property="merMemId">mer_memid</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">#cashierName#</isNotEmpty>
+			<isNotEmpty prepend="," property="merMemId">#merMemId#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+
+	<!-- 订单结果集 -->
+	<resultMap id="OrderMap" class="com.csii.pp.order.Order">
+		<result property="transSeqNo" column="Trans_SeqNo" />
+		<result property="transDate" column="Trans_Date" />
+		<result property="transDateTime" column="Trans_DateTime" />
+		<result property="merSeqNo" column="Trans_MerSeqNo" />
+		<result property="merTransDate" column="Trans_MerDate" />
+		<result property="merTransDateTime" column="TRANS_MERDATETIME" />
+		<result property="hostSeqNo" column="Trans_HostSeqNo" />
+		<result property="hostDate" column="Trans_HostDate" />
+		<result property="hostDateTime" column="TRANS_HOSTDATETIME" />
+		<result property="orgMerSeqNo" column="Trans_OrgMerSeqNo" />
+		<result property="orgMerTransDate" column="Trans_OrgMerDate" />
+		<result property="orgTransSeqNo" column="Trans_OrgSeqNo" />
+		<result property="orgTransDate" column="Trans_OrgDate" />
+		<result property="orgTransDateTime" column="Trans_OrgDateTime" />
+		<result property="orgHostSeqNo" column="Trans_OrgHostSeqNo" />
+		<result property="orgHostDate" column="Trans_OrgHostDate" />
+		<result property="transId" column="Trans_Id" />
+		<result property="merchantId" column="Mer_Id" />
+		<result property="subMerchantId" column="Sub_Mer_Id" />
+		<result property="amount" column="Trans_Amt" />
+		<result property="currency" column="Trans_Currency" />
+		<result property="amount1" column="Trans_Amt1" />
+		<result property="amount2" column="Trans_Amt2" />
+		<result property="amount3" column="Trans_Amt3" />
+		<result property="amount4" column="Trans_Amt4" />
+		<result property="feeAmount" column="Trans_FeeAmt" />
+		<result property="costFeeAmount" column="Trans_CostFeeAmt" />
+		<result property="agentFeeAmount" column="Trans_AgentFeeAmt" />
+		<result property="returnCode" column="Trans_ReturnCode" />
+		<result property="returnMsg" column="TRANS_ReturnMsg" />
+		<result property="status" column="Trans_Status" />
+		<result property="step" column="Trans_Step" />
+		<result property="procStatus" column="Trans_ProcStatus" />
+		<result property="remark1" column="Trans_Remark1" />
+		<result property="remark2" column="Trans_Remark2" />
+		<result property="transType" column="TRANS_TYPE" />
+		<result property="appid" column="APPID" />
+		<result property="openid" column="OPENID" />
+		<result property="bankType" column="BankType" />
+		<result property="agentid" column="agent_id" />
+		<result property="bankId" column="bank_id" />
+		<result property="clearDate" column="trans_cleardate" />
+		<result property="departmentId" column="Trans_DepartmentId" />
+		<result property="payType" column="pay_type" />
+		<result property="cashierId" column="cashier_id" />
+		<result property="cashierName" column="cashier_name" />
+		<result property="merWxId" column="Mer_WxId" />
+		<result property="merMemId" column="mer_memid" />
+	</resultMap>
+
+	<!-- 根据平台流水号查询交易信息 -->
+	<select id="queryClearOrderByTransSeqNo" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				BT_CLEAR_TRANS 
+			WHERE 
+				TRANS_SEQNO = #TransSeqNo# 
+		]]>
+	</select>
+
+	<select id="queryClearOrderByOrgTransSeqNo" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				BT_CLEAR_TRANS 
+			WHERE 
+				TRANS_ORGSEQNO = #OrigTransSeqNo#
+			AND
+			    TRANS_TYPE='02' 
+		]]>
+	</select>
+
+	<!-- 查询商户订单交易 -->
+	<select id="queryOrgOrder" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		OT_TRANS
+		WHERE
+		Trans_SeqNo=#OrigTransSeqNo#
+		AND 
+			<![CDATA[
+				(Trans_Status<>'01' and Trans_Status<>'99')
+			]]>
+	</select>
+	
+	<!-- 查询商户订单交易bymer -->
+	<select id="queryOrgOrderByMer" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		OT_TRANS
+		WHERE
+		trans_merseqno=#orgmerseqno#  and trans_merdate=#orgmerdate# 
+		AND 
+			<![CDATA[
+				(Trans_Status<>'01' and Trans_Status<>'99')
+			]]>
+	</select>
+
+	<!-- 查询商户历史订单交易 -->
+	<select id="queryHisOrgOrder" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		HT_TRANS
+		WHERE
+		Trans_SeqNo=#OrigTransSeqNo#
+		AND 
+			<![CDATA[
+				(Trans_Status<>'01' and Trans_Status<>'99')
+			]]>
+	</select>
+	<!-- 查询商户历史订单交易 -->
+	<select id="queryHisOrgOrderByMer" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		HT_TRANS
+		WHERE
+		trans_merseqno=#orgmerseqno# and trans_merdate=#orgmerdate# 
+		AND 
+			<![CDATA[
+				(Trans_Status<>'01' and Trans_Status<>'99')
+			]]>
+	</select>
+	<!-- 更新清算订单 -->
+	<update id="updateClearOrder" parameterClass="com.csii.pp.order.Order">
+		UPDATE
+		BT_CLEAR_TRANS
+		SET
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date=#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime=#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo=#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate=#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME=#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo=#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate=#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME=#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo=#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate=#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo=#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate=#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime=#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo=#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate=#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id=#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id=#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id=#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId=#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt=#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency=#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1=#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2=#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3=#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4=#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt=#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt=#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt=#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode=#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg=#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status=#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step=#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus=#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1=#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2=#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE=#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID=#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID=#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType=#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id=#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate=#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId=#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id=#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name=#cashierName#</isNotEmpty>
+		</dynamic>
+		WHERE Trans_SeqNo=#transSeqNo#
+	</update>
+
+
+	<!-- 更新历史订单 -->
+	<update id="updateHistoryOrder" parameterClass="com.csii.pp.order.Order">
+		UPDATE
+		HT_TRANS
+		SET
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date=#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime=#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo=#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate=#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME=#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo=#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate=#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME=#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo=#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate=#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo=#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate=#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime=#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo=#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate=#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id=#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id=#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id=#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId=#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt=#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency=#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1=#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2=#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3=#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4=#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt=#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt=#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt=#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode=#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg=#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status=#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step=#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus=#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1=#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2=#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE=#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID=#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID=#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType=#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id=#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate=#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId=#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id=#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name=#cashierName#</isNotEmpty>
+		</dynamic>
+		WHERE
+		Trans_SeqNo=#transSeqNo#
+
+	</update>
+
+	<!-- 更新订单 -->
+	<update id="updateOrder" parameterClass="com.csii.pp.order.Order">
+		UPDATE
+		OT_TRANS
+		SET
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date=#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime=#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo=#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate=#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME=#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo=#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate=#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME=#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo=#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate=#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo=#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate=#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime=#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo=#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate=#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id=#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id=#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id=#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId=#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt=#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency=#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1=#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2=#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3=#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4=#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt=#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt=#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt=#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode=#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg=#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status=#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step=#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus=#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1=#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2=#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE=#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID=#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID=#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType=#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id=#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate=#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId=#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id=#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name=#cashierName#</isNotEmpty>
+		</dynamic>
+		WHERE
+		Trans_SeqNo=#transSeqNo#
+
+	</update>
+
+	<!-- 查询历史订单 -->
+	<select id="queryHistoryOrder" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT  
+				*
+			FROM 
+				HT_TRANS
+			WHERE 
+				Trans_SeqNo=#TransSeqNo#
+			AND 
+				Trans_ClearDate=#TransDate#
+		]]>
+	</select>
+
+	<!-- 查询商户订单交易by Trans_SeqNo -->
+	<select id="queryOtByTransSeqNo" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		OT_TRANS
+		WHERE
+		Trans_SeqNo = #TransSeqNo#
+	</select>
+	
+	<!-- 查询商户订单交易by Trans_SeqNo -->
+	<select id="queryOtByTransSeqNoMerDate" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		OT_TRANS
+		WHERE
+		Trans_SeqNo = #TransSeqNo# and trans_merdate=#merDate#
+	</select>
+	
+	<select id="queryHtByTransSeqNo" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		HT_TRANS
+		WHERE
+		Trans_SeqNo = #TransSeqNo#
+	</select>
+	
+	<select id="queryHtByTransSeqNoMerDate" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		SELECT
+		*
+		FROM
+		HT_TRANS
+		WHERE
+		Trans_SeqNo = #TransSeqNo# and trans_merdate=#merDate#
+	</select>
+	
+	<resultMap id="UnPayMap" class="java.util.HashMap">
+		<result property="TransSeqNo" column="Trans_SeqNo" />
+		<result property="TransDate" column="Trans_Date" />
+		<result property="SendTimes" column="Trans_SendTimes" />
+	</resultMap>
+	
+	<select id="queryUnpayOrder"  resultMap="UnPayMap">
+		SELECT
+		*
+		FROM
+		OT_QUERY
+	</select>
+	
+	<select id="queryUnpayOrderByTransSeqNo" parameterClass="java.lang.String"  resultMap="UnPayMap">
+		SELECT
+		*
+		FROM
+		OT_QUERY
+		WHERE 
+		Trans_SeqNo=#TransSeqNo#
+	</select>
+	
+	<delete id="deleteUnpayOrderByTransSeqNo" parameterClass="java.util.HashMap">
+	    DELETE
+	    FROM
+	    OT_QUERY
+	    WHERE
+	    TRANS_SEQNO = #TransSeqNo#
+	</delete>
+	
+	<update id="updateQueryTimes" parameterClass="java.util.HashMap">
+	    UPDATE
+			OT_QUERY
+		SET
+			Trans_SendTimes=#SendTimes#
+		WHERE
+			Trans_SeqNo=#TransSeqNo#
+	</update>
+	<!-- 获取清算订单 -->
+	<select id="queryOrderForClear" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+                BT_CLEAR_TRANS
+				WHERE 
+					Trans_DepartmentId = #DepartmentId#
+				AND
+					Trans_Step = #TransStep#
+				ORDER BY 
+			 	Trans_SeqNo
+			LIMIT 0,#QueryNumber#
+			
+		]]>
+	</select>
+	
+	<!-- 获取清算订单 -->
+	<select id="queryOrderForDayClear" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+                BT_DAYCLEAR_TRANS
+				WHERE 
+					Trans_Step = #TransStep#
+				ORDER BY 
+			 	Trans_SeqNo
+			LIMIT 0,#QueryNumber#
+			
+		]]>
+	</select>
+	
+	<!-- 查询历史订单 -->
+	<select id="queryHistoryOrderByOrgTransSeqNo" parameterClass="java.util.HashMap" resultMap="OrderMap">
+		<![CDATA[
+			SELECT  
+				*
+			FROM 
+				HT_TRANS
+			WHERE 
+				Trans_OrgSeqNo=#OrigTransSeqNo#
+			AND 
+				Trans_ClearDate=#TransDate#
+			AND
+			    Trans_Type='02'
+		]]>
+	</select>
+	
+	<!-- 记录待查询交易 -->
+	<insert id="insertOtQuery" parameterClass="com.csii.pp.order.Order">
+		<![CDATA[
+		INSERT INTO 
+			ot_query
+				(
+				Trans_SeqNo,
+				Trans_Date,
+				Trans_SendTimes
+				)
+		VALUES
+			(	#transSeqNo#,
+				#transDate#,
+				0
+			)
+		]]>
+	</insert>
+	
+	<resultMap id="OrderListDetail" class="java.util.HashMap">
+		<result property="TransSeqNo" column="Trans_SeqNo" />
+		<result property="TransDateTime" column="Trans_DateTime" />
+		<result property="Trans_Status" column="trans_status" />
+		<result property="Amt" column="trans_amt" />
+		<result property="Amt3" column="trans_amt3" />
+		<result property="DepartmentId" column="trans_departmentid" />
+	</resultMap>
+	
+	
+	
+	<select id="queryOrderListDetail" parameterClass="java.util.HashMap" resultMap="OrderListDetail">
+	<![CDATA[
+		SELECT
+		    a.trans_seqno,
+		    date_format(a.Trans_DateTime,'%Y-%m-%d %H:%i:%s') Trans_DateTime,
+		    a.trans_status,
+		    concat(a.trans_amt) trans_amt,
+		    concat(a.trans_amt3) trans_amt3,
+		    a.trans_departmentid
+		FROM
+		    (
+		        SELECT
+		            *
+		        FROM
+		            ot_trans
+		        UNION
+		        SELECT
+		            *
+		        FROM
+		            ht_trans) a
+		WHERE 
+				a.trans_date <= str_to_date(#EndDate#,'%Y%m%d')
+				and
+				a.trans_date >= str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				a.sub_mer_id = #SubMerId#
+				and
+				a.trans_type = #TransType#
+				
+			]]>
+			<isNotEmpty prepend=" AND " property="CashierId">(a.cashier_id is null or a.cashier_id= #CashierId#)</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="transSeqNo">a.Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="payType">a.pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="bankId">a.bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="departmentId">a.trans_departmentId=#departmentId#</isNotEmpty>
+			<isEqual property ="transStatus"  compareValue="00" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="01" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="05" prepend=" AND ">a.trans_status in ("05","03","04")</isEqual>
+			<isEqual property ="transStatus"  compareValue="09" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="10" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+		ORDER BY
+		    trans_datetime DESC limit $recordIndex$,$pageSize$
+	</select>
+	<resultMap id="OrderList" class="java.util.HashMap">
+		<result property="TransMerSeqNo" column="trans_merseqno" />
+		<result property="TransDateTime" column="Trans_DateTime" />
+		<result property="HostSeqNo" column="trans_hostseqno" />
+		<result property="SubMerId" column="sub_mer_id" />
+		<result property="MerName" column="mer_name" />
+		<result property="DepartmentId" column="trans_departmentid" />
+		<result property="PayType" column="pay_type" />
+		<result property="Trans_Status" column="Trans_Status" />
+		<result property="Amt" column="trans_amt" />
+		<result property="Amt1" column="trans_amt1" />
+		<result property="Amt3" column="trans_amt3" />
+		<result property="OrgMerSeqNo" column="trans_orgmerseqno" />
+		<result property="OrgHostSeqNo" column="trans_orghostseqno" />
+		<result property="OrgDateTime" column="trans_orgmerdate" />
+	</resultMap>
+	<select id="queryOrderList" parameterClass="java.util.HashMap" resultMap="OrderList">
+	<![CDATA[
+		SELECT
+		    a.trans_merseqno,
+		    date_format(a.Trans_DateTime,'%Y-%m-%d %H:%i:%s') Trans_DateTime,
+		    a.trans_hostseqno,
+		    a.sub_mer_id,
+		    b.mer_name,
+		    a.trans_departmentid,
+		    a.pay_type,
+		    a.Trans_Status,
+		    a.trans_amt,
+		    a.trans_amt1,
+		    a.trans_amt3,
+		    a.trans_orgmerseqno,
+		    a.trans_orghostseqno,
+		    a.trans_orgmerdate
+		FROM
+		    (
+		        SELECT
+		            *
+		        FROM
+		            ot_trans
+		        UNION
+		        SELECT
+		            *
+		        FROM
+		            ht_trans) a,FSP_MERCHANT b  
+		WHERE 
+				a.sub_mer_id = b.mer_id
+				and  
+				a.trans_date <= str_to_date(#EndDate#,'%Y%m%d')
+				and
+				a.trans_date >= str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				a.sub_mer_id = #SubMerId#
+				and
+				a.trans_type = #TransType#
+				
+			]]>
+			<isNotEmpty prepend=" AND " property="CashierId">(a.cashier_id is null or a.cashier_id= #CashierId#)</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="transMerSeqNo">a.trans_merseqno=#transMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="payType">a.pay_type=#payType#</isNotEmpty>
+			<isEqual property ="transStatus"  compareValue="00" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="01" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="05" prepend=" AND ">a.trans_status in ("05","03","04")</isEqual>
+			<isEqual property ="transStatus"  compareValue="09" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="10" prepend=" AND ">a.trans_status =#transStatus#</isEqual>
+		ORDER BY
+		    trans_datetime DESC
+	</select>
+	
+	<resultMap id="orderTotalMap" class="java.util.HashMap">
+		<result property="totalAmt" column="totalAmt" />
+		<result property="totalNum" column="totalNum" />
+		</resultMap>
+	
+	<select id="queryOrderTotalInfo" parameterClass="java.util.HashMap" resultMap="orderTotalMap">
+	<![CDATA[
+		select 
+			sum(t.trans_amt) as totalAmt,
+			count(1) as totalNum
+		from 
+		(SELECT 
+				a.*
+			FROM 
+				ot_trans a
+			union 
+				SELECT 
+				a.*
+			FROM 
+				ht_trans a 
+			) t
+			where
+				t.trans_date <= str_to_date(#EndDate#,'%Y%m%d')
+				and
+				t.trans_date>=str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				t.sub_mer_id = #SubMerId#
+				and
+				t.trans_type= #TransType#
+				
+				]]>
+			
+			<isNotEmpty prepend=" AND " property="CashierId">(t.cashier_id is null or t.cashier_id= #CashierId#)</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="transSeqNo">t.Trans_SeqNo=#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="payType">t.pay_type=#payType#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="bankId">t.bank_id=#bankId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="departmentId">t.trans_departmentId=#departmentId#</isNotEmpty>
+			<isEqual property ="transStatus"  compareValue="00" prepend=" AND ">t.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="01" prepend=" AND ">t.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="05" prepend=" AND ">t.trans_status in ("05","03","04")</isEqual>
+			<isEqual property ="transStatus"  compareValue="09" prepend=" AND ">t.trans_status =#transStatus#</isEqual>
+			<isEqual property ="transStatus"  compareValue="10" prepend=" AND ">t.trans_status =#transStatus#</isEqual>
+			
+	</select>
+	
+	<select id="queryJYTJCount" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		SELECT 
+			date_format(a.Trans_Date,'%Y-%m-%d') TransDate,
+			COUNT(1) TotalCount,
+			SUM(trans_amt2) TotalAmount
+			FROM 
+				ot_trans a
+			WHERE 
+				a.trans_date<=str_to_date(#EndDate#,'%Y%m%d')
+				and
+				a.trans_date>=str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				a.sub_mer_id = #SubMerId#
+				and
+				a.trans_type= '00'
+				and
+				a.trans_status in ('00','03')
+		]]>				
+				<isNotEmpty prepend=" AND " property="bankId">a.bank_id=#bankId#</isNotEmpty>
+	
+			group by TransDate
+		<![CDATA[
+			union
+				SELECT 
+				date_format(b.Trans_Date,'%Y-%m-%d') TransDate,
+			    COUNT(1) TotalCount,
+			    SUM(trans_amt2) TotalAmount
+			FROM 
+				ht_trans b
+			WHERE
+				b.trans_date<=str_to_date(#EndDate#,'%Y%m%d')
+				and
+				b.trans_date>=str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				b.sub_mer_id = #SubMerId#
+				and
+				b.trans_type= '00'
+				and
+				b.trans_status in ('00','03')
+			]]>				
+				<isNotEmpty prepend=" AND " property="bankId">b.bank_id=#bankId#</isNotEmpty>
+				
+			group by TransDate
+			order by
+				TransDate
+	
+	</select>
+	
+	<select id="queryZFTJCount" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		<![CDATA[
+		SELECT 
+			a.pay_type PayType,
+			a.trans_departmentid DepartmentId,
+			COUNT(1) TotalCount,
+			SUM(a.trans_amt2) TotalAmount
+			FROM 
+				(
+		        SELECT
+		            *
+		        FROM
+		            ot_trans
+		        UNION
+		        SELECT
+		            *
+		        FROM
+		            ht_trans) a
+			WHERE 
+				a.trans_date<=str_to_date(#EndDate#,'%Y%m%d')
+				and
+				a.trans_date>=str_to_date(#BeginDate#,'%Y%m%d')
+				and
+				a.sub_mer_id = #SubMerId#
+				and
+				a.trans_type= '00'
+				and
+				a.trans_status in ('00','03')
+		]]>
+			<isNotEmpty prepend=" AND " property="bankId">a.bank_id=#bankId#</isNotEmpty>
+			group by PayType,DepartmentId
+	</select>
+	
+	<insert id="insertBtClearTransOrder" parameterClass="com.csii.pp.order.Order">
+		INSERT INTO BT_CLEAR_TRANS(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">Trans_SeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">Trans_Date</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">Trans_DateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">Trans_MerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">Trans_MerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">TRANS_MERDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">Trans_HostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">Trans_HostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">TRANS_HOSTDATETIME</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">Trans_OrgMerSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">Trans_OrgMerDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">Trans_OrgSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">Trans_OrgDate</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">Trans_OrgDateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">Trans_OrgHostSeqNo</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">Trans_OrgHostDate</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">Trans_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">Sub_Mer_Id</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">Mer_WxId</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">Trans_Amt</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">Trans_Currency</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">Trans_Amt1</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">Trans_Amt2</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">Trans_Amt3</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">Trans_Amt4 </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">Trans_FeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">Trans_CostFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">Trans_AgentFeeAmt</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">Trans_ReturnCode</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">TRANS_ReturnMsg</isNotEmpty>
+			<isNotEmpty prepend="," property="status">Trans_Status</isNotEmpty>
+			<isNotEmpty prepend="," property="step">Trans_Step</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">Trans_ProcStatus</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">Trans_Remark1</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">Trans_Remark2</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">TRANS_TYPE</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">APPID</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">OPENID</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">BankType</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">agent_id</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">bank_id</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">trans_cleardate</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">Trans_DepartmentId</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">pay_type</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">cashier_id</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">cashier_name</isNotEmpty>
+		</dynamic>
+		)
+		VALUES(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="transSeqNo">#transSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDate">#transDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transDateTime">#transDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="merSeqNo">#merSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDate">#merTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="merTransDateTime">#merTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostSeqNo">#hostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDate">#hostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="hostDateTime">#hostDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerSeqNo">#orgMerSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgMerTransDate">#orgMerTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransSeqNo">#orgTransSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDate">#orgTransDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgTransDateTime">#orgTransDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostSeqNo">#orgHostSeqNo#</isNotEmpty>
+			<isNotEmpty prepend="," property="orgHostDate">#orgHostDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="transId">#transId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merchantId">#merchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="subMerchantId">#subMerchantId#</isNotEmpty>
+			<isNotEmpty prepend="," property="merWxId">#merWxId#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount">#amount#</isNotEmpty>
+			<isNotEmpty prepend="," property="currency">#currency#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount1">#amount1#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount2">#amount2#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount3">#amount3#</isNotEmpty>
+			<isNotEmpty prepend="," property="amount4">#amount4# </isNotEmpty>
+			<isNotEmpty prepend="," property="feeAmount">#feeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="costFeeAmount">#costFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentFeeAmount">#agentFeeAmount#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnCode">#returnCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="returnMsg">#returnMsg#</isNotEmpty>
+			<isNotEmpty prepend="," property="status">#status#</isNotEmpty>
+			<isNotEmpty prepend="," property="step">#step#</isNotEmpty>
+			<isNotEmpty prepend="," property="procStatus">#procStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark1">#remark1#</isNotEmpty>
+			<isNotEmpty prepend="," property="remark2">#remark2#</isNotEmpty>
+			<isNotEmpty prepend="," property="transType">#transType#</isNotEmpty>
+			<isNotEmpty prepend="," property="appid">#appid#</isNotEmpty>
+			<isNotEmpty prepend="," property="openid">#openid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankType">#bankType#</isNotEmpty>
+			<isNotEmpty prepend="," property="agentid">#agentid#</isNotEmpty>
+			<isNotEmpty prepend="," property="bankId">#bankId#</isNotEmpty>
+			<isNotEmpty prepend="," property="clearDate">#clearDate#</isNotEmpty>
+			<isNotEmpty prepend="," property="departmentId">#departmentId#</isNotEmpty>
+			<isNotEmpty prepend="," property="payType">#payType#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierId">#cashierId#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashierName">#cashierName#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	
+	<resultMap id="CheckingFileOrderList" class="java.util.HashMap">
+		<result property="TransSeqNo" column="Trans_SeqNo" />
+		<result property="TransDate" column="trans_date" />
+		<result property="TransDateTime" column="Trans_DateTime" />
+		<result property="TransOrgSeqNo" column="trans_orgseqno" />
+		<result property="TransOrgDate" column="trans_orgdate" />
+		<result property="TransOrgDateTime" column="trans_orgdatetime" />
+		<result property="MerId" column="mer_id" />
+		<result property="SubMerId" column="sub_mer_id" />
+		<result property="TransAmt" column="trans_amt" />
+		<result property="TransAmt1" column="trans_amt1" />
+		<result property="TransAmt3" column="trans_amt3" />
+		<result property="TransFeeAmt" column="trans_feeamt" />
+		<result property="TransType" column="trans_type" />
+		<result property="AgentId" column="agent_id" />
+		<result property="PayType" column="pay_type" />
+		<result property="OpenId" column="openid" />
+		<result property="TransStatus" column="trans_status" />
+		<result property="DepartmentId" column="trans_departmentid" />
+		<result property="MemId" column="mer_memid" />
+	</resultMap>
+	
+	<select id="queryOrderListForCheckingFile" parameterClass="java.util.HashMap" resultMap="CheckingFileOrderList">
+	<![CDATA[
+		SELECT
+		    trans_seqno,
+		    date_format(trans_date,'%Y%m%d') trans_date,
+		    date_format(Trans_DateTime,'%Y%m%d%H%i%s') Trans_DateTime,
+		    trans_orgseqno,
+		    date_format(trans_orgdate,'%Y%m%d') trans_orgdate,
+		    date_format(trans_orgdatetime,'%Y%m%d%H%i%s') trans_orgdatetime,
+		    mer_id,
+		    sub_mer_id,
+		    trans_amt,
+		    trans_amt1,
+		    trans_amt3,
+		    trans_feeamt,
+		    trans_status,
+		    trans_type,
+		    agent_id,
+		    trans_departmentid,
+		    pay_type,
+		    openid,
+		    mer_memid
+		FROM
+		     ht_trans a
+		WHERE 
+			trans_step = '3'
+		and
+			trans_cleardate = str_to_date(#ClearDate#,'%Y%m%d')
+				
+			]]>
+			<isNotEmpty prepend=" AND " property="SubMerchantId">sub_mer_id=#SubMerchantId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="MerchantId">mer_id=#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="AgentId">agent_id=#AgentId#</isNotEmpty>
+			
+	</select>
+	
+	<resultMap id="CheckingFileOrderListForMer" class="java.util.HashMap">
+		<result property="TransSeqNo" column="Trans_SeqNo" />
+		<result property="TransDate" column="trans_date" />
+		<result property="TransDateTime" column="Trans_DateTime" />
+		<result property="TransOrgSeqNo" column="trans_orgseqno" />
+		<result property="TransOrgDate" column="trans_orgdate" />
+		<result property="TransOrgDateTime" column="trans_orgdatetime" />
+		<result property="MerId" column="mer_id" />
+		<result property="SubMerId" column="sub_mer_id" />
+		<result property="TransAmt" column="trans_amt" />
+		<result property="TransAmt1" column="trans_amt1" />
+		<result property="TransAmt3" column="trans_amt3" />
+		<result property="TransFeeAmt" column="trans_feeamt" />
+		<result property="TransType" column="trans_type" />
+		<result property="AgentId" column="agent_id" />
+		<result property="PayType" column="pay_type" />
+		<result property="OpenId" column="openid" />
+		<result property="TransStatus" column="trans_status" />
+		<result property="DepartmentId" column="trans_departmentid" />
+		<result property="MemId" column="mer_memid" />
+	</resultMap>
+	
+	<select id="queryOrderListForCheckingFileForMer" parameterClass="java.util.HashMap" resultMap="CheckingFileOrderListForMer">
+	<![CDATA[
+		SELECT
+		    trans_seqno,
+		    date_format(trans_date,'%Y%m%d') trans_date,
+		    date_format(Trans_DateTime,'%Y%m%d%H%i%s') Trans_DateTime,
+		    trans_orgseqno,
+		    date_format(trans_orgdate,'%Y%m%d') trans_orgdate,
+		    date_format(trans_orgdatetime,'%Y%m%d%H%i%s') trans_orgdatetime,
+		    mer_id,
+		    sub_mer_id,
+		    trans_amt,
+		    trans_amt1,
+		    trans_amt3,
+		    trans_feeamt,
+		    trans_status,
+		    trans_type,
+		    agent_id,
+		    trans_departmentid,
+		    pay_type,
+		    openid,
+		    mer_memid
+		FROM
+		     ht_trans a
+		WHERE 
+			trans_step = '3'
+		and
+			trans_cleardate = str_to_date(#ClearDate#,'%Y%m%d')
+				
+			]]>
+			<isNotEmpty prepend=" AND " property="SubMerchantId">sub_mer_id=#SubMerchantId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="MerchantId">mer_id=#MerchantId#</isNotEmpty>
+			<isNotEmpty prepend=" AND " property="AgentId">agent_id=#AgentId#</isNotEmpty>
+			
+	</select>
+	<!--查询商户重复订单 -->
+	<select id="queryMerchantDuplicateOrder" parameterClass="com.csii.pp.order.Order"  resultMap="OrderMap">
+		<![CDATA[
+			SELECT *
+			  FROM OT_TRANS
+			 WHERE Mer_Id=#subMerchantId#
+			   AND Trans_MerSeqNo=#merSeqNo#
+			   AND Trans_SeqNo<>#transSeqNo#		
+		]]>
+	</select>
+	
+		<!--查询商户重复订单 -->
+	<select id="queryAPRFcountAmt" parameterClass="com.csii.pp.order.Order"  resultClass="java.math.BigDecimal">
+		select sum(a.trans_amt) as countAmt	from (
+			SELECT  ot.trans_amt
+				  FROM OT_TRANS ot
+				 WHERE sub_mer_id=#subMerchantId#
+				   AND trans_orgseqno =#transSeqNo#	
+				   AND trans_status in ('00','09','99') 
+				   and trans_type ='01'	
+			 union   
+				SELECT  ht.trans_amt
+				  FROM hT_TRANS ht
+				 WHERE sub_mer_id=#subMerchantId#
+				   AND trans_orgseqno =#transSeqNo#	
+				   AND trans_status in ('00','09','99') 
+				   and trans_type ='01'	
+			   )a
+	</select>
+	
+</sqlMap>

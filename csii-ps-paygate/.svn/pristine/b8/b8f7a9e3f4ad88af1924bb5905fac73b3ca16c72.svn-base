@@ -1,0 +1,16 @@
+/*字体颜色*/
+
+.font-color {
+    color: #1983d1;
+}
+
+
+/*背景颜色*/
+
+.bg-color {
+    background-color: #1983d1;
+}
+
+button:active {
+	background-color: #03a9f4;
+}

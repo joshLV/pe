@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<transaction id="DefaultTransaction" template="qryTrsTemplate">
+		<actions>
+			<ref name="action">dummyAction</ref>
+		</actions>
+		<channels>
+	      <channel type="http">
+				<param name="success"></param>
+			</channel>
+	   </channels>
+	</transaction>
+
+	<transaction id="QR" template="emptyTemplate">
+		<channels>
+			<channel type="http">
+				<param name="success">html,keypos/qrcode</param>
+			</channel>
+		</channels>
+	</transaction>
+
+	<transaction id="PTQM" template="qryTrsTemplate">
+		<description>
+			@funcName 商户基本信息查询及OPENID获取接口
+			@trsName PTQM
+			@author 陈海超
+			@version 1.0
+			@remark
+		</description>
+		<actions>
+			<ref name="action">ptqmAction</ref>
+		</actions>
+		<fields>
+			<field name="merToken"></field>
+			<field name="appId"></field>
+			<field name="authCode"></field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ptqmAction" class="com.csii.weixin.trans.action.PTQMAction">
+	   <ref name="alipayClientManager">alipayClientManager</ref>
+	</action>
+	
+	<transaction id="QAPPID" template="qryTrsTemplate">
+	    <actions>
+			<ref name="action">QAPPIDAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="QAPPIDAction" class="com.csii.weixin.trans.action.QAPPIDAction">
+	</action>
+	
+</config>

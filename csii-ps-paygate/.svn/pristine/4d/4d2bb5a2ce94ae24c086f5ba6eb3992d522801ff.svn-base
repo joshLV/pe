@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="csii-ps-paygate">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="pe-enterx-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-enterx-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-security-captcha.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-security-captcha.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-monitor.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-monitor.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="logback-classic-0.9.18.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/logback-classic-0.9.18.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-http-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-http-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-ext.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-ext.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-beanutils-1.8.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/commons-beanutils-1.8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-service-ext.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-service-ext.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-databind-2.4.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/jackson-databind-2.4.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json-lib-2.4-jdk15.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/json-lib-2.4-jdk15.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="standard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/j2ee/standard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-xstream-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-xstream-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-ibs-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-ibs-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-core-2.4.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/jackson-core-2.4.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="bcprov-jdk14-127.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/md5/bcprov-jdk14-127.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-schedule-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-schedule-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jstl.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/j2ee/jstl.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-lc.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-lc.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-module-jaxb-annotations-2.4.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/jackson-module-jaxb-annotations-2.4.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-xmlserial-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-xmlserial-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-api-1.5.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/slf4j-api-1.5.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ibatis-2.3.0.677.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/ibatis/ibatis-2.3.0.677.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-base-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-base-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-core-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-core-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/json.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-webmvc-2.5.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/j2ee/spring-webmvc-2.5.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-logging-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/commons-logging-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jcl-over-slf4j-1.5.10.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/jcl-over-slf4j-1.5.10.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="webank-sign-api-1.0.1-jdk1.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/webank-sign-api-1.0.1-jdk1.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-dev-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-dev-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="sysout-over-slf4j-1.0.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/sysout-over-slf4j-1.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="logback-core-0.9.18.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-log/logback-core-0.9.18.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections-3.2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/datasource/commons-collections-3.2.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="backport-util-concurrent.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/thread/backport-util-concurrent.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-service-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-service-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ognl-2.6.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/ognl/ognl-2.6.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fastjson-1.2.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/fastjson-1.2.6.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-pool.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/datasource/commons-pool.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-security-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-security-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-annotations-2.4.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/jackson-annotations-2.4.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ezmorph.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/ezmorph.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-dbcp.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/datasource/commons-dbcp.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-lang-2.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/commons-lang-2.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-profile-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-profile-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-transform-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-transform-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-io-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/io/commons-io-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-codec-1.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/commons-codec-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsch-0.1.49.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/sftp/jsch-0.1.49.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pe-tcp-guard.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/pe-lib/pe-tcp-guard.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="csii-ps-common.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/csii-ps-common/csii-ps-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-fileupload-1.3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/fileupload/commons-fileupload-1.3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpclient-4.5.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/httpclient/httpclient-4.5.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-httpclient-3.0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/httpclient/commons-httpclient-3.0.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.18-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/datasource/mysql-connector-java-5.1.18-bin.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpmime-4.5.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/httpclient/httpmime-4.5.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="httpcore-4.4.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/httpclient/httpcore-4.4.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gson-2.8.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/json/gson-2.8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="smssdk.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/sms/smssdk.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="json_jdk1.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/csii-ps-lib/lib/sms/json_jdk1.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="paygate"/>
+        <property name="java-output-path" value="/csii-ps-paygate/build/classes"/>
+    </wb-module>
+</project-modules>

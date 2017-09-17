@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<coreController id="coreController" class="com.csii.pe.core.CoreControllerImpl" />
+
+	<bean id="commonResourceLocationResolver" class="com.csii.uibs.ResourceLocationResolver" />
+
+	<messageSource>
+		<param name="basenames">classpath:/config/message/error,classpath:/config/message/batch</param>
+		<param name="cacheSeconds">-1</param>
+		<param name="fallbackToSystemLocale">false</param>
+		<param name="defaultEncoding">UTF-8</param>
+	</messageSource>
+
+	<bean id="servicesAwareProcessor" class="com.csii.pe.config.support.GeneralAwareProcessor">
+		<map name="validators">
+			<ref name="defaultValue">defaultValueValidator</ref>
+			<ref name="option">optionValidator</ref>
+			<ref name="range">rangeValidator</ref>
+			<ref name="length">lengthValidator</ref>
+			<ref name="pattern">patternValidator</ref>
+			<ref name="type">typeValidator</ref>
+			<ref name="acPermission">acPermissionValidator</ref>
+		</map>
+		<map name="services">
+			 <ref name="alipaytransport">paygate.TransformerTransport</ref><!-- to ALIPAY -->
+		</map>
+	</bean>
+
+	<bean id="wxUtil" class="com.csii.pp.util.WxUtil">
+		<param name="userProxy">${pp.weixin.useProxy}</param>
+		<param name="proxyHost">${pp.weixin.proxyHost}</param>
+		<param name="proxyPort">${pp.weixin.proxyPort}</param>
+		<param name="key">${pp.weixin.tenPaykey}</param>
+	</bean>
+
+	<bean id="xmlUtil" class="com.csii.pp.util.XmlUtil"></bean>
+
+	<!-- 订单管理类 -->
+	<bean id="orderManager" class="com.csii.pp.order.OrderManager" />
+	
+	<bean id="clearingManager" class="com.csii.pp.entity.ClearingManager" init-method="init" />
+	
+	<!-- 获取签名key -->
+	<bean id="merchantXmlSignature" class="com.csii.pp.signature.MerchantXmlSignature">
+	</bean>
+	
+	<bean id="alipayClientManager" class="com.csii.pp.core.AlipayClientManager" init-method="init" >
+	     <param name="url">${pp.alipay.url}</param>
+	</bean>
+	
+	<!-- PayGate to Mybank -->
+	<transport id="paygate.TransformerTransport" class="com.csii.pe.service.comm.TransformTransport">
+		<ref name="transformerFactory">paygate.mybank.TransformerFactory</ref>
+		<ref name="transport">paygateToMybankTcpTransport</ref>
+		<param name="formatName">outboundPacket</param>
+		<param name="parseName">xmlPacketParser</param>
+		<param name="debug">${paygate.mybank.transformtransport.debug}</param>
+		<param name="dumpPath">${paygate.mybank.transformtransport.dumpPath}</param>
+	</transport>
+	
+	<transformerFactory id="paygate.mybank.TransformerFactory" class="com.csii.pe.transform.XmlTransformerFactory">
+		<param name="mapping">/config/mybank/outbound/packets/tagmapping.properties</param>
+		<param name="path">/config/mybank/outbound/packets</param>
+		<param name="debug">${mybank.TransformerFactory.debug}</param>
+		<param name="cacheEnable">${mybank.TransformerFactory.cacheEnable}</param>
+		<map name="parsers">
+				<ref name="xmlPacketParser">epay.mybank.xmlPacketParser</ref>
+		</map>
+	</transformerFactory>
+	
+	<transport id="paygateToMybankTcpTransport" class="com.csii.pe.service.comm.tcp.SimpleXMLTcpTransport">
+		<param name="host">${paygate.mybank.transport.host}</param>
+		<param name="port">${paygate.mybank.transport.port}</param>
+		<param name="timeout">${paygate.mybank.transport.timeout}</param>
+		<param name="endTagName">${epay.mybank.transport.endTagName}</param>
+		<param name="uibs">true</param>
+    </transport>
+    
+    <bean name="epay.mybank.xmlPacketParser" class="com.csii.pe.transform.stream.xml.XmlStreamParser">
+		<param name="debug">${epay.mybank.xmlPacketParser.debug}</param>
+		<param name="tagClassMapping">/config/mybank/outbound/packets/xmltagmapping.properties</param>
+		<param name="tagAliasMapping">/config/mybank/outbound/packets/xmlaliasmapping.properties</param>					
+	</bean>
+</config>

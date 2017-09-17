@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+	<bean id="ppDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<param name="jndiName">${jndiName}</param>
+		<props name="jndiEnvironment">
+			<param name="java.naming.factory.initial">${java.naming.factory.initial}</param>
+		</props>
+	</bean>
+	
+</config>

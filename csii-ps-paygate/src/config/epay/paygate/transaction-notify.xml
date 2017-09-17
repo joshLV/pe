@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	
+	<!-- 通知商户交易的定时处理服务器-->
+<!-- 	<server id="mernotifyscanserver" class="com.csii.pp.time.TimerServer"> -->
+<!-- 		<param name="name">商户通知</param> -->
+<!-- 		<param name="delay">${mernotify.scanserver.delay}</param> -->
+<!-- 		<param name="period">${mernotify.scanserver.period}</param> -->
+<!-- 		<ref name="coreController">coreController</ref> -->
+<!-- 		<map name="data"> -->
+<!-- 			<param name="transactionId">merchantNotifyTransaction</param> -->
+<!-- 		</map> -->
+<!-- 	</server>	 -->
+
+<!-- 	<transaction id="merchantNotifyTransaction" template="queryTemplate"> -->
+<!-- 		<actions> -->
+<!-- 			<ref name="action">merchantNotifyQueryAction</ref> -->
+<!-- 		</actions> -->
+<!-- 	</transaction> -->
+
+<!-- 	<action id="merchantNotifyQueryAction" class="com.csii.weixin.notify.action.MerchantNotifyQueryAction"> -->
+<!-- 		<ref name="merchantSendAction">merchantSendAction</ref> -->
+<!-- 	</action> -->
+
+	<action id="merchantSendAction" class="com.csii.weixin.notify.action.MerchantSendAction">
+	</action>
+	
+<!-- 	<bean id="merchantSender" class="com.ceb.pp.notify.MerchantSender"> -->
+<!-- 		<ref name="httpTransport">httpTransport</ref> -->
+<!-- 		<param name="domain2IpPath">${pp.online.merchantsender.domain2IpPath}</param> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean name="notifyDataMaker" class="com.ceb.pp.notify.NotifyDataMaker"> -->
+<!-- 		<ref name="notifierTransFactory">notifierTransFactory</ref> -->
+<!-- 		<ref name="payGateSignVerify">paygateSignAndVerify</ref> -->
+<!-- 	</bean> -->
+
+<!-- 	<transformerFactory id="notifierTransFactory" class="com.csii.pe.transform.TransformerFactory"> -->
+<!-- 		<param name="path">/notify/</param> -->
+<!-- 		<param name="debug">false</param> -->
+<!-- 	</transformerFactory> -->
+</config>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<Group name="RespInfo">
+	<xmlTag><String name="ResultStatus"></String></xmlTag>
+	<xmlTag><String name="ResultCode"></String></xmlTag>
+	<xmlTag><String name="ResultMsg"></String></xmlTag>
+</<Group>

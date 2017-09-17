@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+
+	<localeResolver />
+
+	<multipartResolver>
+		<param name="defaultEncoding">UTF-8</param>
+	</multipartResolver>
+
+	<!-- URL Mapping -->
+	<urlMapping id="urlMapping">
+		<param name="order">0</param>
+		<param name="urlDecode">true</param>
+		<param name="alwaysUseFullPath">false</param>
+		<interceptors>
+			<ref>localeInterceptor</ref>
+		</interceptors>
+		<mappings>
+			<!-- 银联全渠道交易 -->
+			<param name="/psmain">mainControllerAdapter</param>
+			<!-- 微信 -->
+			<param name="/weixin">weixinControllerAdapter</param>
+			<param name="/wxnotify">weixinNotifyControllerAdapter</param>
+			<!-- 公众号支付 -->
+			<param name="/qr/*">qrControllerAdapter</param>
+			<param name="/mybanknotify">mybankNotifyControllerAdapter</param>
+			<!-- 支付宝直连 异步通知 -->
+			<param name="/alipayNotify">alipayNotifyControllerAdapter</param>
+		</mappings>
+	</urlMapping>
+
+	<httpInterceptor id="localeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<param name="paramName">_locale</param>
+	</httpInterceptor>
+
+	<sharedMap id="constantsMap">
+		<map name="sourceMap">
+
+		</map>
+	</sharedMap>
+
+	<!-- View Resolver -->
+	<bean id="mainViewResolver" class="com.csii.pe.channel.http.servlet.HashMapViewResolver">
+
+		<map name="mapping">
+			<bean name="default" class="com.csii.pe.channel.http.servlet.UrlView">
+				<param name="cacheSeconds">0</param>
+				<param name="prefix">/WEB-INF/</param>
+				<param name="suffix">.jsp</param>
+				<param name="localeMode">0</param>
+				<!-- -1 prefix; 0 none; 1 suffix -->
+				<param name="clientType">false</param>
+				<param name="autoSave">true</param>
+			</bean>
+
+			<bean name="servlet" class="com.csii.pe.channel.http.servlet.UrlView">
+				<param name="cacheSeconds">0</param>
+				<param name="prefix"></param>
+				<param name="suffix">.do</param>
+				<param name="localeMode">0</param>
+				<!-- -1 prefix; 0 none; 1 suffix -->
+				<param name="clientType">false</param>
+			</bean>
+
+			<bean name="download" class="com.csii.pe.channel.http.servlet.DownloadView">
+				<param name="contentType">text/html</param>
+			</bean>
+
+			<bean name="stream" class="com.csii.pe.channel.http.servlet.StreamView">
+				<param name="contentType">text/plain;charset=UTF-8</param>
+				<param name="contentField">Content</param>
+			</bean>
+
+			<bean name="excel" class="com.csii.pe.channel.http.servlet.DownloadView">
+				<param name="contentType">application/vnd.ms-excel</param>
+			</bean>
+
+			<bean name="image" class="com.csii.pe.channel.http.servlet.StreamView">
+				<param name="contentType">image/jpeg</param>
+				<param name="contentField">Content</param>
+			</bean>
+
+			<bean name="html" class="com.csii.pe.channel.http.servlet.UrlView">
+				<param name="cacheSeconds">0</param>
+				<param name="prefix">/</param>
+				<param name="suffix">.html</param>
+				<param name="localeMode">0</param>
+				<param name="clientType">false</param>
+				<param name="autoSave">true</param>
+			</bean>
+
+			<!-- 微信 -->
+			<ref name="weixin.streamView">weixin.streamView</ref>
+			
+			<ref name="wxnotify.streamView">wxnotify.streamView</ref>
+		
+			<ref name="alipayNotify.streamView">alipayNotify.streamView</ref>
+		</map>
+	</bean>
+</config>

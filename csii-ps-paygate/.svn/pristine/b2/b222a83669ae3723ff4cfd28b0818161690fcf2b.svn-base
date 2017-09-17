@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+
+	<bean id="weixinControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">weixinController</ref>
+	</bean>
+
+	<bean id="weixinController" class="com.csii.pe.channel.http.servlet.MainController" >
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+		<ref name="constantsMap">constantsMap</ref>
+		<ref name="contextResolver">weixincontextResolver</ref>
+		<ref name="exceptionHandler">weixin.json.exceptionHandler</ref>
+	</bean>
+	
+	<bean id="weixincontextResolver" class="com.csii.pe.channel.http.servlet.WeixinContextResolver">
+		<ref name="transformerFactory">weixinMessageTransformerFactory</ref>
+		<param name="parserResolverName">xmlPacketParser</param>
+	</bean>
+	
+	<bean id="weixin.exceptionHandler" class="com.csii.pe.channel.http.servlet.HttpViewExceptionHandler">
+		<param name="defaultErrorView">weixin.streamView,Error</param>
+		<param name="defaultPublicErrorView">weixin.streamView,Error</param>
+	</bean>
+	
+	<bean id="weixin.json.exceptionHandler" class="com.csii.pe.channel.http.servlet.HttpJsonViewExceptionHandler"/>
+	
+	<bean id="weixin.streamView" class="com.csii.pe.channel.http.servlet.WeixinStreamView">
+		<param name="contentType">application/json; charset=UTF-8</param>
+		<param name="contentField">json</param>
+		<param name="key">${pp.weixin.merchantkey}</param>
+	</bean>
+	
+	<bean id="weixinMessageTransformerFactory" class="com.csii.pe.transform.XmlTransformerFactory">
+		<param name="path">/config/weixin/packets/</param>
+		<param name="debug">false</param>
+		<param name="cacheEnable">true</param>
+		<map name="parsers">
+			<ref name="xmlPacketParser">weixinXmlPacketParser</ref>
+		</map>
+	</bean>
+	
+	<bean id="weixinXmlPacketParser" class="com.csii.pe.transform.stream.xml.XmlStreamParser">
+		<param name="debug">false</param>
+		<param name="tagClassMapping">/config/weixin/packets/xmltagmapping.properties</param>
+		<param name="tagAliasMapping">/config/weixin/packets/xmlaliasmapping.properties</param>
+		<param name="pathPrefix">/config/weixin/packets/</param>
+	</bean>
+	
+	<bean id="weixinNotifyControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">weixinNotifyController</ref>
+	</bean>
+
+	<bean id="weixinNotifyController" class="com.csii.pe.channel.http.servlet.MainController" >
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+		<ref name="constantsMap">constantsMap</ref>
+		<ref name="contextResolver">weixinNotifycontextResolver</ref>
+		<ref name="exceptionHandler">weixinNotify.exceptionHandler</ref>
+	</bean>
+	
+	<bean id="weixinNotifycontextResolver" class="com.csii.pe.channel.http.servlet.WeixinNotifyContextResolver">
+		<ref name="transformerFactory">weixinMessageTransformerFactory</ref>
+		<param name="parserResolverName">xmlPacketParser</param>
+	</bean>
+	
+	<bean id="weixinNotify.exceptionHandler" class="com.csii.pe.channel.http.servlet.HttpViewExceptionHandler">
+		<param name="defaultErrorView">wxnotify.streamView,</param>
+		<param name="defaultPublicErrorView">wxnotify.streamView,</param>
+	</bean>
+	
+	<bean id="wxnotify.streamView" class="com.csii.pe.channel.http.servlet.WeixinNotifyStreamView">
+		<param name="contentType">application/xml; charset=utf-8</param>
+		<ref name="wxUtil">wxUtil</ref>
+	</bean>
+	
+	<bean id="qrControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">qrController</ref>
+	</bean>
+	
+	<bean id="qrController" class="com.csii.pe.channel.http.servlet.MainController">
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+		<ref name="constantsMap">constantsMap</ref>
+		<ref name="idResolver">qrIdResolver</ref>
+		<ref name="contextResolver">qrContextResolver</ref>
+		<ref name="exceptionHandler">weixin.json.exceptionHandler</ref>
+	</bean>
+	
+	<bean id="qrIdResolver" class="com.csii.pe.channel.http.QrTransactionIdResolver">
+		<param name="defaultTransName">QR</param>
+	</bean>
+
+	<bean id="qrContextResolver" class="com.csii.pe.channel.http.servlet.QrContextResolver">
+		<param name="defaultTransaction">DefaultTransaction</param>
+	</bean>
+	
+	<!-- 网商银行支付结果通知 -->
+	
+	<bean id="mybankNotifyControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">mybankNotifyController</ref>
+	</bean>
+
+	<bean id="mybankNotifyController" class="com.csii.pe.channel.http.servlet.MainController" >
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+		<ref name="constantsMap">constantsMap</ref>
+		<ref name="contextResolver">mybankNotifycontextResolver</ref>
+		<ref name="exceptionHandler">mybankNotify.exceptionHandler</ref>
+	</bean>
+	
+	<bean id="mybankNotifycontextResolver" class="com.csii.pe.channel.http.servlet.MybankNotifyContextResolver">
+		<ref name="transformerFactory">paygate.mybank.TransformerFactory</ref>
+		<param name="parserResolverName">xmlPacketParser</param>
+	</bean>
+	
+	<bean id="mybankNotify.exceptionHandler" class="com.csii.pe.channel.http.servlet.HttpViewExceptionHandler">
+		<param name="defaultErrorView">mybanknotify.streamView,</param>
+		<param name="defaultPublicErrorView">mybanknotify.streamView,</param>
+	</bean>
+	
+	<bean id="mybanknotify.streamView" class="com.csii.pe.channel.http.servlet.MybankNotifyStreamView">
+		<param name="contentType">application/xml; charset=utf-8</param>
+		<ref name="transformerFactory">paygate.mybank.TransformerFactory</ref>
+		<param name="formatName">inboundPacketRes</param>
+	</bean>
+	
+	
+	<!-- 支付宝直连交易 配置  by wzj       。。。。。             华丽的分界线           。。。。。。                      -->
+	<bean id="alipayNotifyControllerAdapter" class="com.csii.pe.channel.http.servlet.HttpMainControllerAdapter">
+		<ref name="controller">alipayNotifyController</ref>
+	</bean>
+
+	<bean id="alipayNotifyController" class="com.csii.pe.channel.http.servlet.MainController" >
+		<param name="loginView">index</param>
+		<ref name="coreController">coreController</ref>
+		<ref name="constantsMap">constantsMap</ref>
+		<ref name="contextResolver">alipayNotifycontextResolver</ref>
+		<ref name="exceptionHandler">alipayNotify.exceptionHandler</ref>
+	</bean>
+	
+	<bean id="alipayNotifycontextResolver" class="com.csii.pe.channel.http.servlet.AlipayNotifyContextResolver">
+		<param name ="transName">aliNotify</param>
+	</bean>
+	
+	<bean id="alipayNotify.exceptionHandler" class="com.csii.pe.channel.http.servlet.HttpViewExceptionHandler">
+		<param name="defaultErrorView">alipayNotify.streamView,</param>
+		<param name="defaultPublicErrorView">alipayNotify.streamView,</param>
+	</bean>
+	<bean name="alipayNotify.streamView" class="com.csii.pe.channel.http.servlet.AlipayNotifyStreamView">
+		<param name="contentType">text/plain;charset=UTF-8</param>
+		<param name="contentField">ReturnCode</param>
+	</bean>
+
+	
+	<!-- 支付宝直连交易 配置  by wzj                    华丽的分界线                                             -->
+	
+</config>

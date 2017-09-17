@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<!-- 收银员登录 -->
+	<transaction id="UserLogin" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">userLoginAction</ref>
+		</actions>
+		<fields>
+			<field name="userId">mgmt.userId.style</field>
+			<field name="password">mgmt.password.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="userLoginAction" class="com.csii.weixin.mgmt.action.UserLoginAction">
+		<param name="domain">${platform.domain}</param>
+	</action>
+
+	<!-- 商户信息查询 -->
+	<transaction id="MerInfoQry" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">merInfoQryAction</ref>
+		</actions>
+		<fields>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="merInfoQryAction" class="com.csii.weixin.mgmt.action.MerInfoQryAction">
+	</action>
+
+	<!-- 收银员列表查询 -->
+	<transaction id="UserListInfoQry" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">userListInfoQryAction</ref>
+		</actions>
+		<fields>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="userListInfoQryAction" class="com.csii.weixin.mgmt.action.UserListInfoQryAction">
+	</action>
+	
+	<!-- 收银员详细信息查询 -->
+	<transaction id="UserInfoQry" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">userInfoQryAction</ref>
+		</actions>
+		<fields>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="userId">mgmt.userId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="userInfoQryAction" class="com.csii.weixin.mgmt.action.UserInfoQryAction">
+	</action>
+
+	<!-- 新增收银员 -->
+	<transaction id="CreateUser" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">createUserAction</ref>
+		</actions>
+		<fields>
+			<field name="userId">mgmt.userId.style</field>
+			<field name="userName">mgmt.userName.style</field>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="createUserId">mgmt.createUserId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="createUserAction" class="com.csii.weixin.mgmt.action.CreateUserAction">
+		<ref name="seqNoGen">userSeqNoGenerator</ref>
+		<param name="msgAppId">${pp.msgAppId}</param>
+	    <param name="msgAppKey">${pp.msgAppKey}</param>
+	</action>
+
+	<!-- 修改收银员 -->
+	<transaction id="ModifyUser" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">modifyUserAction</ref>
+		</actions>
+		<fields>
+			<field name="userId">mgmt.userId.style</field>
+			<field name="userName">mgmt.userName.style</field>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="modifyUserId">mgmt.modifyUserId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="modifyUserAction" class="com.csii.weixin.mgmt.action.ModifyUserAction">
+	</action>
+	
+	<!-- 删除收银员 -->
+	<transaction id="DeleteUser" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">deleteUserAction</ref>
+		</actions>
+		<fields>
+			<field name="userId">mgmt.userId.style</field>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="deleteUserAction" class="com.csii.weixin.mgmt.action.DeleteUserAction">
+	</action>
+	
+	<!-- 收银员密码修改 -->
+	<transaction id="ModifyUserPassword" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">modifyUserPasswordAction</ref>
+		</actions>
+		<fields>
+			<field name="userId">mgmt.userId.style</field>
+<!-- 			<field name="userCode">mgmt.userCode.style</field> -->
+			<field name="orgPassword">mgmt.password.style</field>
+			<field name="password">mgmt.password.style</field>
+			<field name="confirmPassword">mgmt.password.style</field>
+			<field name="merId">mgmt.merId.style</field>
+			<field name="nonceStr">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="modifyUserPasswordAction" class="com.csii.weixin.mgmt.action.ModifyUserPasswordAction">
+	</action>
+
+	<!-- 订单查询 -->
+	<transaction id="DDCX" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">DDCXAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="DDCXAction" class="com.csii.weixin.mgmt.action.DDCXAction">
+	</action>
+
+	<!-- 经营统计 -->
+	<transaction id="JYTJ" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">JYTJAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="JYTJAction" class="com.csii.weixin.mgmt.action.JYTJAction">
+	</action>
+
+	<!-- 支付统计 -->
+	<transaction id="ZFTJ" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">ZFTJAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ZFTJAction" class="com.csii.weixin.mgmt.action.ZFTJAction">
+	</action>
+	
+	<!-- app版本下载 -->
+	<transaction id="APPDownLoad" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">APPDownLoadAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="APPDownLoadAction" class="com.csii.weixin.mgmt.action.APPDownLoadAction">
+	    <param name="url">${pp.apk.downUrl}</param>
+	</action>
+	
+	<!-- andriod版本下载 -->
+	<transaction id="andriod" template="qryTrsTemplate">
+		<actions>
+			<ref name="action">ANDRIODAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">download,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ANDRIODAction" class="com.csii.weixin.mgmt.action.ANDRIODAction">
+	</action>
+	
+	<!-- ios版本下载 -->
+	<transaction id="IOS" template="qryTrsTemplate">
+		<actions>
+			<ref name="action">IOSAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">download,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="IOSAction" class="com.csii.weixin.mgmt.action.IOSAction">
+	</action>
+	
+	<!-- 短信发送 -->
+	<transaction id="SMSSend" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">SmsSendAction</ref>
+		</actions>
+		<fields>
+		   <field name="userPhone">mgmt.phone.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="SmsSendAction" class="com.csii.weixin.mgmt.action.SmsSendAction">
+	    <param name="msgAppId">${pp.msgAppId}</param>
+	    <param name="msgAppKey">${pp.msgAppKey}</param>
+	</action>
+	
+	<!-- 短信发送 -->
+	<transaction id="ForgetPasswd" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">ForgetPasswdAction</ref>
+		</actions>
+		<fields>
+<!-- 		   <field name="merId">mgmt.merId.style</field> -->
+		   <field name="userPhone">mgmt.phone.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ForgetPasswdAction" class="com.csii.weixin.mgmt.action.ForgetPasswdAction">
+	</action>
+	
+	<!-- 客服 -->
+	<transaction id="QryCustomerService" template="mgmtTrsTemplate">
+		<actions>
+			<ref name="action">QryCustomerServiceAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="QryCustomerServiceAction" class="com.csii.weixin.mgmt.action.QryCustomerServiceAction">
+	</action>
+</config>

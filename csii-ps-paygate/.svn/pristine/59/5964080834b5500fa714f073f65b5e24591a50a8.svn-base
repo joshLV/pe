@@ -1,0 +1,199 @@
+html,
+body {
+    margin: 0;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    color: #444;
+    background-color: #efefef;
+}
+
+.btn-info {
+    width: 90%;
+    margin-left: 5%;
+    height: 40px;
+    line-height: 40px;
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.row {
+    width: 100%;
+    background-color: #fff;
+    height: 45px;
+    line-height: 45px;
+}
+.resbtn-info {
+    width: 90%;
+    margin-left: 5%;
+    height: 30px;
+    line-height: 30px;
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.resrow {
+    width: 100%;
+    background-color: #fff;
+    height: 35px;
+    line-height: 35px;
+}
+
+.col-4 {
+    width: 33.3333%;
+    float: left;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.col-8 {
+    width: 66.6666%;
+    float: left;
+    height: 45px;
+    line-height: 45px;
+}
+
+.col-8 input {
+    height: 35px;
+    line-height: 35px;
+    padding-left: 10px;
+    border: none;
+    width: 90%;
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+}
+
+.merchant-row {
+    height: 100px;
+    line-height: 100px;
+    width: 90%;
+    padding: 0 5%;
+}
+
+.merchant-row img {
+    vertical-align: middle;
+    width: 40px;
+}
+
+.merchant-row div {
+    float: left;
+}
+
+.mc-name {
+    font-size: 16px;
+    padding-left: 10px;
+}
+
+.mc-site {
+    padding-left: 10px;
+}
+
+.mc-phone {
+    float: right !important;
+}
+
+.tip-color {
+    color: #ccc;
+}
+
+.gray {
+    color: #868686;
+}
+
+.line {
+    width: 90%;
+    margin-left: 5%;
+    border-color: rgba(244, 244, 244, .1);
+}
+
+.whole-div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.logo-pay {
+    position: absolute;
+    bottom: 5px;
+    left: 25%;
+    width: 50%;
+}
+
+.white-div {
+    background: #fff;
+    width: 90%;
+    margin-left: 5%;
+    height: 82%;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10%;
+}
+
+.result-title {
+    font-size: 16px;
+    text-align: center;
+    position: inherit;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.result-btn {
+    width: 60%;
+    margin-left: 20%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.result-amount {
+    font-size: 32px;
+    font-weight: 200;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+.col-6 {
+    width: 50%;
+    float: left;
+    text-align: center;
+    font-size: 15px;
+}
+
+.result-ad {
+    width: 90%;
+    margin-left: 5%;
+    border-radius: 5px;
+    margin-top: 2.5%;
+}
+
+.red {
+    color: red;
+}
+
+.center {
+    text-align: center;
+}
+
+.icon-div {
+    text-align: center;
+    height: 20%;
+    line-height: 20%;
+}
+
+.icon-div img{
+    height: 100%;
+}
+
+.div {
+   margin:0 auto;
+   color:red;
+   text-align: center;
+}

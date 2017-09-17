@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+
+	 <comment>
+		PowerEngine Main Configuration
+		Mode : Mode.CSII (科蓝)
+	 </comment>
+
+	 <entry key="CurrentMode" >Mode.CSII</entry>
+	 <entry key="Mode.CSII">$config/epay/pe-configs.xml</entry>
+	 
+	 <entry key="CommonConfig" >
+	 	classpath:/config/epay/core-common.xml,
+	 	classpath:/config/epay/service-db.xml,
+	 	classpath:/config/epay/chain-common.xml,
+	 	classpath:/config/epay/action-common.xml,
+	 	classpath:/config/epay/validator-common.xml,
+	 </entry>
+
+</properties>
+

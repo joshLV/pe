@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="pp.core">
+	<resultMap id="ClearingEntity" class="com.csii.pp.entity.ClearingEntity">
+		<result property="departmentId" column="Bp_DepartmentId"/>
+		<result property="clearDate" column="Bp_ClearDate" />
+		<result property="endDate" column="Bp_EndDate" />
+		<result property="clearPhase" column="Bp_Phase" />
+		<result property="clearStatus" column="Bp_Status" />
+		<result property="procDate" column="Bp_ProcDate" />
+	</resultMap>
+
+	<select id="queryClearingList" resultMap="ClearingEntity">
+		<![CDATA[
+			SELECT * FROM FT_BATCH_CTRL WHERE 1=1
+		]]>
+	</select>
+	
+	
+	<update id="updateClearingEntity" parameterClass="com.csii.pp.entity.ClearingEntity">
+		<![CDATA[
+			UPDATE 
+				FT_BATCH_CTRL 
+			SET
+				Bp_ClearDate = #clearDate#,
+			    Bp_Phase = #clearPhase#,
+			    Bp_Status = #clearStatus#, 
+			    Bp_ProcDate = #procDate#,
+			    Bp_EndDate = #endDate#
+			WHERE 
+				Bp_DepartmentId = #departmentId#
+		]]>
+	</update>
+	
+	<select id="queryClearingEntity" parameterClass="Object" resultMap="ClearingEntity">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				FT_BATCH_CTRL 
+			WHERE 
+				Bp_DepartmentId = #departmentId#
+		]]>
+	</select>
+
+	<select id="queryClearingEntityByDept" parameterClass="HashMap" resultMap="ClearingEntity">
+		<![CDATA[
+			SELECT 
+				* 
+			FROM 
+				FT_BATCH_CTRL 
+			WHERE 
+				Bp_DepartmentId = #departmentId#
+		]]>
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 
+	<insert id="insertClearingSetting" parameterClass="com.csii.pp.entity.ClearingEntity">
+		<![CDATA[
+		INSERT INTO FT_BATCH_CTRL
+		(
+			Bp_ClearDate, Bp_Phase, Bp_Status, Bp_ProcDate    
+		)
+		VALUES
+		(
+			#clearDate#,  #clearPhase#,   #clearStatus#,     #procDate#          
+		)
+		]]>
+	</insert>
+
+	<update id="updateClearingSetting" parameterClass="com.csii.pp.entity.ClearingEntity">
+		<![CDATA[
+		UPDATE FT_BATCH_CTRL SET
+			Bp_ClearDate=#clearDate#,
+		    Bp_Phase=#clearPhase#,
+		    Bp_Status=#clearStatus#, 
+		    Bp_ProcDate=#procDate#
+		WHERE 1=1
+		]]>
+	</update>
+	
+	
+	
+	<select id="queryHistoryClearingSetting" parameterClass="java.sql.Date" resultMap="ClearingEntity">
+		<![CDATA[
+		SELECT * FROM FT_BATCH_CTRL WHERE Bp_ClearDate=#value#
+	]]>
+	</select>
+
+
+	<insert id="insertHistoryClearingSetting" parameterClass="com.csii.pp.entity.ClearingEntity">
+		<![CDATA[
+		INSERT INTO FT_BATCH_CTRL
+		(
+			Bp_ClearDate, 
+			Bp_Phase, 
+			Bp_Status, 
+			Bp_ProcDate    
+		)
+		VALUES
+		(
+			#clearDate#,  
+			#clearPhase#,   
+			#clearStatus#,     
+			#procDate#          
+		)
+		]]>
+	</insert>
+
+	<update id="updateHistoryClearingSetting" parameterClass="com.csii.pp.entity.ClearingEntity">
+		<![CDATA[
+		UPDATE FT_BATCH_CTRL SET
+		    Bp_Phase=#clearPhase#,
+		    Bp_Status=#clearStatus#, 
+		    Bp_ProcDate=#procDate#
+		WHERE Bp_ClearDate=#clearDate#
+		]]>
+	</update>
+	
+	 -->
+	
+</sqlMap>

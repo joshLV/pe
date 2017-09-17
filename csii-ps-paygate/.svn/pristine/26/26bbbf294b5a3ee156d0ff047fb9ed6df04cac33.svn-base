@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packet.dtd">
+<!--商户对帐明细文件 -->
+<segment>
+
+	<!-- 第一行内容 -->
+	<var type="FDOS" encoding="UTF-8">
+		<segment name="Total">
+			<fixString name="Totallabel" defaultValue="TotalCount=" length="11"></fixString>
+			<fixString name="TotalCount" length="10"></fixString>
+		</segment>
+	</var>
+	
+	<idxField name="ReportData" ignoreException="true" maxLoop="9999999">
+		<var type="FDOS" encoding="UTF-8">
+			<segment>
+				<varString name="TransSeqNo" type="D|"  option="true"></varString>
+				<varDate name="TransDate" type="D|"  option="true"></varDate>
+				<varDate name="TransDateTime" type="D|"  option="true"></varDate>
+				<varString name="TransOrgSeqNo" type="D|"  option="true"></varString>
+				<varString name="TransOrgDate" type="D|"  option="true"></varString>
+				<varString name="TransOrgDateTime" type="D|"  option="true"></varString>
+				<varString name="MerId" type="D|" defaultValue=""  option="true"></varString>
+				<varString name="MerName" type="D|"  option="true"> </varString>
+				<varString name="SubMerId" type="D|"  option="true"> </varString>
+				<varString name="SubMerName" type="D|"  option="true"> </varString>
+				<varString name="TransAmt" type="D|" defaultValue="0"  option="true"></varString>
+				<varString name="TransAmt1" type="D|"  option="true"> </varString>
+				<varString name="TransFeeAmt" type="D|" defaultValue=""  option="true"></varString>
+				<varString name="TransType" type="D|" defaultValue=""  option="true"></varString>
+				<varString name="AgentId" type="D|" defaultValue="" option="true"></varString>
+				<varString name="AgentName" type="D|"  option="true"> </varString>
+				<varString name="PayType" type="D|" defaultValue="" option="true"></varString>
+				<varString name="OpenId" type="D|" defaultValue="" option="true"></varString>
+				<varString name="TransStatus" type="D|" defaultValue="" option="true"></varString>
+				<varString name="DepartmentId" type="D|" defaultValue="" option="true"></varString>
+				<varString name="MemId" type="D|" defaultValue="" option="true"></varString>
+			</segment>
+		</var>
+	</idxField>
+</segment>

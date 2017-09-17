@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pp.core">
+	<resultMap id="UserMap" class="com.csii.pp.model.User">
+		<result property="userId" column="user_id" />
+		<result property="password" column="password" />
+		<result property="userName" column="user_name" />
+		<result property="userLevel" column="user_level" />
+		<result property="merId" column="mer_id" />
+		<result property="createUserId" column="create_user_id" />
+		<result property="createDateTime" column="create_dateTime" />
+		<result property="modifyUserId" column="modify_user_id" />
+		<result property="modifyDateTime" column="modify_dateTime" />
+		<result property="userPhone" column="user_phone" />
+		<result property="userCode" column="user_code" />
+		<result property="userStatus" column="user_status" />
+		<result property="refundAuth" column="refund_auth" />
+		<result property="seqAuth" column="seq_auth" />
+		<result property="statisticAuth" column="statistic_auth" />
+		<result property="cashiermanage" column="cashier_manage" />
+	</resultMap>
+
+	<select id="qryUserInfo" parameterClass="java.util.HashMap" resultMap="UserMap">
+		select
+			*
+		from
+			fsp_user
+		<dynamic prepend=" where ">
+			<isNotEmpty property="userId" prepend=" and " >user_id=#userId#</isNotEmpty>
+			<isNotEmpty property="password" prepend=" and ">password = #password#</isNotEmpty>
+			<isNotEmpty property="userName" prepend=" and ">user_name = #userName#</isNotEmpty>
+			<isNotEmpty property="userLevel" prepend=" and ">user_level = #userLevel#</isNotEmpty>
+			<isNotEmpty property="merId" prepend=" and ">mer_id = #merId#</isNotEmpty>
+			<isNotEmpty property="createUserId" prepend=" and ">create_user_id = #createUserId#</isNotEmpty>
+			<isNotEmpty property="createDateTime" prepend=" and ">create_dateTime = #createDateTime#</isNotEmpty>
+			<isNotEmpty property="modifyUserId" prepend=" and ">modify_user_id = #modifyUserId#</isNotEmpty>
+			<isNotEmpty property="modifyDateTime" prepend=" and ">modify_dateTime = #modifyDateTime#</isNotEmpty>
+			<isNotEmpty property="userPhone" prepend=" and ">user_phone = #userPhone#</isNotEmpty>
+			<isNotEmpty property="userCode" prepend=" and ">user_code = #userCode#</isNotEmpty>
+			<isNotEmpty property="userStatus" prepend=" and ">user_status = #userStatus#</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<insert id="insertUserInfo" parameterClass="com.csii.pp.model.User">
+		insert into fsp_user(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="userCode">user_Code</isNotEmpty>
+			<isNotEmpty prepend="," property="userId">user_id</isNotEmpty>
+			<isNotEmpty prepend="," property="password">password</isNotEmpty>
+			<isNotEmpty prepend="," property="userName">user_name</isNotEmpty>
+			<isNotEmpty prepend="," property="userLevel">user_level</isNotEmpty>
+			<isNotEmpty prepend="," property="merId">mer_id</isNotEmpty>
+			<isNotEmpty prepend="," property="createUserId">create_user_id</isNotEmpty>
+			<isNotEmpty prepend="," property="createDateTime">create_dateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyUserId">modify_user_id</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyDateTime">modify_dateTime</isNotEmpty>
+			<isNotEmpty prepend="," property="userStatus">user_status</isNotEmpty>
+			<isNotEmpty prepend="," property="userPhone">user_phone</isNotEmpty>
+			<isNotEmpty prepend="," property="refundAuth">refund_auth</isNotEmpty>
+			<isNotEmpty prepend="," property="seqAuth">seq_auth</isNotEmpty>
+			<isNotEmpty prepend="," property="statisticAuth">statistic_auth</isNotEmpty>
+			<isNotEmpty prepend="," property="cashiermanage">cashier_manage</isNotEmpty>
+		</dynamic>
+		)values(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="userCode">#userCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="userId">#userId#</isNotEmpty>
+			<isNotEmpty prepend="," property="password">#password#</isNotEmpty>
+			<isNotEmpty prepend="," property="userName">#userName#</isNotEmpty>
+			<isNotEmpty prepend="," property="userLevel">#userLevel#</isNotEmpty>
+			<isNotEmpty prepend="," property="merId">#merId#</isNotEmpty>
+			<isNotEmpty prepend="," property="createUserId">#createUserId#</isNotEmpty>
+			<isNotEmpty prepend="," property="createDateTime">#createDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyUserId">#modifyUserId#</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyDateTime">#modifyDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="userStatus">#userStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="userPhone">#userPhone#</isNotEmpty>
+			<isNotEmpty prepend="," property="refundAuth">#refundAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="seqAuth">#seqAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="statisticAuth">#statisticAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashiermanage">#cashiermanage#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	
+	<update id="updateUserInfo" parameterClass="com.csii.pp.model.User">
+		update
+			fsp_user
+		set
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="password">password = #password#</isNotEmpty>
+			<isNotEmpty prepend="," property="userName">user_name = #userName#</isNotEmpty>
+			<isNotEmpty prepend="," property="userLevel">user_level = #userLevel#</isNotEmpty>
+			<isNotEmpty prepend="," property="merId">mer_id = #merId#</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyUserId">modify_user_id = #modifyUserId#</isNotEmpty>
+			<isNotEmpty prepend="," property="modifyDateTime">modify_dateTime = #modifyDateTime#</isNotEmpty>
+			<isNotEmpty prepend="," property="userStatus">user_Status = #userStatus#</isNotEmpty>
+			<isNotEmpty prepend="," property="refundAuth">refund_auth = #refundAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="seqAuth">seq_auth = #seqAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="statisticAuth">statistic_auth = #statisticAuth#</isNotEmpty>
+			<isNotEmpty prepend="," property="cashiermanage">cashier_manage = #cashiermanage#</isNotEmpty>
+		</dynamic>
+		where 
+			user_id = #userId#
+		and
+			mer_id = #merId#
+	</update>
+	
+	
+	<resultMap id="AppMap" class="java.util.HashMap">
+		<result property="appName" column="app_name" />
+		<result property="appVersion" column="app_version" />
+		<result property="versionId" column="version_id" />
+		<result property="filePath" column="file_path" />
+		<result property="fileName" column="file_name" />
+		<result property="appSign" column="app_sign" />
+		<result property="enforceUpdate" column="enforce_update" />
+	</resultMap>
+
+	<select id="qryAppInfo" parameterClass="java.util.HashMap" resultMap="AppMap">
+		select
+			*
+		from
+			app_version
+		where 
+			app_version=#appVersion#
+	</select>
+	
+	<delete id="deleteUserInfo" parameterClass="java.util.HashMap">
+		delete  from fsp_user where user_id = #userId#
+		and
+			mer_id = #merId#
+	</delete>
+	
+	<delete id="deleteVerifyCode" parameterClass="java.util.HashMap">
+		delete  from fsp_verifycode where user_phone = #userPhone#
+	</delete>
+	
+	<insert id="insertVerifyCode" parameterClass="java.util.HashMap">
+		insert into fsp_verifycode(
+		<dynamic prepend=" ">
+			<isNotEmpty prepend="," property="userPhone">user_phone</isNotEmpty>
+			<isNotEmpty prepend="," property="verifyCode">verifycode</isNotEmpty>
+			<isNotEmpty prepend="," property="createTime">create_time</isNotEmpty>
+		</dynamic>
+		)values(
+		<dynamic prepend=" ">
+		    <isNotEmpty prepend="," property="userPhone">#userPhone#</isNotEmpty>
+		    <isNotEmpty prepend="," property="verifyCode">#verifyCode#</isNotEmpty>
+			<isNotEmpty prepend="," property="createTime">#createTime#</isNotEmpty>
+		</dynamic>
+		)
+	</insert>
+	
+	<resultMap id="verifyCodeMap" class="java.util.HashMap">
+	    <result property="userPhone" column="user_phone" />
+		<result property="createTime" column="create_time" />
+		<result property="verifyCode" column="verifyCode" />
+	</resultMap>
+	
+	<select id="qryVerifyCode" parameterClass="java.util.HashMap" resultMap="verifyCodeMap">
+		select
+			*
+		from
+			fsp_verifycode
+		<dynamic prepend=" where ">
+			<isNotEmpty property="userPhone" prepend=" and ">user_phone = #userPhone#</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<resultMap id="CustomerServiceMap" class="java.util.HashMap">
+	    <result property="qqServiceTime" column="qq_service_time" />
+		<result property="qqCustomerNo" column="qq_customer_no" />
+		<result property="qqStep" column="qq_step" />
+		<result property="wxServiceTime" column="wx_service_time" />
+		<result property="wxCustomerNo" column="wx_customer_no" />
+		<result property="wxStep" column="wx_step" />
+	</resultMap>
+	
+	<select id="queryCustomerService" resultMap="CustomerServiceMap">
+		select
+			*
+		from
+			fsp_customer_service
+	</select>
+	<!-- 查询短信模板id  by商户号 -->
+	<resultMap id="SmsTplMap" class="java.util.HashMap">
+	    <result property="merBankid" column="mer_bankid" />
+		<result property="smsType" column="sms_type" />
+		<result property="smsTplid" column="sms_tplid" />
+		<result property="smsTplname" column="sms_tplname" /> 
+		<result property="smsSign" column="sms_sign" />
+	</resultMap>
+	
+	<select id="querySmsTpl" parameterClass="java.util.HashMap" resultMap="SmsTplMap">
+		select * from smstpl where  mer_bankid=(select mer_bankid from fsp_merchant where mer_id =#merId#)
+	</select>
+</sqlMap>

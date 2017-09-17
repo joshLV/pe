@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+    <bean id="querypay" class="com.csii.ext.schedule.impl.DefaultScheduler" init-method="start">
+		<param name="name">querypay</param>
+		<param name="description">微信查询订单</param>
+		<list name="jobList">
+			<ref>querypayJob</ref>
+			<ref>mybankMerchantJob</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+		<ref name="executor">schedule-query-wx-trans-scheduler-threadpool</ref>
+	</bean>
+	
+	<executor id="schedule-query-wx-trans-scheduler-threadpool">
+		<param name="name">query-wx-trans-scheduler-threadpool</param>
+		<param name="initSize">${querywxtrans.scheduler.initSize}</param>
+		<param name="maxSize">${querywxtrans.scheduler.maxSize}</param>
+		<param name="minSize">${querywxtrans.scheduler.minSize}</param>
+		<param name="queueSize">${querywxtrans.scheduler.queueSize}</param>
+		<param name="keepAliveTime">${querywxtrans.scheduler.keepAliveTime}</param>
+	</executor>
+	
+	<bean id="querypayJob" class="com.csii.weixin.schedule.SchedulerActionJob" >
+		<param name="name">querypayJob</param>
+		<param name="description">微信查询订单</param>
+		<ref name="action">QueryPayOrderAction</ref>
+		<list name="triggerList">
+			<ref>querypayCronTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="querypayCronTrigger" class="com.csii.ext.schedule.trigger.CronTrigger" singleton="false">
+		<param name="name">querypayCronTrigger</param>
+		<param name="description">querypayCronTrigger</param>
+		<param name="complete">INSTRUCTION_COMPLETE</param>
+		<param name="misfire">MISFIRE_SKIP</param>
+		<param name="cronExpression">${pp.weixin.scheduler.recurrentCronTrigger.cronExpression.querypay}</param>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleTriggerListener" />
+		</list>
+	</bean>
+	
+	<action id="QueryPayOrderAction" class="com.csii.weixin.trans.action.QueryPayOrderAction">
+	    <param name="url">${pp.weixin.orderquery.url}</param>
+	    <param name="refundurl">${pp.weixin.refundquery.url}</param>
+	    <param name="times">${pp.weixin.times}</param>
+		<ref name="wxUtil">wxUtil</ref>
+		<ref name="orderManager">orderManager</ref>
+		<ref name="merchantSendAction">merchantSendAction</ref>
+		<param name="mybankurl">${pp.mybank.request2.url}</param>
+		<ref name="mybankTransport">paygate.TransformerTransport</ref>
+		<ref name="alipayClientManager">alipayClientManager</ref>
+	</action>
+	
+	<!-- <bean id="cutoff" class="com.csii.ext.schedule.impl.DefaultScheduler" init-method="start">
+		<param name="name">cutoff</param>
+		<param name="description">日切</param>
+		<list name="jobList">
+			<ref>cutoffJob</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="cutoffJob" class="com.csii.weixin.schedule.SchedulerActionJob" >
+		<param name="name">cutoffJob</param>
+		<param name="description">日切</param>
+		<ref name="action">CutOffAction</ref>
+		<list name="triggerList">
+			<ref>cutoffCronTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="cutoffCronTrigger" class="com.csii.ext.schedule.trigger.CronTrigger" singleton="false">
+		<param name="name">cutoffCronTrigger</param>
+		<param name="description">cutoffCronTrigger</param>
+		<param name="complete">INSTRUCTION_COMPLETE</param>
+		<param name="misfire">MISFIRE_SKIP</param>
+		<param name="cronExpression">${pp.weixin.scheduler.recurrentCronTrigger.cronExpression.cutoff}</param>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleTriggerListener" />
+		</list>
+	</bean>
+	
+	<action id="CutOffAction" class="com.csii.weixin.trans.action.CutOffAction"> 
+	</action>-->
+	
+	<bean id="mybankMerchantJob" class="com.csii.weixin.schedule.SchedulerActionJob" >
+		<param name="name">mybankMerchantJob</param>
+		<param name="description">网商商户开户结果同步</param>
+		<ref name="action">MybankMerchantAction</ref>
+		<list name="triggerList">
+			<ref>mybankMerchantCronTrigger</ref>
+		</list>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleJobListener" />
+		</list>
+	</bean>
+	
+	<bean id="mybankMerchantCronTrigger" class="com.csii.ext.schedule.trigger.CronTrigger" singleton="false">
+		<param name="name">mybankMerchantCronTrigger</param>
+		<param name="description">mybankMerchantCronTrigger</param>
+		<param name="complete">INSTRUCTION_COMPLETE</param>
+		<param name="misfire">MISFIRE_SKIP</param>
+		<param name="cronExpression">${pp.weixin.scheduler.recurrentCronTrigger.cronExpression.mybankMerchant}</param>
+		<list name="listeners">
+			<bean class="com.csii.ext.schedule.impl.SimpleTriggerListener" />
+		</list>
+	</bean>
+	
+	<action id="MybankMerchantAction" class="com.csii.mybank.trans.action.MybankMerchantAction">
+		<param name="mybankurl">${pp.mybank.request2.url}</param>
+		<ref name="mybankTransport">paygate.TransformerTransport</ref>
+	</action>
+</config>

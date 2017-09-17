@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	
+	<!-- 查询订单 -->
+	<action id="APCXAction" class="com.csii.mybank.trans.action.APCXAction">
+	  <param name="url">${pp.mybank.request2.url}</param>
+	</action>
+	
+	<!-- 被扫支付订单 -->
+	<transaction id="ALBS" template="payTrsTemplate">
+		<actions>
+			<ref name="prepareAction">prepareMybankOrderAction</ref><!-- 支付宝支付订单公用类 -->
+			<ref name="addOrderAction">addOrderAction</ref><!-- 订单入库 -->
+			<ref name="preCheckAction">prepayCheck</ref><!-- 订单检查 -->
+			<ref name="action">ALBSAction</ref>
+			<ref name="aftAction">aftMybankPayAction</ref>
+		</actions>
+		<fields>
+			<field name="sub_mch_id">sub_mch_id.style</field>
+			<field name="nonce_str">mgmt.nonceStr.style</field>
+			<field name="total_fee">total_fee.style</field>
+			<field name="cashierId">cashierId.style</field>
+			<field name="auth_code">auth_code.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ALBSAction" class="com.csii.mybank.trans.action.ALBSAction">
+		<param name="url">${pp.mybank.requestasync.url}</param>
+	</action>
+	
+	
+	<!-- 支付宝新增交易========================================================================================== -->	
+	
+	
+	<transaction id="ALTK" template="payTrsTemplate">
+		<actions>
+			<ref name="prepareAction">prepareRefundOrderForALAction</ref>
+			<ref name="preCheckAction">preRefundCheckOrderAction</ref>
+			<ref name="addOrderAction">addOrderAction</ref>
+			<ref name="action">ALTKAction</ref>
+			<ref name="aftAction">aftRefundAction</ref>
+		</actions>
+		<fields>
+			<field name="sub_mch_id">sub_mch_id.style</field>
+			<field name="out_trade_no">out_trade_no.style</field>
+			<field name="nonce_str">mgmt.nonceStr.style</field>
+			<field name="out_refund_no"></field>
+			<field name="total_fee">total_fee.style</field>
+			<field name="refund_fee">refund_fee.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ALTKAction" class="com.csii.mybank.trans.action.ALTKAction">
+		<param name="url">${pp.mybank.request2.url}</param>
+	</action>
+	
+	<action id="TKCXAction" class="com.csii.mybank.trans.action.TKCXAction">
+		<param name="url">${pp.mybank.request2.url}</param>
+	</action>
+	
+	<!-- 撤销订单 -->
+	<transaction id="ALCX" template="payTrsTemplate">
+		<actions>
+			<ref name="prepareAction">prepareCancleOrderForALAction</ref>
+			<ref name="addOrderAction">addOrderAction</ref>
+			<ref name="action">ALCXAction</ref>
+			<ref name="aftAction">AftClodAction</ref>
+		</actions>
+		<fields>
+			<field name="sub_mch_id">sub_mch_id.style</field>
+			<field name="out_trade_no">out_trade_no.style</field>
+			<field name="nonce_str">mgmt.nonceStr.style</field>
+			<field name="cashierId">cashierId.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ALCXAction" class="com.csii.mybank.trans.action.ALCXAction">
+		<param name="url">${pp.mybank.requestasync.url}</param>
+	</action>
+	
+    <!-- 网商h5 -->
+	<transaction id="ALZS" template="payTrsTemplate">
+		<actions>
+			<ref name="prepareAction">prepareMybankOrderAction</ref><!-- 支付宝支付订单公用类 -->
+			<ref name="addOrderAction">addOrderAction</ref><!-- 订单入库 -->
+			<ref name="preCheckAction">prepayCheck</ref><!-- 订单检查 -->
+			<ref name="action">ALZSAction</ref>
+			<ref name="aftAction">aftMybankPayAction</ref>
+		</actions>
+		<fields>
+			<field name="sub_mch_id">sub_mch_id.style</field>
+			<field name="nonce_str">mgmt.nonceStr.style</field>
+			<field name="total_fee">total_fee.style</field>
+			<field name="cashierId">cashierId.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ALZSAction" class="com.csii.mybank.trans.action.ALZSAction">
+		<param name="url">${pp.mybank.requestasync.url}</param>
+	</action>
+	
+	<!--关闭订单 -->
+	<transaction id="ALGB" template="qryTrsTemplate">
+		<actions>
+			<ref name="action">ALGBAction</ref>
+		</actions>
+		<fields>
+			<field name="sub_mch_id">sub_mch_id.style</field>
+			<field name="out_trade_no">out_trade_no.style</field>
+			<field name="nonce_str">mgmt.nonceStr.style</field>
+			<field name="sign">mgmt.sign.style</field>
+		</fields>
+		<channels>
+			<channel type="http">
+				<param name="success">weixin.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="ALGBAction" class="com.csii.mybank.trans.action.ALGBAction">
+		<ref name="orderManager">orderManager</ref>
+		<param name="url">${pp.mybank.requestasync.url}</param>
+	</action>
+	
+	<!-- 支付结果通知 -->
+	<transaction id="MBNT" template="qryTrsTemplate">
+		<actions>
+			<ref name="action">MBNTAction</ref>
+		</actions>
+		<channels>
+			<channel type="http">
+				<param name="success">mybanknotify.streamView,</param>
+			</channel>
+		</channels>
+	</transaction>
+	<action id="MBNTAction" class="com.csii.mybank.trans.action.MBNTAction">
+		<ref name="orderManager">orderManager</ref>
+	</action>
+</config>

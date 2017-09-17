@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+
+<config>
+
+<!-- 	<bean name="clearingerFactory" class="com.csii.pp.clearing.DefaultClearingerFactory"> -->
+<!-- 		<map name="clearingers"> -->
+<!-- 			<ref name="${pp.transtype.pay}">payClearinger</ref> -->
+<!-- 			<ref name="${pp.transtype.withdraw}">withdrawClearinger</ref> -->
+<!-- 			<ref name="${pp.transtype.cancle}">cancleClearinger</ref> -->
+<!-- 		</map> -->
+<!-- 	</bean> -->
+
+<!-- 	 <bean id="abstractClearinger" class="com.csii.pp.clearing.AbstractClearinger" abstract="true"> -->
+        
+<!--     </bean> -->
+ 	<!-- 支付类交易清分 --> 
+<!-- 	<bean name="payClearinger" class="com.csii.pp.clearing.PayClearinger" parent="abstractClearinger"> -->
+<!-- 		<ref name="orderManager">orderManager</ref> -->
+<!-- 		<ref name="feeReceiver">getpayFeeReceiver</ref> -->
+<!-- 		<ref name="settlementBooker">paySettlementBooker</ref> -->
+<!-- 		<ref name="profitAssigner">payProfitAssigner</ref> -->
+<!-- 	</bean> -->
+	
+ 		<!--清分处理商户手续费收取或者退还 --> 
+<!-- 	<bean name="abstractFeeReceiver" class="com.csii.pp.clearing.fee.AbstractFeeReceiver" abstract="true"> -->
+<!-- 		<ref name="merchantManager">merchantManager</ref> -->
+<!-- 		<ref name="feeCalcFactory">feeCalcFactory</ref> -->
+<!-- 		<ref name="merchantTransManager">merchantTransManager</ref> -->
+<!-- 		<ref name="orderManager">orderManager</ref> -->
+<!-- 	</bean> -->
+
+<!--    <bean name="payFeeReceiver" class="com.csii.pp.clearing.fee.PayFeeReceiver" parent="abstractFeeReceiver"></bean> -->
+	
+	
+
+ 	<!-- 退货类交易清分 --> 
+<!-- 	<bean name="withdrawClearinger" class="com.csii.pp.clearing.WithdrawClearinger" parent="abstractClearinger"> -->
+<!-- 		<ref name="orderManager">orderManager</ref> -->
+<!-- 		<ref name="feeCalcFactory">feeCalcFactory</ref> -->
+<!-- 	</bean> -->
+
+	
+<!--     商户手续费计算器         -->
+<!-- 	<bean name="feeCalcFactory" class="com.csii.pp.fee.calc.DefaultFeeCalcFactory"> -->
+<!-- 		<map name="feeFalcs"> -->
+<!-- 			<ref name="1">fixAmountFeeCalc</ref> -->
+<!-- 			<ref name="2">percentFeeCalc</ref> -->
+<!-- 		</map> -->
+<!-- 	</bean> -->
+<!-- 	<bean name="fixAmountFeeCalc" class="com.csii.pp.fee.calc.FixAmountFeeCalc"></bean> -->
+	
+<!-- 	<bean name="percentFeeCalc" class="com.csii.pp.fee.calc.PercentFeeCalc"></bean> -->
+	
+	<!--撤销清分  --> 
+<!-- 	<bean name="cancleClearinger" class="com.csii.pp.clearing.CancleClearinger"  parent="abstractClearinger"> -->
+<!-- 		<ref name="orderManager">orderManager</ref> -->
+<!-- 		<ref name="feeCalcFactory">feeCalcFactory</ref> -->
+<!-- 	</bean> -->
+	
+ 	<!-- 上海银行资金结算文件 --> 
+<!-- 	<bean name="boshSettFileAction" class="com.csii.batch.sett.file.BOSHSettFileAction"> -->
+<!-- 		<ref name="fileSeqNoGenerator">fileSeqNoGenerator</ref> -->
+<!-- 	</bean> -->
+	
+	<!-- 渤海银行资金结算文件 --> 
+<!-- 	<bean name="cbhbSettFileAction" class="com.csii.batch.sett.file.CBHBSettFileAction"> -->
+<!-- 		<ref name="fileSeqNoGenerator">fileSeqNoGenerator</ref> -->
+<!-- 		<param name="settFilePath">${pp.batch.settFilePath}</param> -->
+<!-- 		<ref name="fileTransformerFactory">fileDescTransformerFactory</ref> -->
+<!-- 		<ref name="sftpFileTransfer">sFTPFileTransfer</ref> -->
+<!-- 		<param name="platformNo">${pp.batch.platformNo}</param> -->
+<!-- 		<param name="url">${pp.batch.cbhb.url}</param> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="sFTPFileTransfer" class="com.csii.pp.sftp.SFTPFileTransfer"> -->
+<!-- 		<param name="host">${stfp.host}</param> -->
+<!-- 		<param name="username">${stfp.username}</param> -->
+<!-- 		<param name="password">${stfp.password}</param> -->
+<!-- 		<param name="port">${stfp.port}</param> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean name="merchantTransManager" class="com.csii.pp.clearing.MerchantTransManager"> -->
+<!-- 		<ref name="clearingIdFactory">clearSeqNoGenerator</ref> -->
+<!-- 	</bean>	 -->
+
+<bean name="clearingerFactory" class="com.csii.pp.clearing.DefaultClearingerFactory">
+		<map name="clearingers">
+			<ref name="${pp.transtype.pay}">payClearinger</ref>
+			<ref name="${pp.transtype.withdraw}">withdrawClearinger</ref>
+			<ref name="${pp.transtype.cancle}">withdrawClearinger</ref><!-- 取消订单的清分和退货保持一致 -->
+		</map>
+	</bean>
+
+	 <bean id="abstractClearinger" class="com.csii.pp.clearing.AbstractClearinger" abstract="true">
+        
+    </bean>
+	<!-- 支付类交易清分 -->
+	<bean name="payClearinger" class="com.csii.pp.clearing.PayClearinger" parent="abstractClearinger">
+		<ref name="orderManager">orderManager</ref>
+		<ref name="feeCalcFactory">feeCalcFactory</ref>
+		<ref name="feeReceiver">payFeeReceiver</ref>
+		<ref name="settlementBooker">paySettlementBooker</ref>
+		<ref name="profitAssigner">payProfitAssigner</ref>
+	</bean>
+	
+		<!--清分处理商户手续费收取或者退还 -->
+	<bean name="abstractFeeReceiver" class="com.csii.pp.clearing.fee.AbstractFeeReceiver" abstract="true">
+		<ref name="feeCalcFactory">feeCalcFactory</ref>
+		<ref name="merchantTransManager">merchantTransManager</ref>
+		<ref name="orderManager">orderManager</ref>
+	</bean>
+
+   <bean name="payFeeReceiver" class="com.csii.pp.clearing.fee.PayFeeReceiver" parent="abstractFeeReceiver"></bean>
+   
+   <bean name="abstractBooker" class="com.csii.pp.clearing.book.AbstractSettlementBooker" abstract="true">
+		<ref name="merchantTransManager">merchantTransManager</ref>
+		<ref name="orderManager">orderManager</ref>
+	</bean>
+	
+	<bean name="paySettlementBooker" class="com.csii.pp.clearing.book.PaySettlementBooker" parent="abstractBooker"></bean>
+	
+	<bean name="abstractProfitAssigner" class="com.csii.pp.clearing.profit.AbstractProfitAssigner" abstract="true">
+		<ref name="merchantTransManager">merchantTransManager</ref>
+		<ref name="feeCalcFactory">feeCalcFactory</ref>
+	</bean>
+	
+	<bean name="payProfitAssigner" class="com.csii.pp.clearing.profit.PayProfitAssigner" parent="abstractProfitAssigner">
+	</bean>
+
+	
+	<bean name="merchantTransManager" class="com.csii.pp.clearing.MerchantTransManager">
+		<ref name="clearingIdFactory">clearSeqNoGenerator</ref>
+	</bean>	
+	<!-- 退货类交易清分 -->
+	<bean name="withdrawClearinger" class="com.csii.pp.clearing.WithdrawClearinger" parent="abstractClearinger">
+		<ref name="orderManager">orderManager</ref>
+		<ref name="feeCalcFactory">feeCalcFactory</ref>
+		<ref name="feeReceiver">withdrawFeeReceiver</ref>
+		<ref name="settlementBooker">withdrawSettlementBooker</ref>
+		<ref name="profitAssigner">withdrawProfitAssigner</ref>
+	</bean>
+
+	<bean name="withdrawFeeReceiver" class="com.csii.pp.clearing.fee.WithdrawFeeReceiver" parent="abstractFeeReceiver"></bean>
+	
+	<bean name="withdrawSettlementBooker" class="com.csii.pp.clearing.book.WithdrawSettlementBooker" parent="abstractBooker"></bean>
+	
+	<bean name="withdrawProfitAssigner" class="com.csii.pp.clearing.profit.WithdrawProfitAssigner" parent="abstractProfitAssigner">
+	</bean>
+	
+    <!--商户手续费计算器 -->        
+	<bean name="feeCalcFactory" class="com.csii.pp.fee.calc.DefaultFeeCalcFactory">
+		<map name="feeFalcs">
+			<ref name="1">fixAmountFeeCalc</ref>
+			<ref name="2">percentFeeCalc</ref>
+		</map>
+	</bean>
+	<bean name="fixAmountFeeCalc" class="com.csii.pp.fee.calc.FixAmountFeeCalc"></bean>
+	
+	<bean name="percentFeeCalc" class="com.csii.pp.fee.calc.PercentFeeCalc"></bean>
+	
+	<!--撤销清分  -->
+	<bean name="cancleClearinger" class="com.csii.pp.clearing.CancleClearinger"  parent="abstractClearinger">
+		<ref name="orderManager">orderManager</ref>
+		<ref name="feeCalcFactory">feeCalcFactory</ref>
+	</bean>
+	
+	<!-- 上海银行资金结算文件 -->
+	<bean name="boshSettFileAction" class="com.csii.batch.sett.file.BOSHSettFileAction">
+		<ref name="fileSeqNoGenerator">fileSeqNoGenerator</ref>
+		<ref name="seqNoGenerator">seqNoGenerator</ref>
+	</bean>
+	
+	<!-- 渤海银行资金结算文件 -->
+	<bean name="cbhbSettFileAction" class="com.csii.batch.sett.file.CBHBSettFileAction">
+		<ref name="fileSeqNoGenerator">fileSeqNoGenerator</ref>
+		<param name="settFilePath">${pp.batch.settFilePath}</param>
+		<ref name="fileTransformerFactory">fileDescTransformerFactory</ref>
+		<ref name="sftpFileTransfer">sFTPFileTransfer</ref>
+		<param name="platformNo">${pp.batch.platformNo}</param>
+		<param name="url">${pp.batch.cbhb.url}</param>
+		<ref name="seqNoGenerator">seqNoGenerator</ref>
+	</bean>
+	
+	<bean id="sFTPFileTransfer" class="com.csii.pp.sftp.SFTPFileTransfer">
+		<param name="host">${stfp.host}</param>
+		<param name="username">${stfp.username}</param>
+		<param name="password">${stfp.password}</param>
+		<param name="port">${stfp.port}</param>
+	</bean>
+
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<!--渤海银行结算文件 -->
+<segment>
+
+	<idxField name="LoopResult" ignoreException="true">
+		<segment>
+			<var type="FUnix" encoding="UTF-8">
+				<segment>
+					<varString name="fileName" type="D," option="false"></varString>
+					<varString name="platformNo" type="D," option="false"></varString>
+					<varString name="id" type="D," option="false"></varString>
+					<varString name="settAcctNo" type="D," option="false" ></varString>
+					<varString name="settAcctBankNo" type="D," option="false"></varString>
+					<varString name="bankName" type="D," option="false"></varString>
+					<varString name="settAcctName" type="D," option="false"></varString>
+                    <String name="totalAmt"  option="false" ></String>
+				</segment>
+			</var>
+		</segment>
+	</idxField>
+</segment>

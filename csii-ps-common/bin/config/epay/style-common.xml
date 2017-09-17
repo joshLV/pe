@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<style id="mgmt.merId.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,20</param>
+		</setting>
+	</style>
+
+	<style id="mgmt.userId.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,100</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.userCode.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,100</param>
+		</setting>
+	</style>
+
+	<style id="mgmt.password.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,100</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.userName.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,100</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.userLevel.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,1</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.createUserId.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,50</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.modifyUserId.style">
+		<setting>
+			<param name="option">true</param>
+			<param name="length">1,50</param>
+		</setting>
+	</style>
+	
+	<style id="mgmt.nonceStr.style">
+		<setting>
+			<param name="option">true</param>
+			<param name="length">1,128</param>
+		</setting>
+	</style>
+
+	<style id="mgmt.sign.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,32</param>
+		</setting>
+	</style>
+	
+	<style id="sub_mch_id.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,32</param>
+		</setting>
+	</style>
+	
+	<style id="cashierId.style">
+		<setting>
+			<param name="option">true</param>
+			<param name="length">1,100</param>
+		</setting>
+	</style>
+	<style id="body.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,128</param>
+		</setting>
+	</style>
+	
+	<style id="total_fee.style">
+		<setting>
+			<param name="option">false</param>
+		</setting>
+	</style>
+	
+	<style id="refund_fee.style">
+		<setting>
+			<param name="option">false</param>
+		</setting>
+	</style>
+	<style id="spbill_create_ip.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,16</param>
+		</setting>
+	</style>
+	
+	<style id="notify_url.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,256</param>
+		</setting>
+	</style>
+	
+	<style id="trade_type.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,16</param>
+		</setting>
+	</style>
+	
+	<style id="auth_code.style">
+		<setting>
+			<param name="option">false</param>		
+			<param name="length">1,128</param>		
+		</setting>
+	</style>
+	
+	<style id="out_refund_no.style">
+		<setting>
+			<param name="option">false</param>		
+			<param name="length">1,32</param>		
+		</setting>
+	</style>
+	
+	<style id="out_trade_no.style">
+		<setting>
+			<param name="option">false</param>		
+			<param name="length">1,32</param>		
+		</setting>
+	</style>
+	<style id="long_url.style">
+		<setting>
+			<param name="option">false</param>		
+			<param name="length">1,512</param>		
+		</setting>
+	</style>
+	
+	<style id="op_user_id.style">
+		<setting>
+			<param name="option">false</param>		
+			<param name="length">1,32</param>		
+		</setting>
+	</style>
+	
+	<style id="sign.style">
+		<setting>
+			<param name="option">false</param>		
+		</setting>
+	</style>
+	
+	<style id="mgmt.phone.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="length">1,20</param>
+		</setting>
+	</style>
+	<style id="memid.style">
+		<setting>
+			<param name="option">false</param>
+			<param name="pattern">^[0-9]{8}$</param>
+		</setting>
+	</style>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.org/dtds/sql-map-2.dtd">
+<sqlMap namespace="alias">
+	<!-- type alias -->
+	<typeAlias alias="Object" type="java.lang.Object" />
+	<typeAlias alias="HashMap" type="java.util.HashMap" />
+	<typeAlias alias="List" type="java.util.List" />
+	<typeAlias alias="String" type="java.lang.String" />
+	<typeAlias alias="Decimal" type="java.math.BigDecimal" />
+	<typeAlias alias="Timestamp" type="java.sql.Timestamp" />
+	<typeAlias alias="Double" type="java.lang.Double" />
+	<typeAlias alias="Integer" type="java.lang.Integer" />
+</sqlMap>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE config PUBLIC "-//PE//DTD BEAN//EN" "http://www.csii.com.cn/dtd/pe-config.dtd">
+<config>
+	<transaction id="collector" template="sequenceTemplate">
+		<actions>
+			<ref name="action">collectorController</ref>
+		</actions>
+	</transaction>
+	
+	<action id="abstractExecutableAction" class="com.csii.batch.collector.AbstractExecutableAction" abstract="true">
+	</action>
+
+	<action id="collectorController" class="com.csii.batch.collector.CollectorController" parent="abstractExecutableAction">
+		<ref name="coreController">coreController</ref>
+		<ref name="executor">pp-process-threadpool</ref>
+		<param name="retryTimes">1</param>
+		<param name="processNum">${pp.batch.processNum}</param>
+		<list name="transactions">
+			<param>collectorCutoff</param>
+			<param>merchantSettlement</param>
+			<param>dayEnd</param>
+		</list>
+		<param name="phase">2</param>
+	</action>
+	
+	<!-- 支付平台汇总服务日切 -->
+	<transaction id="collectorCutoff" template="stepTrsTemplate">
+		<actions>
+			<ref name="action">collectorCutoffAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">2</param>
+			<param name="currentPhase">0</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	
+	<action id="collectorCutoffAction" class="com.csii.batch.collector.CutoffAction" parent="abstractExecutableAction">
+	</action>
+	
+	<!-- 商户结算 -->
+	<transaction id="merchantSettlement" template="stepTrsTemplate">
+		<actions>
+			<ref name="action">merchantSettlementAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">0</param>
+			<param name="currentPhase">1</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	
+	<action id="merchantSettlementAction" class="com.csii.batch.collector.MerchantSettlementAction" parent="abstractExecutableAction">
+		<map name="generateBankSettFileMap">
+			<ref name="1430459002">boshSettFileAction</ref><!-- K：上海银行BankId；V：上海银行资金结算文件 1430459002（上海）-->
+  			<ref name="1451570602">cbhbSettFileAction</ref><!--K：渤海银行BankId；V：渤海银行资金结算文件 -->
+		</map>
+	</action>
+	
+	<!-- 数据清理-->
+	<transaction id="dayEnd" template="stepTrsTemplate">
+		<actions>
+			<ref name="action">dayEndAction</ref>
+		</actions>
+		<setting>
+			<param name="prePhase">1</param>
+			<param name="currentPhase">2</param>
+			<param name="retryTimes">1</param>
+			<param name="delayTime">30</param>
+		</setting>
+	</transaction>
+	
+	<action id="dayEndAction" class="com.csii.batch.collector.DayEndAction" parent="abstractExecutableAction">
+	</action>
+</config>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Group SYSTEM "packet.dtd">
+
+<segment>
+<xmlTag><String name="IsvOrgId"></String></xmlTag>
+<xmlTag><String name="MerchantId"></String></xmlTag>
+<xmlTag><String name="OutTradeNo"></String></xmlTag>	
+</segment>

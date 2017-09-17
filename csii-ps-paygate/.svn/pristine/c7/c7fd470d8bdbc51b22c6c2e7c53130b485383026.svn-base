@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+
+<configuration debug="false">
+
+	<!-- jmxConfigurator / -->
+
+	<conversionRule conversionWord="short" converterClass="com.csii.pe.common.logging.ShortLoggerConverter" />
+
+	<conversionRule conversionWord="count" converterClass="com.csii.pe.common.logging.CountingConverter" />
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%5p] %c.%M:%L - %m%n</Pattern>
+		</layout>
+	</appender>
+
+	<appender name="FILE" class="com.csii.pe.common.logging.DynamicRollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>/home/csiihj-pay/epay/paygate/log/paygate.%d{yyyy-MM-dd}.log.zip</File>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%5p] %c.%M:%L - %m%n</Pattern>
+		</layout>
+	</appender>
+
+	<logger name="org.springframework" additivity="true">
+		<level value="WARN" />
+	</logger>
+	
+	<logger name="com.csii.pe.config" additivity="true">
+		<level value="WARN" />
+	</logger>
+
+	<logger name="java.sql" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>

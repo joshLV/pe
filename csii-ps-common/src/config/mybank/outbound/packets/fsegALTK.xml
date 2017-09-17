@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE segment SYSTEM "packetutf8.dtd">
+<!-- 网商-支付宝-退货 -->
+<segment>
+	<xmlTag><String name="OutTradeNo"></String></xmlTag>
+	<xmlTag><String name="MerchantId"></String></xmlTag>
+	<xmlTag><String name="IsvOrgId"></String></xmlTag>
+	<xmlTag><String name="OutRefundNo"></String></xmlTag>
+	<xmlTag><String name="RefundAmount"></String></xmlTag>
+	<xmlTag><String name="RefundReason"></String></xmlTag>
+	<xmlTag><String name="OperatorId"></String></xmlTag>
+	<xmlTag><String name="DeviceId"></String></xmlTag>
+	<xmlTag><String name="DeviceCreateIp"></String></xmlTag>
+	
+</segment>
